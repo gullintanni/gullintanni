@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -v
+
+#
+# deploy-docs
+#
+# Generate and commit the ExDoc documentation to the gh-pages branch.
+#
+
+# reset all variables that might be set
+force=''
+
+# parse command line options
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -f|--force)
+            force=true
+            ;;
+        *)
+            break
+    esac
+
+    shift
+done
+
+# safety checks for running this on travis ci;
+# setting the `--force` command line option will bypass these
+if [[ -z $force ]]; then
+	[[ $TRAVIS_REPO_SLUG == 'gullintanni/gullintanni' ]] || exit 1
+	[[ $TRAVIS_PULL_REQUEST == 'false' ]] || exit 1
+	[[ $TRAVIS_BRANCH == 'master' ]] || exit 1
+fi
+
+# check if the repo is dirty
+if ! git diff-index --quiet HEAD; then
+	printf 'deploy-docs: the repo is dirty; aborting the documentation deploy\n' >&2
+	exit 1
+fi
+
+top_level=$(git rev-parse --show-toplevel)
+cd "$top_level" || exit 1
+
+# generate the documentation within the master branch;
+# the output directory is ignored by .gitignore
+git checkout master
+short_sha=$(git rev-parse --short HEAD)
+mix docs || exit 1
+
+git fetch origin gh-pages:gh-pages
+git checkout gh-pages
+cp -r doc/* .
+
+# stage any changes
+git ls-files --deleted --modified --others --exclude-standard -z | xargs -0 git update-index --add --remove
+
+# only commit/push if changes to the index were actually made
+if ! git diff-index --cached --quiet HEAD; then
+	git commit --message "Sync docs with master branch commit $short_sha"
+	git push --quiet origin gh-pages
+fi
+
+git checkout master
+
+exit 0
