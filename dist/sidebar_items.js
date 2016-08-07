@@ -1,0 +1,1 @@
+sidebarNodes={"exceptions":[],"extras":[{"id":"api-reference","title":"API Reference","headers":[]}],"modules":[{"id":"Gullintanni","title":"Gullintanni","functions":[{"id":"start/2","anchor":"start/2"}]}],"protocols":[]}
