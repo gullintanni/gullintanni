@@ -20,6 +20,7 @@ defmodule Gullintanni.Mixfile do
 
   defp deps do
     [{:dialyxir, "~> 0.3", only: :dev},
-     {:ex_doc, "~> 0.12", only: :dev}]
+     {:ex_doc, "~> 0.12", only: :dev},
+     {:tentacat, "~> 0.5"}]
   end
 end
