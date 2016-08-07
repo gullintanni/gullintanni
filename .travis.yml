@@ -12,3 +12,15 @@ notifications:
   email:
     on_success: never
     on_failure: always
+
+env:
+  global:
+    secure: CxfwjKTRjJ5dCAO116r2meoilPqS8XhLN2rU5YvvEr4lFIzDnF2q6qFmlJLbQIOhUdDz8qvX9oWRY+8FEfcJmwfaqF+sGu9IYtBIsEcc+kjg660Tajpaa7HiRl5l5YLbOXtmjEU7nbf2jBsAxZGoiVuupyv/BulIFXo8C/19s6GywOcHua6hsJQIIsWp6FRjmVs3cv2YQPej3gALhTJVU92r97tVA3j/h89e6U7QtnteV5RlruyMYUpNUSxeoaQO4zzQdEbwG6Y1mPPrD48cDKREqhg2vp876iFhUfI+UFBpTiyG7hjjtx+qaZaMmtEjDXtsPGYoxbRTND4ncT7+cFxowjCRDC6IRvbo4jbpTYipFedMcg+yo1TF3vF2uid/2ioY6LXNhojyFsK+c1cwwVaJmmI07XVlNcqrZ/h+eWmaPEm+B3JL6LUaHML97+1yKwWbAI9hYuO3/v/Jf6MoLE1AtBIRwSuw51Yoq/ARJMvpxcletfHnJIcBn5srDwwLFopGxKpga3dPYjxJATgDNoKFxvvg2uN7D47WT9eWfXZweEG6zRiW5548Ilf8ipfiw8fdTZyNGZTsuZ0r7DO81y5xrQBqq0qKba2olNv8FGHgWr1AH6J9fCx2Ta4jVqYtD/bBss/yodgnJOxxa6KSVFg3H2ecpr2AM45RCavI+FM=
+
+after_success:
+  - git config user.name 'Travis CI'
+  - git config user.email 'build@travis-ci.org'
+  - git config url.https://github.com/.insteadOf git://github.com/
+  - git config credential.helper 'store --file=.git/credentials'
+  - printf 'https://%s:@github.com' "$GH_TOKEN" > .git/credentials
+  - ./priv/deploy-docs
