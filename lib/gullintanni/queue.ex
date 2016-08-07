@@ -20,10 +20,19 @@ defmodule Gullintanni.Queue do
 
   alias __MODULE__, as: Queue
 
+  @typedoc "The value of an item"
   @type value :: any
+
+  @typedoc "The priority of an item"
   @type priority :: integer
+
+  @typedoc "A priority queue item"
   @type item :: {value, priority}
+
+  @typedoc "The underlying data structure of a priority queue"
   @opaque data :: :gb_trees.tree
+
+  @typedoc "The priority queue type"
   @type t :: %Queue{items: data, size: non_neg_integer}
 
   defstruct [:items, :size]
