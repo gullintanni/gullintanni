@@ -1,0 +1,14 @@
+language: elixir
+elixir:
+  - 1.3.2
+otp_release:
+  - 19.0
+
+cache:
+  directories:
+    - deps
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
