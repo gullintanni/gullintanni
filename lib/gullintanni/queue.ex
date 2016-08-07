@@ -60,7 +60,8 @@ defmodule Gullintanni.Queue do
   those values.
   """
   @spec insert(t, item) :: t
-  def insert(%Queue{} = queue, {value, priority} = _item) when is_integer(priority) do
+  def insert(queue, item)
+  def insert(%Queue{} = queue, {value, priority}) when is_integer(priority) do
     values =
       case :gb_trees.lookup(priority, queue.items) do
         :none -> [value]
@@ -82,7 +83,8 @@ defmodule Gullintanni.Queue do
   highest relative priority is removed.
   """
   @spec delete(t, item) :: t
-  def delete(%Queue{} = queue, {value, priority} = _item) when is_integer(priority) do
+  def delete(queue, item)
+  def delete(%Queue{} = queue, {value, priority}) when is_integer(priority) do
     case :gb_trees.lookup(priority, queue.items) do
       :none ->
         queue
@@ -120,12 +122,13 @@ defmodule Gullintanni.Queue do
   moved.
   """
   @spec move(t, item, priority) :: t
-  def move(%Queue{} = queue, {value, old_priority} = _item, new_priority) do
-    new_queue = delete(queue, {value, old_priority})
+  def move(queue, item, new_priority)
+  def move(%Queue{} = old_queue, {value, old_priority}, new_priority) do
+    new_queue = delete(old_queue, {value, old_priority})
 
-    if new_queue == queue do
+    if new_queue == old_queue do
       # no item was deleted
-      queue
+      old_queue
     else
       insert(new_queue, {value, new_priority})
     end
