@@ -14,7 +14,7 @@ defmodule Gullintanni.Mixfile do
   end
 
   def application do
-    [applications: [:logger],
+    [applications: [:logger, :tentacat],
      mod: {Gullintanni, []}]
   end
 
