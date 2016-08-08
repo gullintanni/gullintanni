@@ -106,11 +106,17 @@ regarded as opaque by other modules.</p>
     <a href="#data/0">data()</a>
   </div>
   
+    <div class="summary-synopsis"><p>The underlying data structure of a priority queue</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#t:item/0">item()</a>
   </div>
+  
+    <div class="summary-synopsis"><p>A priority queue item</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -118,17 +124,26 @@ regarded as opaque by other modules.</p>
     <a href="#t:priority/0">priority()</a>
   </div>
   
+    <div class="summary-synopsis"><p>The priority of an item</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#t:t/0">t()</a>
   </div>
   
+    <div class="summary-synopsis"><p>The priority queue type</p>
+</div>
+  
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#t:value/0">value()</a>
   </div>
+  
+    <div class="summary-synopsis"><p>The value of an item</p>
+</div>
   
 </div>
 
@@ -253,21 +268,36 @@ regarded as opaque by other modules.</p>
             <div id="data/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:data/0">data</a></code></pre>
   
+    <div class="typespec-doc"><p>The underlying data structure of a priority queue</p>
+</div>
+  
 </div>
 <div id="t:item/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:item/0">item</a> :: {<a href="#t:value/0">value</a>, <a href="#t:priority/0">priority</a>}</code></pre>
+  
+    <div class="typespec-doc"><p>A priority queue item</p>
+</div>
   
 </div>
 <div id="t:priority/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:priority/0">priority</a> :: integer</code></pre>
   
+    <div class="typespec-doc"><p>The priority of an item</p>
+</div>
+  
 </div>
 <div id="t:t/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.Queue{items: <a href="#t:data/0">data</a>, size: non_neg_integer}</code></pre>
   
+    <div class="typespec-doc"><p>The priority queue type</p>
+</div>
+  
 </div>
 <div id="t:value/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:value/0">value</a> :: any</code></pre>
+  
+    <div class="typespec-doc"><p>The value of an item</p>
+</div>
   
 </div>
 
@@ -290,7 +320,7 @@ regarded as opaque by other modules.</p>
     </a>
     <span class="signature">delete(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L76" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L86" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -322,7 +352,7 @@ highest relative priority is removed.</p>
     </a>
     <span class="signature">empty?(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L51" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -350,7 +380,7 @@ highest relative priority is removed.</p>
     </a>
     <span class="signature">insert(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L54" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -382,7 +412,7 @@ those values.</p>
     </a>
     <span class="signature">move(queue, item, new_priority)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L114" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L125" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -415,7 +445,7 @@ moved.</p>
     </a>
     <span class="signature">new()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L45" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -443,7 +473,7 @@ moved.</p>
     </a>
     <span class="signature">peek(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L131" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L143" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -472,7 +502,7 @@ moved.</p>
     </a>
     <span class="signature">peek_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L143" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L155" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -501,7 +531,7 @@ moved.</p>
     </a>
     <span class="signature">pop(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L155" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L167" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -530,7 +560,7 @@ moved.</p>
     </a>
     <span class="signature">pop_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L168" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L180" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -559,7 +589,7 @@ moved.</p>
     </a>
     <span class="signature">size(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L179" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L191" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
