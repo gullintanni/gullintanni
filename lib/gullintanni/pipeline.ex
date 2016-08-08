@@ -38,12 +38,12 @@ defmodule Gullintanni.Pipeline do
       |> Keyword.merge(opts)
       |> parse_runtime_settings()
 
-    {provider, repo} = parse_config(config)
+    validate_config(config)
 
     %Pipeline{
       config: config,
-      provider: provider,
-      repo: repo,
+      provider: config[:provider],
+      repo: Repo.new(config[:repo_owner], config[:repo_name]),
       queue: Queue.new
     }
   end
@@ -71,12 +71,11 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
-  Parses and validates a pipeline configuration.
-
-  Raises an ArgumentError if there are missing settings.
+  Returns `:ok` if all required pipeline configuration values exist in
+  `config`, otherwise raises an `ArgumentError` exception.
   """
-  @spec parse_config(config) :: {Provider.t, Repo.t}
-  def parse_config(config) do
+  @spec validate_config(config) :: :ok | no_return
+  def validate_config(config) do
     required_keys = [:provider, :repo_owner, :repo_name]
 
     Enum.each(required_keys, fn key ->
@@ -84,13 +83,8 @@ defmodule Gullintanni.Pipeline do
         do: raise ArgumentError, "missing #{inspect key} configuration setting"
     end)
 
-    provider = config[:provider]
-    repo = Repo.new(config[:repo_owner], config[:repo_name])
-
     # dispatch to check for additional required keys
-    provider.validate_config(config)
-
-    {provider, repo}
+    config[:provider].validate_config(config)
   end
 
   @doc """

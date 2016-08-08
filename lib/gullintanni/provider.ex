@@ -9,8 +9,8 @@ defmodule Gullintanni.Provider do
   @type t :: module
 
   @doc """
-  Returns `:ok` if all required configuration values exist in `config`,
-  otherwise raises an `ArgumentError`.
+  Returns `:ok` if all required provider configuration values exist in
+  `config`, otherwise raises an `ArgumentError` exception.
   """
   @callback validate_config(config) :: :ok | no_return
 
