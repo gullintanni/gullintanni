@@ -10,7 +10,7 @@ config :gullintanni, :pipeline,
   my_project:
     [
       provider: Gullintanni.Providers.GitHub,
-      provider_auth_token: {:system, "GUL_PROVIDER_AUTH_TOKEN"},
-      repo_owner: {:system, "GUL_REPO_OWNER"},
-      repo_name: {:system, "GUL_REPO_NAME"}
+      provider_auth_token: {:system, "GULBOT_PROVIDER_AUTH_TOKEN"},
+      repo_owner: {:system, "GULBOT_REPO_OWNER"},
+      repo_name: {:system, "GULBOT_REPO_NAME"},
     ]
