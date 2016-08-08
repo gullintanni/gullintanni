@@ -35,14 +35,33 @@ defmodule Gullintanni.Queue do
   @typedoc "The priority queue type"
   @type t :: %Queue{items: data, size: non_neg_integer}
 
-  defstruct [:items, :size]
+  defstruct [items: :gb_trees.empty, size: 0]
 
   @doc """
-  Creates a new empty priority queue.
+  Returns an empty priority queue.
+
+  ## Examples
+
+      iex> Gullintanni.Queue.new
+      #Queue<empty>
   """
-  # FIXME: dialyzer throws a badarg error if the return type is `t`
-  @spec new :: struct
-  def new, do: %Queue{items: :gb_trees.empty, size: 0}
+  @spec new :: t
+  def new, do: new([])
+
+  @doc """
+  Creates a new priority queue from a list of `items`.
+
+  ## Examples
+
+      iex> Gullintanni.Queue.new([{"a", 0}, {"b", 0}, {"c", 0}])
+      #Queue<size: 3, front: {"a", 0}, rear: {"c", 0}>
+  """
+  @spec new([item]) :: t
+  def new(items) do
+    Enum.reduce(items, %Queue{}, fn item, queue ->
+      insert(queue, item)
+    end)
+  end
 
   @doc """
   Returns `true` if the `queue` is empty, otherwise `false`.
