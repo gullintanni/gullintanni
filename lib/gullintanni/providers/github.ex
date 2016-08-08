@@ -1,13 +1,19 @@
 defmodule Gullintanni.Providers.GitHub do
   @behaviour Gullintanni.Provider
 
-  def whoami do
-    Tentacat.Users.me(client())["login"]
+  def validate_config(config) do
+    unless config[:provider_auth_token] do
+      raise ArgumentError, "missing :provider_auth_token configuration"
+    end
+
+    :ok
   end
 
-  defp client do
-    config = Application.get_env(:gullintanni, :pipeline, [])
-    token = config[:auth_token]
-    Tentacat.Client.new(%{access_token: token})
+  def whoami(config) do
+    Tentacat.Users.me(client(config))["login"]
+  end
+
+  defp client(config) do
+    Tentacat.Client.new(%{access_token: config[:provider_auth_token]})
   end
 end
