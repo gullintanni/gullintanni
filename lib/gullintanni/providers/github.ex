@@ -4,9 +4,12 @@ defmodule Gullintanni.Providers.GitHub do
   @default_endpoint "https://api.github.com/"
 
   def validate_config(config) do
-    unless config[:provider_auth_token] do
-      raise ArgumentError, "missing :provider_auth_token configuration"
-    end
+    required_keys = [:provider_auth_token]
+
+    Enum.each(required_keys, fn key ->
+      unless Keyword.has_key?(config, key),
+        do: raise ArgumentError, "missing #{inspect key} configuration setting"
+    end)
 
     :ok
   end
