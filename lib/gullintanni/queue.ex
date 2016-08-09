@@ -37,6 +37,8 @@ defmodule Gullintanni.Queue do
 
   defstruct [items: :gb_trees.empty, size: 0]
 
+  @default_priority 0
+
   @doc """
   Returns an empty priority queue.
 
@@ -49,15 +51,22 @@ defmodule Gullintanni.Queue do
   def new, do: new([])
 
   @doc """
-  Creates a new priority queue from a list of `items`.
+  Creates a new priority queue from a list of enumerable `items`.
+
+  Each item can be provided as a raw `value` (which will be inserted using the
+  default priority of `#{@default_priority}`), or in the `{value, priority}`
+  format.
 
   ## Examples
 
-      iex> Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.new([:alice, :bob, :charlie])
       #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
+
+      iex> Gullintanni.Queue.new([:alice, {:bob, 5}, :charlie])
+      #Queue<size: 3, front: {:bob, 5}, rear: {:charlie, 0}>
   """
-  @spec new([item]) :: t
-  def new(items) when is_list(items) do
+  @spec new(Enum.t) :: t
+  def new(items) do
     Enum.reduce(items, %Queue{}, fn(item, queue) ->
       insert(queue, item)
     end)
@@ -72,7 +81,7 @@ defmodule Gullintanni.Queue do
       iex> Gullintanni.Queue.empty?(queue)
       true
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice])
       iex> Gullintanni.Queue.empty?(queue)
       false
   """
@@ -83,6 +92,10 @@ defmodule Gullintanni.Queue do
   @doc """
   Inserts an `item` into the `queue`.
 
+  The item can be provided as a raw `value` (which will be inserted using the
+  default priority of `#{@default_priority}`), or in the `{value, priority}`
+  format.
+
   Returns a new queue which is a copy of `queue` but with the item's value
   inserted at the specified priority. If there are existing values at the
   specified priority, the new value will have the lowest relative priority of
@@ -90,11 +103,11 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}])
-      iex> Gullintanni.Queue.insert(queue, {:bob, 0})
+      iex> queue = Gullintanni.Queue.new([:alice])
+      iex> Gullintanni.Queue.insert(queue, :bob)
       #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
   """
-  @spec insert(t, item) :: t
+  @spec insert(t, item | value) :: t
   def insert(queue, item)
   def insert(%Queue{} = queue, {value, priority}) when is_integer(priority) do
     values =
@@ -108,6 +121,9 @@ defmodule Gullintanni.Queue do
       :size => queue.size + 1
     }
   end
+  def insert(%Queue{} = queue, value) do
+    insert(queue, {value, @default_priority})
+  end
 
   @doc """
   Deletes an `item` from the `queue`.
@@ -119,15 +135,15 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.delete(queue, {:charlie, 0})
       #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.delete(queue, {:dave, 0})
       #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie, :alice])
       iex> Gullintanni.Queue.delete(queue, {:alice, 0})
       #Queue<size: 3, front: {:bob, 0}, rear: {:alice, 0}>
   """
@@ -172,15 +188,15 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.move(queue, {:charlie, 0}, 5)
       #Queue<size: 3, front: {:charlie, 5}, rear: {:bob, 0}>
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.move(queue, {:dave, 0}, 5)
       #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie, :alice])
       iex> Gullintanni.Queue.move(queue, {:alice, 0}, 5)
       #Queue<size: 4, front: {:alice, 5}, rear: {:alice, 0}>
   """
@@ -204,7 +220,7 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.peek(queue)
       {:alice, 0}
 
@@ -226,7 +242,7 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.peek_r(queue)
       {:charlie, 0}
 
@@ -248,7 +264,7 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> {new_queue, item} = Gullintanni.Queue.pop(queue)
       iex> new_queue
       #Queue<size: 2, front: {:bob, 0}, rear: {:charlie, 0}>
@@ -274,7 +290,7 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> {new_queue, item} = Gullintanni.Queue.pop_r(queue)
       iex> new_queue
       #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
@@ -298,7 +314,7 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> queue = Gullintanni.Queue.new([:alice, :bob, :charlie])
       iex> Gullintanni.Queue.size(queue)
       3
 
