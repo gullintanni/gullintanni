@@ -5,6 +5,9 @@ defmodule Gullintanni.Provider do
   Providers are adapter modules that interface with a Git hosting service.
   """
 
+  alias Gullintanni.MergeRequest
+  alias Gullintanni.Repo
+
   @type config :: Keyword.t
   @type t :: module
 
@@ -18,4 +21,14 @@ defmodule Gullintanni.Provider do
   Returns the account's effective user identity.
   """
   @callback whoami(config) :: String.t
+
+  @doc """
+  Downloads a list of the repository's open merge requests.
+  """
+  @callback get_merge_requests(Repo.t, config) :: [MergeRequest.t]
+
+  @doc """
+  Converts raw upstream data into a merge request.
+  """
+  @callback parse_merge_request(map) :: MergeRequest.t
 end
