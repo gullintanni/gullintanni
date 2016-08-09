@@ -106,6 +106,10 @@ defmodule Gullintanni.Queue do
       iex> queue = Gullintanni.Queue.new([:alice])
       iex> Gullintanni.Queue.insert(queue, :bob)
       #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
+
+      iex> queue = Gullintanni.Queue.new([:alice])
+      iex> Gullintanni.Queue.insert(queue, {:bob, 5})
+      #Queue<size: 2, front: {:bob, 5}, rear: {:alice, 0}>
   """
   @spec insert(t, item | value) :: t
   def insert(queue, item)
