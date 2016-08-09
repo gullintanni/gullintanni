@@ -119,7 +119,7 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:get_merge_requests/2">get_merge_requests(arg0, config)</a>
+    <a href="#c:download_merge_requests/2">download_merge_requests(arg0, config)</a>
   </div>
   
     <div class="summary-synopsis"><p>Downloads a list of the repository’s open merge requests</p>
@@ -150,7 +150,7 @@
     <a href="#c:whoami/1">whoami(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns the account’s effective user identity</p>
+    <div class="summary-synopsis"><p>Returns the provider account’s effective user identity</p>
 </div>
   
 </div>
@@ -195,12 +195,12 @@
             </a>
             Callbacks
           </h1>
-          <div class="detail" id="c:get_merge_requests/2">
+          <div class="detail" id="c:download_merge_requests/2">
   <div class="detail-header">
-    <a href="#c:get_merge_requests/2" class="detail-link" title="Link to this callback">
+    <a href="#c:download_merge_requests/2" class="detail-link" title="Link to this callback">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">get_merge_requests(arg0, config)</span>
+    <span class="signature">download_merge_requests(arg0, config)</span>
     
       <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L28" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
@@ -213,7 +213,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">get_merge_requests(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="#t:config/0">config</a>) :: [<a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>]</code></pre>
+          <pre><code class="elixir">download_merge_requests(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="#t:config/0">config</a>) :: [<a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>]</code></pre>
         
       </div>
     </div>
@@ -304,7 +304,7 @@
     </div>
   
   <section class="docstring">
-    <p>Returns the account’s effective user identity.</p>
+    <p>Returns the provider account’s effective user identity.</p>
 
   </section>
 </div>
