@@ -329,7 +329,7 @@ regarded as opaque by other modules.</p>
     </a>
     <span class="signature">delete(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L151" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L155" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -409,7 +409,7 @@ false</code></pre>
     </a>
     <span class="signature">insert(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L111" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L115" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -437,7 +437,11 @@ those values.</p>
 <h2>Examples</h2>
 <pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([:alice])
 iex&gt; Gullintanni.Queue.insert(queue, :bob)
-#Queue&lt;size: 2, front: {:alice, 0}, rear: {:bob, 0}&gt;</code></pre>
+#Queue&lt;size: 2, front: {:alice, 0}, rear: {:bob, 0}&gt;
+
+iex&gt; queue = Gullintanni.Queue.new([:alice])
+iex&gt; Gullintanni.Queue.insert(queue, {:bob, 5})
+#Queue&lt;size: 2, front: {:bob, 5}, rear: {:alice, 0}&gt;</code></pre>
 
   </section>
 </div>
@@ -448,7 +452,7 @@ iex&gt; Gullintanni.Queue.insert(queue, :bob)
     </a>
     <span class="signature">move(queue, item, new_priority)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L204" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L208" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -561,7 +565,7 @@ iex&gt; Gullintanni.Queue.new([:alice, {:bob, 5}, :charlie])
     </a>
     <span class="signature">peek(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L232" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L236" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -598,7 +602,7 @@ iex&gt; Gullintanni.Queue.peek(queue)
     </a>
     <span class="signature">peek_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L254" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L258" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -635,7 +639,7 @@ iex&gt; Gullintanni.Queue.peek_r(queue)
     </a>
     <span class="signature">pop(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L279" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L283" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -675,7 +679,7 @@ iex&gt; Gullintanni.Queue.pop(queue)
     </a>
     <span class="signature">pop_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L305" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L309" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -715,7 +719,7 @@ iex&gt; Gullintanni.Queue.pop_r(queue)
     </a>
     <span class="signature">size(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L326" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L330" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
