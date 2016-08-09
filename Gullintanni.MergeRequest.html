@@ -1,0 +1,469 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.13.0">
+    <title>Gullintanni.MergeRequest – Gullintanni Bot v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Gullintanni Bot
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Gullintanni Bot v0.1.0</small>
+        Gullintanni.MergeRequest
+        
+        
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L1" title="View Source" class="view-source" rel="help">
+            <i class="icon-code"></i>
+          </a>
+        
+      </h1>
+
+      
+        <section id="moduledoc" class="docstring">
+          
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:id/0">id()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>A merge request identifier</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:sha/0">sha()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>A 40 character SHA-1 hash</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:state/0">state()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Supported merge request states</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+</div>
+
+  </div>
+
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#approve/1">approve(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#build_error/1">build_error(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#build_fail/1">build_fail(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#build_pass/1">build_pass(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#ffwd_fail/1">ffwd_fail(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#merge_fail/1">merge_fail(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#merge_pass/1">merge_pass(req)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/2">new(id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new merge request with the given <code class="inline">id</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#unapprove/1">unapprove(req)</a>
+  </div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:id/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:id/0">id</a> :: pos_integer</code></pre>
+  
+    <div class="typespec-doc"><p>A merge request identifier</p>
+</div>
+  
+</div>
+<div id="t:sha/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:sha/0">sha</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+    <div class="typespec-doc"><p>A 40 character SHA-1 hash</p>
+</div>
+  
+</div>
+<div id="t:state/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:state/0">state</a> ::
+  :discussing |
+  :approved |
+  :pending |
+  :passed |
+  :failed |
+  :error</code></pre>
+  
+    <div class="typespec-doc"><p>Supported merge request states</p>
+</div>
+  
+</div>
+<div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.MergeRequest{branch_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, clone_url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, id: <a href="#t:id/0">id</a>, latest_commit: <a href="#t:sha/0">sha</a>, state: <a href="#t:state/0">state</a>, target_branch: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, title: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+  
+</div>
+
+          </div>
+        </section>
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="approve/1">
+  <div class="detail-header">
+    <a href="#approve/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">approve(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L61" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="build_error/1">
+  <div class="detail-header">
+    <a href="#build_error/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">build_error(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L79" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="build_fail/1">
+  <div class="detail-header">
+    <a href="#build_fail/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">build_fail(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L76" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="build_pass/1">
+  <div class="detail-header">
+    <a href="#build_pass/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">build_pass(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L73" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="ffwd_fail/1">
+  <div class="detail-header">
+    <a href="#ffwd_fail/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">ffwd_fail(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L82" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="merge_fail/1">
+  <div class="detail-header">
+    <a href="#merge_fail/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">merge_fail(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L70" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="merge_pass/1">
+  <div class="detail-header">
+    <a href="#merge_pass/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">merge_pass(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L67" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="new/2">
+  <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">new(id, opts \\ [])</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L53" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">new(<a href="#t:id/0">id</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: <a href="#t:t/0">t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new merge request with the given <code class="inline">id</code>.</p>
+<h2>Options</h2>
+<p>The accepted options are:</p>
+<ul>
+<li><code class="inline">:title</code> - the title of the merge request
+</li>
+<li><code class="inline">:clone_url</code> - the URL for Git to use when cloning the merge request
+</li>
+<li><code class="inline">:branch_name</code> - the Git branch name of the merge request
+</li>
+<li><code class="inline">:target_branch</code> - the name of the Git branch that the merge request is targeting
+</li>
+<li><code class="inline">:latest_commit</code> - the SHA-1 hash of the latest commit on the merge request
+</li>
+<li><code class="inline">:state</code> - the state of the merge request; valid states are defined by <code class="inline">t:state/0</code>
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="unapprove/1">
+  <div class="detail-header">
+    <a href="#unapprove/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">unapprove(req)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L64" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+

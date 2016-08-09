@@ -119,6 +119,24 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
+    <a href="#c:get_merge_requests/2">get_merge_requests(arg0, config)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Downloads a list of the repository’s open merge requests</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#c:parse_merge_request/1">parse_merge_request(map)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Converts raw upstream data into a merge request</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#c:validate_config/1">validate_config(config)</a>
   </div>
   
@@ -177,14 +195,70 @@
             </a>
             Callbacks
           </h1>
-          <div class="detail" id="c:validate_config/1">
+          <div class="detail" id="c:get_merge_requests/2">
+  <div class="detail-header">
+    <a href="#c:get_merge_requests/2" class="detail-link" title="Link to this callback">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_merge_requests(arg0, config)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L28" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_merge_requests(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="#t:config/0">config</a>) :: [<a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>]</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Downloads a list of the repository’s open merge requests.</p>
+
+  </section>
+</div>
+<div class="detail" id="c:parse_merge_request/1">
+  <div class="detail-header">
+    <a href="#c:parse_merge_request/1" class="detail-link" title="Link to this callback">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">parse_merge_request(map)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L33" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">parse_merge_request(map) :: <a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Converts raw upstream data into a merge request.</p>
+
+  </section>
+</div>
+<div class="detail" id="c:validate_config/1">
   <div class="detail-header">
     <a href="#c:validate_config/1" class="detail-link" title="Link to this callback">
       <i class="icon-link"></i>
     </a>
     <span class="signature">validate_config(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L15" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L18" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -213,7 +287,7 @@
     </a>
     <span class="signature">whoami(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L20" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L23" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
