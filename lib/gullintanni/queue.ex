@@ -53,18 +53,28 @@ defmodule Gullintanni.Queue do
 
   ## Examples
 
-      iex> Gullintanni.Queue.new([{"a", 0}, {"b", 0}, {"c", 0}])
-      #Queue<size: 3, front: {"a", 0}, rear: {"c", 0}>
+      iex> Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
   """
   @spec new([item]) :: t
-  def new(items) do
-    Enum.reduce(items, %Queue{}, fn item, queue ->
+  def new(items) when is_list(items) do
+    Enum.reduce(items, %Queue{}, fn(item, queue) ->
       insert(queue, item)
     end)
   end
 
   @doc """
   Returns `true` if the `queue` is empty, otherwise `false`.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.empty?(queue)
+      true
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}])
+      iex> Gullintanni.Queue.empty?(queue)
+      false
   """
   @spec empty?(t) :: boolean
   def empty?(%Queue{size: 0}), do: true
@@ -77,6 +87,12 @@ defmodule Gullintanni.Queue do
   inserted at the specified priority. If there are existing values at the
   specified priority, the new value will have the lowest relative priority of
   those values.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}])
+      iex> Gullintanni.Queue.insert(queue, {:bob, 0})
+      #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
   """
   @spec insert(t, item) :: t
   def insert(queue, item)
@@ -100,6 +116,20 @@ defmodule Gullintanni.Queue do
   item did not exist previously, returns the queue unmodified. If the item's
   value occurs more than once at the specified priority, just the item with the
   highest relative priority is removed.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.delete(queue, {:charlie, 0})
+      #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.delete(queue, {:dave, 0})
+      #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+      iex> Gullintanni.Queue.delete(queue, {:alice, 0})
+      #Queue<size: 3, front: {:bob, 0}, rear: {:alice, 0}>
   """
   @spec delete(t, item) :: t
   def delete(queue, item)
@@ -139,6 +169,20 @@ defmodule Gullintanni.Queue do
   returns the queue unmodified. If the item's value occurs more than once at
   the specified priority, just the item with the highest relative priority is
   moved.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.move(queue, {:charlie, 0}, 5)
+      #Queue<size: 3, front: {:charlie, 5}, rear: {:bob, 0}>
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.move(queue, {:dave, 0}, 5)
+      #Queue<size: 3, front: {:alice, 0}, rear: {:charlie, 0}>
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+      iex> Gullintanni.Queue.move(queue, {:alice, 0}, 5)
+      #Queue<size: 4, front: {:alice, 5}, rear: {:alice, 0}>
   """
   @spec move(t, item, priority) :: t
   def move(queue, item, new_priority)
@@ -157,6 +201,16 @@ defmodule Gullintanni.Queue do
   Returns the highest priority `item` in the `queue`.
 
   Returns `:empty` if the queue is empty.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.peek(queue)
+      {:alice, 0}
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.peek(queue)
+      :empty
   """
   @spec peek(t) :: item | :empty
   def peek(%Queue{size: 0}), do: :empty
@@ -169,6 +223,16 @@ defmodule Gullintanni.Queue do
   Returns the lowest priority `item` in the `queue`.
 
   Returns `:empty` if the queue is empty.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.peek_r(queue)
+      {:charlie, 0}
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.peek_r(queue)
+      :empty
   """
   @spec peek_r(t) :: item | :empty
   def peek_r(%Queue{size: 0}), do: :empty
@@ -181,6 +245,19 @@ defmodule Gullintanni.Queue do
   Returns and removes the highest priority `item` in the `queue`.
 
   Returns `:empty` if the queue is empty.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> {new_queue, item} = Gullintanni.Queue.pop(queue)
+      iex> new_queue
+      #Queue<size: 2, front: {:bob, 0}, rear: {:charlie, 0}>
+      iex> item
+      {:alice, 0}
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.pop(queue)
+      :empty
   """
   @spec pop(t) :: {t, item} | :empty
   def pop(%Queue{size: 0}), do: :empty
@@ -194,6 +271,19 @@ defmodule Gullintanni.Queue do
   Returns and removes the lowest priority `item` in the `queue`.
 
   Returns `:empty` if the queue is empty.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> {new_queue, item} = Gullintanni.Queue.pop_r(queue)
+      iex> new_queue
+      #Queue<size: 2, front: {:alice, 0}, rear: {:bob, 0}>
+      iex> item
+      {:charlie, 0}
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.pop_r(queue)
+      :empty
   """
   @spec pop_r(t) :: {t, item} | :empty
   def pop_r(%Queue{size: 0}), do: :empty
@@ -205,6 +295,16 @@ defmodule Gullintanni.Queue do
 
   @doc """
   Returns the number of items in the `queue`.
+
+  ## Examples
+
+      iex> queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+      iex> Gullintanni.Queue.size(queue)
+      3
+
+      iex> queue = Gullintanni.Queue.new
+      iex> Gullintanni.Queue.size(queue)
+      0
   """
   @spec size(t) :: non_neg_integer
   def size(%Queue{} = queue), do: queue.size
@@ -259,7 +359,7 @@ defimpl Inspect, for: Gullintanni.Queue do
         rear = "rear: #{inspect Gullintanni.Queue.peek_r(queue)}"
 
         surround_many("#Queue<", [size, front, rear], ">",
-          opts, fn i, _opts -> i end)
+          opts, fn(i, _opts) -> i end)
     end
   end
 end

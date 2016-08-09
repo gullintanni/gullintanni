@@ -78,7 +78,7 @@ defmodule Gullintanni.Pipeline do
   def validate_config(config) do
     required_keys = [:provider, :repo_owner, :repo_name]
 
-    Enum.each(required_keys, fn key ->
+    Enum.each(required_keys, fn(key)->
       unless Keyword.has_key?(config, key),
         do: raise ArgumentError, "missing #{inspect key} configuration setting"
     end)
