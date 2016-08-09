@@ -3,6 +3,7 @@ defmodule Gullintanni.Pipeline do
   """
 
   alias __MODULE__, as: Pipeline
+  alias Gullintanni.MergeRequest
   alias Gullintanni.Provider
   alias Gullintanni.Queue
   alias Gullintanni.Repo
@@ -88,10 +89,34 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
-  Returns the provider's effective user identity.
+  Returns the provider account's effective user identity.
   """
   @spec whoami(t) :: String.t
   def whoami(pipeline) do
     pipeline.provider.whoami(pipeline.config)
+  end
+
+  @doc """
+  Initializes the pipeline's queue by downloading a list of the repository's
+  open merge requests.
+
+  This replaces any existing queue that may be stored in the pipeline.
+  """
+  @spec init_queue(t) :: t
+  def init_queue(pipeline) do
+    queue =
+      pipeline
+      |> download_merge_requests()
+      |> Queue.new
+
+    %{pipeline | queue: queue}
+  end
+
+  @doc """
+  Downloads a list of the repository's open merge requests.
+  """
+  @spec download_merge_requests(t) :: [MergeRequest.t]
+  def download_merge_requests(pipeline) do
+    pipeline.provider.download_merge_requests(pipeline.repo, pipeline.config)
   end
 end

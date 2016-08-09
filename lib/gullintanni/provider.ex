@@ -18,14 +18,14 @@ defmodule Gullintanni.Provider do
   @callback validate_config(config) :: :ok | no_return
 
   @doc """
-  Returns the account's effective user identity.
+  Returns the provider account's effective user identity.
   """
   @callback whoami(config) :: String.t
 
   @doc """
   Downloads a list of the repository's open merge requests.
   """
-  @callback get_merge_requests(Repo.t, config) :: [MergeRequest.t]
+  @callback download_merge_requests(Repo.t, config) :: [MergeRequest.t]
 
   @doc """
   Converts raw upstream data into a merge request.
