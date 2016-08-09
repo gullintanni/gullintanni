@@ -196,7 +196,16 @@ regarded as opaque by other modules.</p>
     <a href="#new/0">new()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Creates a new empty priority queue</p>
+    <div class="summary-synopsis"><p>Returns an empty priority queue</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/1">new(items)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new priority queue from a list of <code class="inline">items</code></p>
 </div>
   
 </div>
@@ -320,7 +329,7 @@ regarded as opaque by other modules.</p>
     </a>
     <span class="signature">delete(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L86" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L135" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -342,6 +351,18 @@ regarded as opaque by other modules.</p>
 item did not exist previously, returns the queue unmodified. If the item’s
 value occurs more than once at the specified priority, just the item with the
 highest relative priority is removed.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.delete(queue, {:charlie, 0})
+#Queue&lt;size: 2, front: {:alice, 0}, rear: {:bob, 0}&gt;
+
+iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.delete(queue, {:dave, 0})
+#Queue&lt;size: 3, front: {:alice, 0}, rear: {:charlie, 0}&gt;
+
+iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+iex&gt; Gullintanni.Queue.delete(queue, {:alice, 0})
+#Queue&lt;size: 3, front: {:bob, 0}, rear: {:alice, 0}&gt;</code></pre>
 
   </section>
 </div>
@@ -352,7 +373,7 @@ highest relative priority is removed.</p>
     </a>
     <span class="signature">empty?(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L51" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L80" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -370,6 +391,14 @@ highest relative priority is removed.</p>
   
   <section class="docstring">
     <p>Returns <code class="inline">true</code> if the <code class="inline">queue</code> is empty, otherwise <code class="inline">false</code>.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.empty?(queue)
+true
+
+iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}])
+iex&gt; Gullintanni.Queue.empty?(queue)
+false</code></pre>
 
   </section>
 </div>
@@ -380,7 +409,7 @@ highest relative priority is removed.</p>
     </a>
     <span class="signature">insert(queue, item)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L63" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L98" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -402,6 +431,10 @@ highest relative priority is removed.</p>
 inserted at the specified priority. If there are existing values at the
 specified priority, the new value will have the lowest relative priority of
 those values.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}])
+iex&gt; Gullintanni.Queue.insert(queue, {:bob, 0})
+#Queue&lt;size: 2, front: {:alice, 0}, rear: {:bob, 0}&gt;</code></pre>
 
   </section>
 </div>
@@ -412,7 +445,7 @@ those values.</p>
     </a>
     <span class="signature">move(queue, item, new_priority)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L125" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L188" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -435,6 +468,18 @@ moved to the specified priority. If the item did not exist previously,
 returns the queue unmodified. If the item’s value occurs more than once at
 the specified priority, just the item with the highest relative priority is
 moved.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.move(queue, {:charlie, 0}, 5)
+#Queue&lt;size: 3, front: {:charlie, 5}, rear: {:bob, 0}&gt;
+
+iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.move(queue, {:dave, 0}, 5)
+#Queue&lt;size: 3, front: {:alice, 0}, rear: {:charlie, 0}&gt;
+
+iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}, {:alice, 0}])
+iex&gt; Gullintanni.Queue.move(queue, {:alice, 0}, 5)
+#Queue&lt;size: 4, front: {:alice, 5}, rear: {:alice, 0}&gt;</code></pre>
 
   </section>
 </div>
@@ -445,7 +490,7 @@ moved.</p>
     </a>
     <span class="signature">new()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L45" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L49" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -456,13 +501,47 @@ moved.</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">new :: struct</code></pre>
+          <pre><code class="elixir">new :: <a href="#t:t/0">t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Creates a new empty priority queue.</p>
+    <p>Returns an empty priority queue.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Gullintanni.Queue.new
+#Queue&lt;empty&gt;</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="new/1">
+  <div class="detail-header">
+    <a href="#new/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">new(items)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L60" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">new([<a href="#t:item/0">item</a>]) :: <a href="#t:t/0">t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new priority queue from a list of <code class="inline">items</code>.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+#Queue&lt;size: 3, front: {:alice, 0}, rear: {:charlie, 0}&gt;</code></pre>
 
   </section>
 </div>
@@ -473,7 +552,7 @@ moved.</p>
     </a>
     <span class="signature">peek(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L143" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L216" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -492,6 +571,14 @@ moved.</p>
   <section class="docstring">
     <p>Returns the highest priority <code class="inline">item</code> in the <code class="inline">queue</code>.</p>
 <p>Returns <code class="inline">:empty</code> if the queue is empty.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.peek(queue)
+{:alice, 0}
+
+iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.peek(queue)
+:empty</code></pre>
 
   </section>
 </div>
@@ -502,7 +589,7 @@ moved.</p>
     </a>
     <span class="signature">peek_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L155" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L238" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -521,6 +608,14 @@ moved.</p>
   <section class="docstring">
     <p>Returns the lowest priority <code class="inline">item</code> in the <code class="inline">queue</code>.</p>
 <p>Returns <code class="inline">:empty</code> if the queue is empty.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.peek_r(queue)
+{:charlie, 0}
+
+iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.peek_r(queue)
+:empty</code></pre>
 
   </section>
 </div>
@@ -531,7 +626,7 @@ moved.</p>
     </a>
     <span class="signature">pop(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L167" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L263" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -550,6 +645,17 @@ moved.</p>
   <section class="docstring">
     <p>Returns and removes the highest priority <code class="inline">item</code> in the <code class="inline">queue</code>.</p>
 <p>Returns <code class="inline">:empty</code> if the queue is empty.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; {new_queue, item} = Gullintanni.Queue.pop(queue)
+iex&gt; new_queue
+#Queue&lt;size: 2, front: {:bob, 0}, rear: {:charlie, 0}&gt;
+iex&gt; item
+{:alice, 0}
+
+iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.pop(queue)
+:empty</code></pre>
 
   </section>
 </div>
@@ -560,7 +666,7 @@ moved.</p>
     </a>
     <span class="signature">pop_r(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L180" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L289" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -579,6 +685,17 @@ moved.</p>
   <section class="docstring">
     <p>Returns and removes the lowest priority <code class="inline">item</code> in the <code class="inline">queue</code>.</p>
 <p>Returns <code class="inline">:empty</code> if the queue is empty.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; {new_queue, item} = Gullintanni.Queue.pop_r(queue)
+iex&gt; new_queue
+#Queue&lt;size: 2, front: {:alice, 0}, rear: {:bob, 0}&gt;
+iex&gt; item
+{:charlie, 0}
+
+iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.pop_r(queue)
+:empty</code></pre>
 
   </section>
 </div>
@@ -589,7 +706,7 @@ moved.</p>
     </a>
     <span class="signature">size(queue)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L191" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/queue.ex#L310" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -607,6 +724,14 @@ moved.</p>
   
   <section class="docstring">
     <p>Returns the number of items in the <code class="inline">queue</code>.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; queue = Gullintanni.Queue.new([{:alice, 0}, {:bob, 0}, {:charlie, 0}])
+iex&gt; Gullintanni.Queue.size(queue)
+3
+
+iex&gt; queue = Gullintanni.Queue.new
+iex&gt; Gullintanni.Queue.size(queue)
+0</code></pre>
 
   </section>
 </div>
