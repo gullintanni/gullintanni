@@ -17,6 +17,7 @@ defmodule Gullintanni.MergeRequest do
     %MergeRequest{
       id: id,
       title: String.t,
+      url: String.t,
       clone_url: String.t,
       branch_name: String.t,
       target_branch: String.t,
@@ -28,6 +29,7 @@ defmodule Gullintanni.MergeRequest do
   defstruct [
     :id,
     :title,
+    :url,
     :clone_url,
     :branch_name,
     :target_branch,
@@ -43,6 +45,7 @@ defmodule Gullintanni.MergeRequest do
   The accepted options are:
 
     * `:title` - the title of the merge request
+    * `:url` - the URL for viewing the merge request discussion
     * `:clone_url` - the URL for Git to use when cloning the merge request
     * `:branch_name` - the Git branch name of the merge request
     * `:target_branch` - the name of the Git branch that the merge request is targeting
@@ -81,4 +84,26 @@ defmodule Gullintanni.MergeRequest do
 
   def ffwd_fail(%MergeRequest{state: :passed} = req),
     do: %{req | state: :error}
+end
+
+
+defimpl Inspect, for: Gullintanni.MergeRequest do
+  import Inspect.Algebra
+
+  def inspect(req, opts) do
+    keys = [:id, :state, :title, :url]
+    attributes =
+      keys
+      |> Enum.reduce([], fn(key, attributes) ->
+           value = Map.get(req, key)
+           case value do
+             nil -> attributes
+             _ -> ["#{key}: #{inspect value}"|attributes]
+           end
+         end)
+      |> Enum.reverse
+
+    surround_many("#MergeRequest<", attributes, ">",
+      opts, fn(i, _opts) -> i end)
+  end
 end

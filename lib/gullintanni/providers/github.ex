@@ -31,6 +31,7 @@ defmodule Gullintanni.Providers.GitHub do
       data["number"],
       [
         title: data["title"],
+        url: data["html_url"],
         clone_url: data["head"]["repo"]["clone_url"],
         branch_name: data["head"]["ref"],
         target_branch: data["base"]["ref"],
