@@ -14,13 +14,15 @@ defmodule Gullintanni.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :tentacat],
+    [applications: [:cowboy, :logger, :plug, :tentacat],
      mod: {Gullintanni, []}]
   end
 
   defp deps do
-    [{:dialyxir, "~> 0.3", only: :dev},
+    [{:cowboy, "~> 1.0"},
+     {:dialyxir, "~> 0.3", only: :dev},
      {:ex_doc, "~> 0.12", only: :dev},
+     {:plug, "~> 1.2"},
      {:tentacat, "~> 0.5"}]
   end
 end
