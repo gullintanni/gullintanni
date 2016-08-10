@@ -1,31 +1,35 @@
 defmodule Gullintanni.Listener.Socket do
   @moduledoc """
-  Utility module for handling TCP socket parsing and validation.
+  Utility module for handling Internet socket address parsing and validation.
+
+  A *socket address* is the combination of an IP address and a port number.
+  This can be used along with a transport protocol in order to define an
+  endpoint of a connection across a network.
   """
 
   alias __MODULE__, as: Socket
 
   @typedoc "The IP address of a socket"
-  @type address :: String.t | char_list | :inet.ip_address
+  @type ip_address :: String.t | char_list | :inet.ip_address
 
   @typedoc "The port number of a socket"
   @type port_number :: 0..65535
 
-  @typedoc "The socket type"
-  @type t :: %Socket{address: address, port: port_number}
+  @typedoc "The socket address type"
+  @type t :: %Socket{ip: :inet.ip_address, port: port_number}
 
-  @enforce_keys [:address, :port]
-  defstruct [:address, :port]
+  @enforce_keys [:ip, :port]
+  defstruct [:ip, :port]
 
   @valid_ports 0..65535
 
   @doc """
-  Creates a new socket with the given `address` and `port`.
+  Creates a new socket address with the given `ip` and `port`.
 
-  Returns `{:ok, socket}` if the address and port are valid, returns
-  `{:error, reason}` otherwise. A valid address is anything that can be parsed
-  by `:inet.parse_address/1`, and a valid port must be an integer in the range
-  of `#{inspect @valid_ports}`.
+  Returns `{:ok, socket}` if the IP address and port number are valid, returns
+  `{:error, reason}` otherwise. A valid IP address is anything that can be
+  parsed by `:inet.parse_address/1`, and a valid port must be an integer in the
+  range of `#{inspect @valid_ports}`.
 
   ## Examples
 
@@ -38,41 +42,49 @@ defmodule Gullintanni.Listener.Socket do
       #Socket<[FE80::204:ACFF:FE17:BF38]:80>
 
       iex> Gullintanni.Listener.Socket.new("100.200.300.400", 80)
-      {:error, :invalid_address}
+      {:error, :invalid_ip_address}
 
       iex> Gullintanni.Listener.Socket.new("0.0.0.0", 99999)
       {:error, :invalid_port}
   """
-  @spec new(address, port_number) :: {:ok, t} | {:error, :invalid_address} | {:error, :invalid_port}
-  def new(address, port) do
-    address = parse(address)
+  @spec new(ip_address, port_number) :: {:ok, t} | {:error, :invalid_ip_address | :invalid_port}
+  def new(ip, port) do
+    ip_address = parse(ip)
 
     cond do
-      address == nil ->
-        {:error, :invalid_address}
+      ip_address == nil ->
+        {:error, :invalid_ip_address}
       Enum.member?(@valid_ports, port) == false ->
         {:error, :invalid_port}
       true ->
-        {:ok, %Socket{address: address, port: port}}
+        {:ok, %Socket{ip: ip_address, port: port}}
     end
   end
 
-  # Parses a string into an IP address tuple.
-  @spec parse(address) :: :inet.ip_address | nil
-  defp parse(address) when address |> is_binary do
-    address
-    |> String.to_char_list
-    |> parse
+  # Parses an `t:ip_address/0` into an `t::inet.ip_address/0` tuple.
+  #
+  # Returns `nil` if there was an error with parsing.
+  @spec parse(ip_address) :: :inet.ip_address | nil
+  defp parse(ip_address) when is_binary(ip_address) do
+    ip_address |> String.to_char_list |> parse
   end
-  defp parse(address) when address |> is_list do
-    case :inet.parse_address(address) do
-      {:ok, ip_address} -> ip_address
+  defp parse(ip_address) when is_list(ip_address) do
+    case :inet.parse_address(ip_address) do
+      {:ok, value} -> value
       {:error, :einval} -> nil
     end
   end
-  defp parse(address) do
-    address
+  defp parse(ip_address) when is_tuple(ip_address) do
+    try do
+      :inet.ntoa(ip_address)
+    rescue
+      ArgumentError -> nil
+    else
+      {:error, :einval} -> nil
+      _ -> ip_address
+    end
   end
+  defp parse(_), do: nil
 end
 
 
@@ -87,9 +99,9 @@ end
 
 defimpl String.Chars, for: Gullintanni.Listener.Socket do
   def to_string(socket) do
-    case tuple_size(socket.address) do
-      4 -> "#{:inet.ntoa(socket.address)}:#{socket.port}"
-      8 -> "[#{:inet.ntoa(socket.address)}]:#{socket.port}"
+    case tuple_size(socket.ip) do
+      4 -> "#{:inet.ntoa(socket.ip)}:#{socket.port}"
+      8 -> "[#{:inet.ntoa(socket.ip)}]:#{socket.port}"
     end
   end
 end
