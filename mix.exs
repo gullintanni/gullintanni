@@ -14,8 +14,10 @@ defmodule Gullintanni.Mixfile do
   end
 
   def application do
-    [applications: [:cowboy, :logger, :plug, :tentacat],
-     mod: {Gullintanni, []}]
+    [mod: {Gullintanni, []},
+     applications: [:cowboy, :logger, :plug, :tentacat],
+     env: [enable_http_workers: true,
+           webhook: [bind_ip: "0.0.0.0", bind_port: 13931]]]
   end
 
   defp deps do
