@@ -144,31 +144,31 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#build_fail/1">build_fail(req)</a>
+    <a href="#build_failed/1">build_failed(req)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#build_pass/1">build_pass(req)</a>
+    <a href="#build_passed/1">build_passed(req)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#ffwd_fail/1">ffwd_fail(req)</a>
+    <a href="#ffwd_failed/1">ffwd_failed(req)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#merge_fail/1">merge_fail(req)</a>
+    <a href="#merge_failed/1">merge_failed(req)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#merge_pass/1">merge_pass(req)</a>
+    <a href="#merge_passed/1">merge_passed(req)</a>
   </div>
   
 </div>
@@ -223,11 +223,11 @@
 </div>
 <div id="t:state/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:state/0">state</a> ::
-  :discussing |
+  :under_review |
   :approved |
-  :pending |
-  :passed |
-  :failed |
+  :build_pending |
+  :build_passed |
+  :build_failed |
   :error</code></pre>
   
     <div class="typespec-doc"><p>Supported merge request states</p>
@@ -258,7 +258,7 @@
     </a>
     <span class="signature">approve(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L64" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L65" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -276,7 +276,7 @@
     </a>
     <span class="signature">build_error(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L82" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L83" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -287,14 +287,14 @@
     
   </section>
 </div>
-<div class="detail" id="build_fail/1">
+<div class="detail" id="build_failed/1">
   <div class="detail-header">
-    <a href="#build_fail/1" class="detail-link" title="Link to this function">
+    <a href="#build_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">build_fail(req)</span>
+    <span class="signature">build_failed(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L79" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L80" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -305,14 +305,14 @@
     
   </section>
 </div>
-<div class="detail" id="build_pass/1">
+<div class="detail" id="build_passed/1">
   <div class="detail-header">
-    <a href="#build_pass/1" class="detail-link" title="Link to this function">
+    <a href="#build_passed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">build_pass(req)</span>
+    <span class="signature">build_passed(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L76" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L77" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -323,14 +323,14 @@
     
   </section>
 </div>
-<div class="detail" id="ffwd_fail/1">
+<div class="detail" id="ffwd_failed/1">
   <div class="detail-header">
-    <a href="#ffwd_fail/1" class="detail-link" title="Link to this function">
+    <a href="#ffwd_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">ffwd_fail(req)</span>
+    <span class="signature">ffwd_failed(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L85" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L86" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -341,14 +341,14 @@
     
   </section>
 </div>
-<div class="detail" id="merge_fail/1">
+<div class="detail" id="merge_failed/1">
   <div class="detail-header">
-    <a href="#merge_fail/1" class="detail-link" title="Link to this function">
+    <a href="#merge_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">merge_fail(req)</span>
+    <span class="signature">merge_failed(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L73" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L74" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -359,14 +359,14 @@
     
   </section>
 </div>
-<div class="detail" id="merge_pass/1">
+<div class="detail" id="merge_passed/1">
   <div class="detail-header">
-    <a href="#merge_pass/1" class="detail-link" title="Link to this function">
+    <a href="#merge_passed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">merge_pass(req)</span>
+    <span class="signature">merge_passed(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L70" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L71" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -384,7 +384,7 @@
     </a>
     <span class="signature">new(id, opts \\ [])</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L56" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L57" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -430,7 +430,7 @@
     </a>
     <span class="signature">unapprove(req)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L67" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L68" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
