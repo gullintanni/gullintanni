@@ -14,3 +14,5 @@ config :gullintanni, :pipeline,
       repo_owner: {:system, "GULBOT_REPO_OWNER"},
       repo_name: {:system, "GULBOT_REPO_NAME"},
     ]
+
+import_config "#{Mix.env}.exs"
