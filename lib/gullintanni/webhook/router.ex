@@ -4,22 +4,34 @@ defmodule Gullintanni.Webhook.Router do
   """
 
   use Plug.Router
+  use Plug.ErrorHandler
+  alias Gullintanni.Webhook
 
   plug Plug.Logger,
     log: :debug
-
-  plug :match
-  plug :dispatch
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :json],
     json_decoder: Poison
 
+  plug :match
+  plug :dispatch
+
   post "/webhook" do
+    # by this point we should have valid/parsed JSON;
+    # handle the JSON payload in the background...
+    {:ok, _pid} =
+      Task.start(Webhook.Handler, :handle, [conn.body_params, conn.req_headers])
+
+    # ...so we can send the response immediately
     send_resp(conn, 204, "")
   end
 
   match _ do
-    send_resp(conn, 404, "Not Found") |> halt
+    send_resp(conn, 404, "Not Found")
+  end
+
+  defp handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
+    send_resp(conn, conn.status, "Something went wrong")
   end
 end
