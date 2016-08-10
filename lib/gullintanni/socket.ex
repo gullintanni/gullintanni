@@ -1,4 +1,4 @@
-defmodule Gullintanni.Listener.Socket do
+defmodule Gullintanni.Socket do
   @moduledoc """
   Utility module for handling Internet socket address parsing and validation.
 
@@ -33,18 +33,18 @@ defmodule Gullintanni.Listener.Socket do
 
   ## Examples
 
-      iex> {:ok, socket} = Gullintanni.Listener.Socket.new("0.0.0.0", 80)
+      iex> {:ok, socket} = Gullintanni.Socket.new("0.0.0.0", 80)
       iex> socket
       #Socket<0.0.0.0:80>
 
-      iex> {:ok, socket} = Gullintanni.Listener.Socket.new("fe80::204:acff:fe17:bf38", 80)
+      iex> {:ok, socket} = Gullintanni.Socket.new("fe80::204:acff:fe17:bf38", 80)
       iex> socket
       #Socket<[FE80::204:ACFF:FE17:BF38]:80>
 
-      iex> Gullintanni.Listener.Socket.new("100.200.300.400", 80)
+      iex> Gullintanni.Socket.new("100.200.300.400", 80)
       {:error, :invalid_ip_address}
 
-      iex> Gullintanni.Listener.Socket.new("0.0.0.0", 99999)
+      iex> Gullintanni.Socket.new("0.0.0.0", 99999)
       {:error, :invalid_port}
   """
   @spec new(ip_address, port_number) :: {:ok, t} | {:error, :invalid_ip_address | :invalid_port}
@@ -88,7 +88,7 @@ defmodule Gullintanni.Listener.Socket do
 end
 
 
-defimpl Inspect, for: Gullintanni.Listener.Socket do
+defimpl Inspect, for: Gullintanni.Socket do
   import Inspect.Algebra
 
   def inspect(socket, _opts) do
@@ -97,7 +97,7 @@ defimpl Inspect, for: Gullintanni.Listener.Socket do
 end
 
 
-defimpl String.Chars, for: Gullintanni.Listener.Socket do
+defimpl String.Chars, for: Gullintanni.Socket do
   def to_string(socket) do
     case tuple_size(socket.ip) do
       4 -> "#{:inet.ntoa(socket.ip)}:#{socket.port}"
