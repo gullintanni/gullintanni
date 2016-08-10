@@ -11,7 +11,8 @@ defmodule Gullintanni.MergeRequest do
   @type sha :: String.t
 
   @typedoc "Supported merge request states"
-  @type state :: :discussing | :approved | :pending | :passed | :failed | :error
+  @type state :: :under_review | :approved | :build_pending | :build_passed
+               | :build_failed | :error
 
   @type t ::
     %MergeRequest{
@@ -34,7 +35,7 @@ defmodule Gullintanni.MergeRequest do
     :branch_name,
     :target_branch,
     :latest_commit,
-    state: :discussing
+    state: :under_review
   ]
 
   @doc """
@@ -61,28 +62,28 @@ defmodule Gullintanni.MergeRequest do
 
   # A basic Finite State Machine
 
-  def approve(%MergeRequest{state: :discussing} = req),
+  def approve(%MergeRequest{state: :under_review} = req),
     do: %{req | state: :approved}
 
   def unapprove(%MergeRequest{} = req),
-    do: %{req | state: :discussing}
+    do: %{req | state: :under_review}
 
-  def merge_pass(%MergeRequest{state: :approved} = req),
-    do: %{req | state: :pending}
+  def merge_passed(%MergeRequest{state: :approved} = req),
+    do: %{req | state: :build_pending}
 
-  def merge_fail(%MergeRequest{state: :approved} = req),
+  def merge_failed(%MergeRequest{state: :approved} = req),
     do: %{req | state: :error}
 
-  def build_pass(%MergeRequest{state: :pending} = req),
-    do: %{req | state: :passed}
+  def build_passed(%MergeRequest{state: :build_pending} = req),
+    do: %{req | state: :build_passed}
 
-  def build_fail(%MergeRequest{state: :pending} = req),
-    do: %{req | state: :failed}
+  def build_failed(%MergeRequest{state: :build_pending} = req),
+    do: %{req | state: :build_failed}
 
-  def build_error(%MergeRequest{state: :pending} = req),
+  def build_error(%MergeRequest{state: :build_pending} = req),
     do: %{req | state: :error}
 
-  def ffwd_fail(%MergeRequest{state: :passed} = req),
+  def ffwd_failed(%MergeRequest{state: :build_passed} = req),
     do: %{req | state: :error}
 end
 
