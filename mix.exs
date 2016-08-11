@@ -24,6 +24,7 @@ defmodule Gullintanni.Mixfile do
     [{:cowboy, "~> 1.0"},
      {:dialyxir, "~> 0.3", only: :dev},
      {:ex_doc, "~> 0.12", only: :dev},
+     {:gen_stage, "~> 0.5"},
      {:poison, "~> 2.2"},
      {:plug, "~> 1.2"},
      {:tentacat, "~> 0.5"}]
