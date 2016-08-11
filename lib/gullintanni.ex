@@ -3,6 +3,7 @@ defmodule Gullintanni do
   """
 
   use Application
+  import Supervisor.Spec
   alias Gullintanni.Socket
 
   def start(_type, _args) do
@@ -16,7 +17,9 @@ defmodule Gullintanni do
   end
 
   defp default_workers do
-    []
+    # TODO: figure out an appropriate supervisor tree
+    [worker(Gullintanni.Webhook.EventManager, []),
+     worker(Gullintanni.Providers.GitHub.EventHandler, [])]
   end
 
   defp http_workers do
