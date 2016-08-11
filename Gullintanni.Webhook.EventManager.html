@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni – Gullintanni Bot v0.1.0</title>
+    <title>Gullintanni.Webhook.EventManager – Gullintanni Bot v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -60,10 +60,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni Bot v0.1.0</small>
-        Gullintanni
+        Gullintanni.Webhook.EventManager
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event_manager.ex#L3" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -92,11 +92,32 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#start/2">start(type, args)</a>
+    <a href="#handle_demand/2">handle_demand(incoming_demand, arg)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Application.start/2</code></p>
+    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Experimental.GenStage.handle_demand/2</code></p>
 </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#init/1">init(atom)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Experimental.GenStage.init/1</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/0">start_link()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sync_notify/2">sync_notify(event, timeout \\ 5000)</a>
+  </div>
   
 </div>
 
@@ -120,14 +141,14 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="start/2">
+          <div class="detail" id="handle_demand/2">
   <div class="detail-header">
-    <a href="#start/2" class="detail-link" title="Link to this function">
+    <a href="#handle_demand/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">start(type, args)</span>
+    <span class="signature">handle_demand(incoming_demand, arg)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni.ex#L9" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event_manager.ex#L27" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -135,8 +156,63 @@
   </div>
   
   <section class="docstring">
-    <p>Callback implementation for <code class="inline">c:Application.start/2</code>.</p>
+    <p>Callback implementation for <code class="inline">c:Experimental.GenStage.handle_demand/2</code>.</p>
 
+  </section>
+</div>
+<div class="detail" id="init/1">
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">init(atom)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event_manager.ex#L19" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Callback implementation for <code class="inline">c:Experimental.GenStage.init/1</code>.</p>
+
+  </section>
+</div>
+<div class="detail" id="start_link/0">
+  <div class="detail-header">
+    <a href="#start_link/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event_manager.ex#L9" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="sync_notify/2">
+  <div class="detail-header">
+    <a href="#sync_notify/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">sync_notify(event, timeout \\ 5000)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event_manager.ex#L13" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
   </section>
 </div>
 
