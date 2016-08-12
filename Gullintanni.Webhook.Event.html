@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni.Providers.GitHub.EventHandler – Gullintanni Bot v0.1.0</title>
+    <title>Gullintanni.Webhook.Event – Gullintanni Bot v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -60,10 +60,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni Bot v0.1.0</small>
-        Gullintanni.Providers.GitHub.EventHandler
+        Gullintanni.Webhook.Event
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github/event_handler.ex#L3" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -71,7 +71,7 @@
 
       
         <section id="moduledoc" class="docstring">
-          <p>Receives all webhook broadcasts and handles GitHub-specific requests.</p>
+          <p>Provides functions related to extracting information from webhook events.</p>
 
         </section>
       
@@ -85,6 +85,22 @@
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>The event type</p>
+</div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -93,26 +109,20 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#handle_events/3">handle_events(events, from, state)</a>
+    <a href="#get_payload/1">get_payload(event)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Experimental.GenStage.handle_events/3</code></p>
+    <div class="summary-synopsis"><p>Returns the payload from the <code class="inline">event</code></p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#init/1">init(atom)</a>
+    <a href="#get_req_header/2">get_req_header(event, key)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Experimental.GenStage.init/1</code></p>
+    <div class="summary-synopsis"><p>Returns the value of the request header specified by <code class="inline">key</code></p>
 </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#start_link/0">start_link()</a>
-  </div>
   
 </div>
 
@@ -127,6 +137,25 @@
       
 
       
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: Plug.Conn.t</code></pre>
+  
+    <div class="typespec-doc"><p>The event type</p>
+</div>
+  
+</div>
+
+          </div>
+        </section>
+      
 
       
         <section id="functions" class="details-list">
@@ -136,60 +165,61 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="handle_events/3">
+          <div class="detail" id="get_payload/1">
   <div class="detail-header">
-    <a href="#handle_events/3" class="detail-link" title="Link to this function">
+    <a href="#get_payload/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">handle_events(events, from, state)</span>
+    <span class="signature">get_payload(event)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github/event_handler.ex#L25" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L26" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_payload(<a href="#t:t/0">t</a>) :: map</code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
-    <p>Callback implementation for <code class="inline">c:Experimental.GenStage.handle_events/3</code>.</p>
+    <p>Returns the payload from the <code class="inline">event</code>.</p>
 
   </section>
 </div>
-<div class="detail" id="init/1">
+<div class="detail" id="get_req_header/2">
   <div class="detail-header">
-    <a href="#init/1" class="detail-link" title="Link to this function">
+    <a href="#get_req_header/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">init(atom)</span>
+    <span class="signature">get_req_header(event, key)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github/event_handler.ex#L19" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L15" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_req_header(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | nil</code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
-    <p>Callback implementation for <code class="inline">c:Experimental.GenStage.init/1</code>.</p>
+    <p>Returns the value of the request header specified by <code class="inline">key</code>.</p>
+<p>Returns <code class="inline">nil</code> if the header was not found.</p>
 
-  </section>
-</div>
-<div class="detail" id="start_link/0">
-  <div class="detail-header">
-    <a href="#start_link/0" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">start_link()</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github/event_handler.ex#L13" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-  </div>
-  
-  <section class="docstring">
-    
   </section>
 </div>
 
