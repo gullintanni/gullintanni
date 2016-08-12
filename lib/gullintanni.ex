@@ -3,12 +3,10 @@ defmodule Gullintanni do
   """
 
   use Application
-  import Supervisor.Spec
+  import Supervisor.Spec, warn: false
   alias Gullintanni.Socket
 
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
-
     children =
       default_workers() ++ http_workers()
 
