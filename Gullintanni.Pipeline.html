@@ -154,11 +154,11 @@ open merge requests</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#validate_config/1">validate_config(config)</a>
+    <a href="#valid_config?/1">valid_config?(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns <code class="inline">:ok</code> if all required pipeline configuration values exist in
-<code class="inline">config</code>, otherwise raises an <code class="inline">ArgumentError</code> exception</p>
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all required pipeline configuration values exist in
+<code class="inline">config</code>, otherwise <code class="inline">false</code></p>
 </div>
   
 </div>
@@ -232,7 +232,7 @@ open merge requests</p>
     </a>
     <span class="signature">download_merge_requests(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L119" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L135" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -260,7 +260,7 @@ open merge requests</p>
     </a>
     <span class="signature">init_queue(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L106" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L122" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -290,7 +290,7 @@ open merge requests.</p>
     </a>
     <span class="signature">load(name, opts \\ [])</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L39" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -301,7 +301,7 @@ open merge requests.</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">load(<a href="#t:name/0">name</a>, <a href="#t:config/0">config</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre><code class="elixir">load(<a href="#t:name/0">name</a>, <a href="#t:config/0">config</a>) :: {:ok, <a href="#t:t/0">t</a>} | :error</code></pre>
         
       </div>
     </div>
@@ -311,17 +311,18 @@ open merge requests.</p>
 <p>The settings are loaded from the named pipeline’s config, as set in the
 application configuration. Any options specified in <code class="inline">opts</code> will then override
 those settings.</p>
+<p>Returns <code class="inline">{:ok, pipeline}</code> if the configuration is valid, otherwise <code class="inline">:error</code>.</p>
 
   </section>
 </div>
-<div class="detail" id="validate_config/1">
+<div class="detail" id="valid_config?/1">
   <div class="detail-header">
-    <a href="#validate_config/1" class="detail-link" title="Link to this function">
+    <a href="#valid_config?/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">validate_config(config)</span>
+    <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L79" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L80" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -332,14 +333,14 @@ those settings.</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">validate_config(<a href="#t:config/0">config</a>) :: :ok | no_return</code></pre>
+          <pre><code class="elixir">valid_config?(<a href="#t:config/0">config</a>) :: boolean</code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Returns <code class="inline">:ok</code> if all required pipeline configuration values exist in
-<code class="inline">config</code>, otherwise raises an <code class="inline">ArgumentError</code> exception.</p>
+    <p>Returns <code class="inline">true</code> if all required pipeline configuration values exist in
+<code class="inline">config</code>, otherwise <code class="inline">false</code>.</p>
 
   </section>
 </div>
@@ -350,7 +351,7 @@ those settings.</p>
     </a>
     <span class="signature">whoami(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L95" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L111" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
