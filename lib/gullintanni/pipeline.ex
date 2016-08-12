@@ -3,22 +3,17 @@ defmodule Gullintanni.Pipeline do
   """
 
   alias __MODULE__, as: Pipeline
+  alias Gullintanni.Config
   alias Gullintanni.MergeRequest
   alias Gullintanni.Provider
   alias Gullintanni.Queue
   alias Gullintanni.Repo
   require Logger
 
-  @typedoc "A pipeline configuration name"
-  @type name :: atom
-
-  @typedoc "The raw pipeline configuration settings"
-  @type config :: Keyword.t
-
   @typedoc "The pipeline type"
   @type t ::
     %Pipeline{
-      config: config,
+      config: Config.t,
       provider: Provider.t,
       repo: Repo.t,
       queue: Queue.t
@@ -35,14 +30,14 @@ defmodule Gullintanni.Pipeline do
 
   Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
   """
-  @spec load(name, config) :: {:ok, t} | :error
+  @spec load(atom, Keyword.t) :: {:ok, t} | :error
   def load(name, opts \\ []) when is_atom(name) do
     _ = Logger.info "loading #{inspect name} pipeline configuration"
 
     config =
-      load_config(name)
+      Config.load_config(:pipeline, name)
       |> Keyword.merge(opts)
-      |> parse_runtime_settings()
+      |> Config.parse_runtime_settings()
 
     case valid_config?(config) do
       true -> {:ok, new(config)}
@@ -50,51 +45,21 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  # Returns the named pipeline config from the application configuration,
-  # `[]` if no config was found.
-  @spec load_config(name) :: config
-  defp load_config(name) do
-    with {:ok, pipelines} <- Application.fetch_env(:gullintanni, :pipeline),
-         {:ok, config} <- Keyword.fetch(pipelines, name) do
-      config
-    else
-      :error -> []
-    end
-  end
-
-  # Transforms all the `{:system, "ENV_VAR"}` tuples into their respective
-  # values grabbed from the process environment.
-  @spec parse_runtime_settings(config) :: config
-  defp parse_runtime_settings(config) do
-    Enum.map(config, fn
-      {key, {:system, env_var}} -> {key, System.get_env(env_var)}
-      {key, value} -> {key, value}
-    end)
-  end
-
   @doc """
   Returns `true` if all required pipeline configuration values exist in
   `config`, otherwise `false`.
   """
-  @spec valid_config?(config) :: boolean
+  @spec valid_config?(Config.t) :: boolean
   def valid_config?(config) do
-    required_keys = [:provider, :repo_owner, :repo_name]
-
     answer =
-      Enum.reduce(required_keys, true, fn(key, answer) ->
-        case Keyword.has_key?(config, key) do
-          true -> answer
-          false ->
-            _ = Logger.error "missing #{inspect key} configuration setting"
-            false
-        end
-      end)
+      [:provider, :repo_owner, :repo_name]
+      |> Config.settings_present?(config)
 
     # dispatch to check for additional required keys
     answer and config[:provider].valid_config?(config)
   end
 
-  @spec new(config) :: t
+  @spec new(Config.t) :: t
   defp new(config) do
     %Pipeline{
       config: config,

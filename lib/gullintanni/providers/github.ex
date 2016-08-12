@@ -1,23 +1,14 @@
 defmodule Gullintanni.Providers.GitHub do
+  alias Gullintanni.Config
   alias Gullintanni.MergeRequest
-  alias Gullintanni.Provider
-  require Logger
 
   @behaviour Gullintanni.Provider
 
   @default_endpoint "https://api.github.com/"
 
   def valid_config?(config) do
-    required_keys = [:provider_auth_token]
-
-    Enum.reduce(required_keys, true, fn(key, answer) ->
-      case Keyword.has_key?(config, key) do
-        true -> answer
-        false ->
-          _ = Logger.error "missing #{inspect key} configuration setting"
-          false
-      end
-    end)
+    [:provider_auth_token]
+    |> Config.settings_present?(config)
   end
 
   def whoami(config) do
@@ -43,7 +34,7 @@ defmodule Gullintanni.Providers.GitHub do
     )
   end
 
-  @spec client(Provider.config) :: Tentacat.Client.t
+  @spec client(Config.t) :: Tentacat.Client.t
   defp client(config) do
     endpoint = config[:provider_endpoint] || @default_endpoint
     Tentacat.Client.new(%{access_token: config[:provider_auth_token]}, endpoint)
