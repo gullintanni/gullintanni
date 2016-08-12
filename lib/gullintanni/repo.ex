@@ -20,8 +20,8 @@ defmodule Gullintanni.Repo do
 
   ## Examples
 
-      iex> Gullintanni.Repo.new("elasticdog", "transcrypt")
-      %Gullintanni.Repo{name: "transcrypt", owner: "elasticdog"}
+      iex> Gullintanni.Repo.new("elixir-lang", "elixir")
+      #Repo<owner: "elixir-lang", name: "elixir">
   """
   @spec new(String.t, String.t) :: t
   def new(owner, name) do
@@ -29,6 +29,19 @@ defmodule Gullintanni.Repo do
       owner: owner,
       name: name
     }
+  end
+end
+
+
+defimpl Inspect, for: Gullintanni.Repo do
+  import Inspect.Algebra
+
+  def inspect(repo, opts) do
+    owner = "owner: #{inspect repo.owner}"
+    name = "name: #{inspect repo.name}"
+
+    surround_many("#Repo<", [owner, name], ">",
+      opts, fn(i, _opts) -> i end)
   end
 end
 
