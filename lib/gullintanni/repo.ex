@@ -1,6 +1,6 @@
 defmodule Gullintanni.Repo do
   @moduledoc """
-  A reference to a Git repository.
+  Defines a Git repository.
   """
 
   alias __MODULE__, as: Repo

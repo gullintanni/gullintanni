@@ -1,6 +1,6 @@
 defmodule Gullintanni.Provider do
   @moduledoc """
-  This module specifies the API that a provider is required to implement.
+  Specifies the API that a provider module is required to implement.
 
   Providers are adapter modules that interface with a Git hosting service.
   """

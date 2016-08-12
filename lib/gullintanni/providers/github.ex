@@ -1,4 +1,8 @@
 defmodule Gullintanni.Providers.GitHub do
+  @moduledoc """
+  Provider adapter module for GitHub - https://github.com/.
+  """
+
   alias Gullintanni.Config
   alias Gullintanni.MergeRequest
 

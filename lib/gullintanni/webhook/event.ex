@@ -1,6 +1,6 @@
 defmodule Gullintanni.Webhook.Event do
   @moduledoc """
-  Provides functions related to extracting information from webhook events.
+  Utility module for extracting information from webhook events.
   """
 
   @typedoc "The event type"

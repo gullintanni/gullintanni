@@ -1,5 +1,6 @@
 defmodule Gullintanni.Pipeline do
   @moduledoc """
+  Defines a Gullintanni build pipeline.
   """
 
   alias __MODULE__, as: Pipeline

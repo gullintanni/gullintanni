@@ -1,6 +1,6 @@
 defmodule Gullintanni.Config do
   @moduledoc """
-  Provides functions dealing with application configuration settings.
+  Utility module for dealing with application configuration settings.
   """
 
   require Logger

@@ -1,6 +1,6 @@
 defmodule Gullintanni.Worker do
   @moduledoc """
-  This module specifies the API that a worker is required to implement.
+  Specifies the API that a worker module is required to implement.
 
   Workers are adapter modules that interface with a CI service.
   """

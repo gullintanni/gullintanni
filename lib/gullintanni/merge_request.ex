@@ -1,5 +1,6 @@
 defmodule Gullintanni.MergeRequest do
   @moduledoc """
+  Defines a merge request.
   """
 
   alias __MODULE__, as: MergeRequest
