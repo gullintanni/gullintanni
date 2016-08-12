@@ -31,3 +31,10 @@ defmodule Gullintanni.Repo do
     }
   end
 end
+
+
+defimpl String.Chars, for: Gullintanni.Repo do
+  def to_string(repo) do
+    "#{repo.owner}/#{repo.name}"
+  end
+end
