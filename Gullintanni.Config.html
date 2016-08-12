@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni.Provider – Gullintanni Bot v0.1.0</title>
+    <title>Gullintanni.Config – Gullintanni Bot v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -60,12 +60,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni Bot v0.1.0</small>
-        Gullintanni.Provider
-        
-          <small>behaviour</small>
+        Gullintanni.Config
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/config.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -73,8 +71,7 @@
 
       
         <section id="moduledoc" class="docstring">
-          <p>This module specifies the API that a provider is required to implement.</p>
-<p>Providers are adapter modules that interface with a Git hosting service.</p>
+          <p>Provides functions dealing with application configuration settings.</p>
 
         </section>
       
@@ -97,60 +94,65 @@
     <a href="#t:t/0">t()</a>
   </div>
   
+    <div class="summary-synopsis"><p>The configuration settings type</p>
+</div>
+  
 </div>
 
   </div>
 
 
           
-
-          
-
-          
-  <div class="summary-callbacks summary">
+  <div class="summary-functions summary">
     <h2>
-      <a href="#callbacks">Callbacks</a>
+      <a href="#functions">Functions</a>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:download_merge_requests/2">download_merge_requests(arg0, arg1)</a>
+    <a href="#load_config/1">load_config(key)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Downloads a list of the repository’s open merge requests</p>
+    <div class="summary-synopsis"><p>Returns the value of the application configuration specified by <code class="inline">key</code></p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:parse_merge_request/1">parse_merge_request(map)</a>
+    <a href="#load_config/2">load_config(key, subkey)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Converts raw upstream data into a merge request</p>
+    <div class="summary-synopsis"><p>Returns the value of the <code class="inline">subkey</code> of the parent application configuration
+specified by <code class="inline">key</code></p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:valid_config?/1">valid_config?(arg0)</a>
+    <a href="#parse_runtime_settings/1">parse_runtime_settings(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all required provider configuration values exist in
-<code class="inline">config</code>, otherwise <code class="inline">false</code></p>
+    <div class="summary-synopsis"><p>Transforms all the <code class="inline">{:system, &quot;ENV_VAR&quot;}</code> tuples into their respective values
+grabbed from the process environment</p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:whoami/1">whoami(arg0)</a>
+    <a href="#settings_present?/2">settings_present?(keys, config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns the provider account’s effective user identity</p>
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all of the <code class="inline">keys</code> are present in the <code class="inline">config</code>, otherwise
+<code class="inline">false</code></p>
 </div>
   
 </div>
 
   </div>
 
+
+          
+
+          
 
         </section>
       
@@ -165,7 +167,10 @@
           </h1>
           <div class="types-list">
             <div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: module</code></pre>
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a></code></pre>
+  
+    <div class="typespec-doc"><p>The configuration settings type</p>
+</div>
   
 </div>
 
@@ -174,53 +179,41 @@
       
 
       
-
-      
-
-      
-        <section id="callbacks" class="details-list">
+        <section id="functions" class="details-list">
           <h1 class="section-heading">
-            <a class="hover-link" href="#callbacks">
+            <a class="hover-link" href="#functions">
               <i class="icon-link"></i>
             </a>
-            Callbacks
+            Functions
           </h1>
-          <div class="detail" id="c:download_merge_requests/2">
+          <div class="detail" id="load_config/1">
   <div class="detail-header">
-    <a href="#c:download_merge_requests/2" class="detail-link" title="Link to this callback">
+    <a href="#load_config/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">download_merge_requests(arg0, arg1)</span>
+    <span class="signature">load_config(key)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L28" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/config.ex#L35" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
   </div>
   
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">download_merge_requests(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: [<a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>]</code></pre>
-        
-      </div>
-    </div>
-  
   <section class="docstring">
-    <p>Downloads a list of the repository’s open merge requests.</p>
+    <p>Returns the value of the application configuration specified by <code class="inline">key</code>.</p>
+<p>Returns <code class="inline">[]</code> if no configuration was found.</p>
 
   </section>
 </div>
-<div class="detail" id="c:parse_merge_request/1">
+<div class="detail" id="load_config/2">
   <div class="detail-header">
-    <a href="#c:parse_merge_request/1" class="detail-link" title="Link to this callback">
+    <a href="#load_config/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">parse_merge_request(map)</span>
+    <span class="signature">load_config(key, subkey)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L33" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/config.ex#L46" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -231,24 +224,28 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">parse_merge_request(map) :: <a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a></code></pre>
+          <pre><code class="elixir">load_config(atom, <a href="#t:t/0">t</a>) :: <a href="#t:t/0">t</a></code></pre>
+        
+          <pre><code class="elixir">load_config(atom, atom) :: <a href="#t:t/0">t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Converts raw upstream data into a merge request.</p>
+    <p>Returns the value of the <code class="inline">subkey</code> of the parent application configuration
+specified by <code class="inline">key</code>.</p>
+<p>Returns <code class="inline">[]</code> if no configuration was found.</p>
 
   </section>
 </div>
-<div class="detail" id="c:valid_config?/1">
+<div class="detail" id="parse_runtime_settings/1">
   <div class="detail-header">
-    <a href="#c:valid_config?/1" class="detail-link" title="Link to this callback">
+    <a href="#parse_runtime_settings/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">valid_config?(arg0)</span>
+    <span class="signature">parse_runtime_settings(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/config.ex#L57" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -259,25 +256,25 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">valid_config?(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: boolean</code></pre>
+          <pre><code class="elixir">parse_runtime_settings(<a href="#t:t/0">t</a>) :: <a href="#t:t/0">t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Returns <code class="inline">true</code> if all required provider configuration values exist in
-<code class="inline">config</code>, otherwise <code class="inline">false</code>.</p>
+    <p>Transforms all the <code class="inline">{:system, &quot;ENV_VAR&quot;}</code> tuples into their respective values
+grabbed from the process environment.</p>
 
   </section>
 </div>
-<div class="detail" id="c:whoami/1">
+<div class="detail" id="settings_present?/2">
   <div class="detail-header">
-    <a href="#c:whoami/1" class="detail-link" title="Link to this callback">
+    <a href="#settings_present?/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">whoami(arg0)</span>
+    <span class="signature">settings_present?(keys, config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/provider.ex#L23" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/config.ex#L18" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -288,18 +285,24 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">whoami(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+          <pre><code class="elixir">settings_present?([atom], <a href="#t:t/0">t</a>) :: boolean</code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Returns the provider account’s effective user identity.</p>
+    <p>Returns <code class="inline">true</code> if all of the <code class="inline">keys</code> are present in the <code class="inline">config</code>, otherwise
+<code class="inline">false</code>.</p>
+<p>Logs an error for any missing settings.</p>
 
   </section>
 </div>
 
         </section>
+      
+
+      
+
       
           <footer class="footer">
         <p>

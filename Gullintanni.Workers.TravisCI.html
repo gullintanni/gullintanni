@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni.Repo – Gullintanni Bot v0.1.0</title>
+    <title>Gullintanni.Workers.TravisCI – Gullintanni Bot v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -60,10 +60,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni Bot v0.1.0</small>
-        Gullintanni.Repo
+        Gullintanni.Workers.TravisCI
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/repo.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/workers/travis_ci.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -71,8 +71,7 @@
 
       
         <section id="moduledoc" class="docstring">
-          <p>A reference to a Git repository.</p>
-
+          
         </section>
       
 
@@ -85,22 +84,6 @@
             Summary
           </h1>
           
-  <div class="summary-types summary">
-    <h2>
-      <a href="#types">Types</a>
-    </h2>
-    <div class="summary-row">
-  <div class="summary-signature">
-    <a href="#t:t/0">t()</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>The repository type</p>
-</div>
-  
-</div>
-
-  </div>
-
 
           
   <div class="summary-functions summary">
@@ -109,10 +92,10 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#new/2">new(owner, name)</a>
+    <a href="#valid_config?/1">valid_config?(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Creates a new repository with the given metadata</p>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Worker.html#c:valid_config?/1"><code class="inline">Gullintanni.Worker.valid_config?/1</code></a></p>
 </div>
   
 </div>
@@ -127,25 +110,6 @@
         </section>
       
 
-      
-        <section id="types" class="types details-list">
-          <h1 class="section-heading">
-            <a class="hover-link" href="#types">
-              <i class="icon-link"></i>
-            </a>
-            Types
-          </h1>
-          <div class="types-list">
-            <div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.Repo{name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, owner: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
-  
-    <div class="typespec-doc"><p>The repository type</p>
-</div>
-  
-</div>
-
-          </div>
-        </section>
       
 
       
@@ -156,34 +120,22 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="new/2">
+          <div class="detail" id="valid_config?/1">
   <div class="detail-header">
-    <a href="#new/2" class="detail-link" title="Link to this function">
+    <a href="#valid_config?/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">new(owner, name)</span>
+    <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/repo.ex#L27" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/workers/travis_ci.ex#L7" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
   </div>
   
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">new(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="#t:t/0">t</a></code></pre>
-        
-      </div>
-    </div>
-  
   <section class="docstring">
-    <p>Creates a new repository with the given metadata.</p>
-<h2>Examples</h2>
-<pre><code class="iex elixir">iex&gt; Gullintanni.Repo.new(&quot;elixir-lang&quot;, &quot;elixir&quot;)
-#Repo&lt;owner: &quot;elixir-lang&quot;, name: &quot;elixir&quot;&gt;</code></pre>
+    <p>Callback implementation for <a href="Gullintanni.Worker.html#c:valid_config?/1"><code class="inline">Gullintanni.Worker.valid_config?/1</code></a>.</p>
 
   </section>
 </div>
