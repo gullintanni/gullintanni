@@ -2,6 +2,7 @@ alias Experimental.GenStage
 
 defmodule Gullintanni.Webhook.EventManager do
   @moduledoc """
+  Broadcasts received webhook messages to all subscribed event handlers.
   """
 
   use GenStage

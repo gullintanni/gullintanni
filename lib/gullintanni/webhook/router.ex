@@ -22,9 +22,7 @@ defmodule Gullintanni.Webhook.Router do
     # by this point we should have valid/parsed JSON;
     # handle the JSON payload in the background...
     {:ok, _pid} =
-      Task.start(Webhook.EventManager,
-                 :sync_notify,
-                 [{conn.req_headers, conn.body_params}])
+      Task.start(Webhook.EventManager, :sync_notify, [conn])
 
     # ...so we can send the response immediately
     send_resp(conn, 204, "")
