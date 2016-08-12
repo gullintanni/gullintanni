@@ -6,6 +6,7 @@ defmodule Gullintanni.Webhook.Router do
   use Plug.Router
   use Plug.ErrorHandler
   alias Gullintanni.Webhook
+  require Logger
 
   plug Plug.Logger,
     log: :debug
@@ -34,6 +35,7 @@ defmodule Gullintanni.Webhook.Router do
   end
 
   defp handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
+    _ = Logger.debug "Sent #{conn.status}; error raised by Gullintanni.Webhook.Router"
     send_resp(conn, conn.status, "Something went wrong")
   end
 end
