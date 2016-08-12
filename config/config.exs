@@ -17,6 +17,7 @@ config :gullintanni, :pipeline,
       provider_auth_token: {:system, "GULBOT_PROVIDER_AUTH_TOKEN"},
       repo_owner: {:system, "GULBOT_REPO_OWNER"},
       repo_name: {:system, "GULBOT_REPO_NAME"},
+      worker: Gullintanni.Workers.TravisCI,
     ]
 
 import_config "#{Mix.env}.exs"

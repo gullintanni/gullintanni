@@ -8,6 +8,7 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.Provider
   alias Gullintanni.Queue
   alias Gullintanni.Repo
+  alias Gullintanni.Worker
   require Logger
 
   @typedoc "The pipeline type"
@@ -16,10 +17,11 @@ defmodule Gullintanni.Pipeline do
       config: Config.t,
       provider: Provider.t,
       repo: Repo.t,
-      queue: Queue.t
+      queue: Queue.t,
+      worker: Worker.t
     }
 
-  defstruct [:config, :provider, :repo, :queue]
+  defstruct [:config, :provider, :repo, :queue, :worker]
 
   @doc """
   Creates a pipeline with settings loaded from the application configuration.
@@ -52,11 +54,14 @@ defmodule Gullintanni.Pipeline do
   @spec valid_config?(Config.t) :: boolean
   def valid_config?(config) do
     answer =
-      [:provider, :repo_owner, :repo_name]
+      [:provider, :repo_owner, :repo_name, :worker]
       |> Config.settings_present?(config)
 
     # dispatch to check for additional required keys
-    answer and config[:provider].valid_config?(config)
+    with true <- answer,
+         true <- config[:provider].valid_config?(config),
+         true <- config[:worker].valid_config?(config),
+      do: true
   end
 
   @spec new(Config.t) :: t
@@ -65,7 +70,8 @@ defmodule Gullintanni.Pipeline do
       config: config,
       provider: config[:provider],
       repo: Repo.new(config[:repo_owner], config[:repo_name]),
-      queue: Queue.new
+      queue: Queue.new,
+      worker: config[:worker]
     }
   end
 
