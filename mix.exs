@@ -5,12 +5,15 @@ defmodule Gullintanni.Mixfile do
     [app: :gullintanni,
      version: "0.1.0",
      elixir: "~> 1.3",
-     name: "Gullintanni Bot",
+     name: "Gullintanni",
      source_url: "https://github.com/gullintanni/gullintanni",
      homepage_url: "https://gullintanni.github.io/gullintanni/",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     docs: [logo: "priv/images/logo.png",
+            main: "README",
+            extras: ["Cheatsheet.md", "README.md"]]]
   end
 
   def application do

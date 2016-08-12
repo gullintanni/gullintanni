@@ -1,6 +1,9 @@
 defmodule Gullintanni.Pipeline do
   @moduledoc """
   Defines a Gullintanni build pipeline.
+
+  A pipeline is uniquely identified by a provider plus a repository, and
+  encapsulates the state necessary to coordinate builds and merges.
   """
 
   alias __MODULE__, as: Pipeline

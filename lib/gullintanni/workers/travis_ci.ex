@@ -1,6 +1,6 @@
 defmodule Gullintanni.Workers.TravisCI do
   @moduledoc """
-  Worker adapter module for Travis CI - https://travis-ci.org/
+  Worker adapter module for Travis CI -- https://travis-ci.org/
   """
 
   @behaviour Gullintanni.Worker

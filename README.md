@@ -6,8 +6,8 @@ cleanly.
 
 [![Build Status](https://travis-ci.org/gullintanni/gullintanni.svg?branch=master)](https://travis-ci.org/gullintanni/gullintanni)
 
-> Generated [ExDoc][] documentation can be found at
-> <https://gullintanni.github.io/gullintanni/>
+> Generated [ExDoc][] API Reference documentation can be found at
+> <https://gullintanni.github.io/gullintanni/api-reference.html>
 
 [Elixir]: http://elixir-lang.org/
 [ExDoc]: https://github.com/elixir-lang/ex_doc

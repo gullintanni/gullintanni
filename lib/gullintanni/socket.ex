@@ -1,6 +1,6 @@
 defmodule Gullintanni.Socket do
   @moduledoc """
-  Utility module for handling Internet socket address parsing and validation.
+  Defines an Internet socket address.
 
   A *socket address* is the combination of an IP address and a port number.
   This can be used along with a transport protocol in order to define an
