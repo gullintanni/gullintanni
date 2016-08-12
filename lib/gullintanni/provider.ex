@@ -12,10 +12,10 @@ defmodule Gullintanni.Provider do
   @type t :: module
 
   @doc """
-  Returns `:ok` if all required provider configuration values exist in
-  `config`, otherwise raises an `ArgumentError` exception.
+  Returns `true` if all required provider configuration values exist in
+  `config`, otherwise `false`.
   """
-  @callback validate_config(config) :: :ok | no_return
+  @callback valid_config?(config) :: boolean
 
   @doc """
   Returns the provider account's effective user identity.

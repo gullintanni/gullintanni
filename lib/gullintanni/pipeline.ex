@@ -7,6 +7,7 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.Provider
   alias Gullintanni.Queue
   alias Gullintanni.Repo
+  require Logger
 
   @typedoc "A pipeline configuration name"
   @type name :: atom
@@ -31,22 +32,22 @@ defmodule Gullintanni.Pipeline do
   The settings are loaded from the named pipeline's config, as set in the
   application configuration. Any options specified in `opts` will then override
   those settings.
+
+  Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
   """
-  @spec load(name, config) :: t
-  def load(name, opts \\ []) do
+  @spec load(name, config) :: {:ok, t} | :error
+  def load(name, opts \\ []) when is_atom(name) do
+    _ = Logger.info "loading #{inspect name} pipeline configuration"
+
     config =
       load_config(name)
       |> Keyword.merge(opts)
       |> parse_runtime_settings()
 
-    validate_config(config)
-
-    %Pipeline{
-      config: config,
-      provider: config[:provider],
-      repo: Repo.new(config[:repo_owner], config[:repo_name]),
-      queue: Queue.new
-    }
+    case valid_config?(config) do
+      true -> {:ok, new(config)}
+      false -> :error
+    end
   end
 
   # Returns the named pipeline config from the application configuration,
@@ -72,20 +73,35 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
-  Returns `:ok` if all required pipeline configuration values exist in
-  `config`, otherwise raises an `ArgumentError` exception.
+  Returns `true` if all required pipeline configuration values exist in
+  `config`, otherwise `false`.
   """
-  @spec validate_config(config) :: :ok | no_return
-  def validate_config(config) do
+  @spec valid_config?(config) :: boolean
+  def valid_config?(config) do
     required_keys = [:provider, :repo_owner, :repo_name]
 
-    Enum.each(required_keys, fn(key)->
-      unless Keyword.has_key?(config, key),
-        do: raise ArgumentError, "missing #{inspect key} configuration setting"
-    end)
+    answer =
+      Enum.reduce(required_keys, true, fn(key, answer) ->
+        case Keyword.has_key?(config, key) do
+          true -> answer
+          false ->
+            _ = Logger.error "missing #{inspect key} configuration setting"
+            false
+        end
+      end)
 
     # dispatch to check for additional required keys
-    config[:provider].validate_config(config)
+    answer and config[:provider].valid_config?(config)
+  end
+
+  @spec new(config) :: t
+  defp new(config) do
+    %Pipeline{
+      config: config,
+      provider: config[:provider],
+      repo: Repo.new(config[:repo_owner], config[:repo_name]),
+      queue: Queue.new
+    }
   end
 
   @doc """

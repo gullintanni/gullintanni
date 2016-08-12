@@ -1,20 +1,23 @@
 defmodule Gullintanni.Providers.GitHub do
   alias Gullintanni.MergeRequest
   alias Gullintanni.Provider
+  require Logger
 
   @behaviour Gullintanni.Provider
 
   @default_endpoint "https://api.github.com/"
 
-  def validate_config(config) do
+  def valid_config?(config) do
     required_keys = [:provider_auth_token]
 
-    Enum.each(required_keys, fn(key) ->
-      unless Keyword.has_key?(config, key),
-        do: raise ArgumentError, "missing #{inspect key} configuration setting"
+    Enum.reduce(required_keys, true, fn(key, answer) ->
+      case Keyword.has_key?(config, key) do
+        true -> answer
+        false ->
+          _ = Logger.error "missing #{inspect key} configuration setting"
+          false
+      end
     end)
-
-    :ok
   end
 
   def whoami(config) do
