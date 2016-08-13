@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>404 – Gullintanni v0.1.0</title>
+    <title>Cheatsheet – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -60,12 +60,30 @@
     <div id="content" class="content-inner">
 
 
-<h2>Page not found</h2>
-
-<p>Sorry, but the page you were trying to get to, does not exist. You
-may want to try searching this site using the sidebar or using our
-<a href="api-reference.html" title="API Reference">API Reference</a> page to find what
-you were looking for.</p>
+<h1>Gullintanni Cheatsheet</h1>
+<p>Once Gullintanni is configured and the merge bot is running, it will listen for
+commands sent via comments posted on open merge requests. Gullintanni will only
+respond to commands made by authorized reviewers on repositories that you have
+defined in your pipeline configurations.</p>
+<p><em><strong>NOTE:</strong> If the contents of a merge request branch changes upstream, it will
+automatically be removed from the build queue and placed back in the “under
+review” state.</em></p>
+<h2>Commands</h2>
+<p>All commands <strong>must mention</strong> the provider account associated with the
+repository’s pipeline configuration. For example, if you connect Gullintanni to
+GitHub via authorizing as the <code class="inline">@gulbot</code> user, your commands must mention that
+user specifically.</p>
+<h3><code class="inline">r+</code></h3>
+<blockquote><p>Approve a merge request and add it to the build queue.  
+The approval will apply to the latest commit in the merge request branch at
+the time of the approval.</p>
+</blockquote>
+<h3><code class="inline">r-</code></h3>
+<blockquote><p>Cancel the approval of a merge request and remove it from the build queue.</p>
+</blockquote>
+<h3>Examples</h3>
+<pre><code class="elixir">@gulbot r+</code></pre>
+<pre><code class="elixir">@gulbot r-</code></pre>
 
       <footer class="footer">
         <p>
