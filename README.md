@@ -21,6 +21,21 @@ Overview
 
 [summarizing Ben Elliston]: http://graydon.livejournal.com/186550.html 'technicalities: "not rocket science" (the story of monotone and bors)'
 
+Usage
+-----
+
+### Command the Bot
+
+Once Gullintanni is configured and the merge bot is running, it will listen for
+commands sent via comments posted on open merge requests. Gullintanni will only
+respond to commands made by authorized reviewers on repositories that you have
+defined in your pipeline configurations.
+
+Read the [cheatsheet][] document for a detailed breakdown of the supported
+commands and how to interpret the build queue status.
+
+[cheatsheet]: https://github.com/gullintanni/gullintanni/blob/master/pages/Cheatsheet.md
+
 Contributing
 ------------
 

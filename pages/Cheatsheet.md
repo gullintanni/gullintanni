@@ -1,10 +1,10 @@
 Gullintanni Cheatsheet
 ======================
 
-Once Gullintanni is configured and the merge bot is running, it will listen for
-commands sent via comments posted on open merge requests. Gullintanni will only
-respond to commands made by authorized reviewers on repositories that you have
-defined in your pipeline configurations.
+Gullintanni will listen for commands sent via comments posted on open merge
+requests. Gullintanni will only respond to commands made by authorized
+reviewers on repositories that you have defined in your pipeline
+configurations.
 
 _**NOTE:** If the contents of a merge request branch changes upstream, it will
 automatically be removed from the build queue and placed back in the "under
@@ -37,3 +37,12 @@ user specifically.
 ```
 @gulbot r-
 ```
+
+Build States
+------------
+
+### Under Review
+
+This is the default build state for all open merge requests in a repository. It
+simply means that the merge request has yet to meet the required number of
+approvals in order to be tested.
