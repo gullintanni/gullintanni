@@ -80,6 +80,16 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
+  Returns a string representation that uniquely identifies a `pipeline`.
+  """
+  @spec id(t) :: String.t
+  def id(pipeline) do
+    provider = pipeline.provider.__domain__
+    repo = pipeline.repo
+    "#{provider}/#{repo}"
+  end
+
+  @doc """
   Returns the provider account's effective user identity.
   """
   @spec whoami(t) :: String.t
@@ -115,11 +125,9 @@ end
 
 defimpl Inspect, for: Gullintanni.Pipeline do
   import Inspect.Algebra
+  alias Gullintanni.Pipeline
 
   def inspect(pipeline, _opts) do
-    provider = pipeline.provider.__domain__
-    repo = pipeline.repo
-
-    surround("#Pipeline<id: ", "#{provider}/#{repo}", ">")
+    surround("#Pipeline<id: ", "#{inspect Pipeline.id(pipeline)}", ">")
   end
 end
