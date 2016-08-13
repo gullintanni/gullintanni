@@ -14,7 +14,7 @@ that would be required. All merging is handled via [`@gulbot`][gulbot], our own
 Gullintanni bot instance. _All contributions should follow this format, even
 those from core contributors._
 
-The project uses the [GitHub issue tracker][] to organize all known bugs,
+The project uses the GitHub [issue tracker][] to organize all known bugs,
 feature requests, community questions, etc. Some issues are easier than others,
 and we try to apply the [_**Effort: Low**_][effort-low] label to those issues.
 
@@ -25,7 +25,7 @@ guidance or clarification, just ask!
 
 [pull requests]: https://help.github.com/articles/using-pull-requests/
 [gulbot]: https://github.com/gulbot
-[GitHub issue tracker]: https://github.com/gullintanni/gullintanni/issues
+[issue tracker]: https://github.com/gullintanni/gullintanni/issues
 [effort-low]: https://github.com/gullintanni/gullintanni/labels/Effort%3A%20Low
 
 Development
@@ -48,15 +48,39 @@ command:
 
     $ iex -S mix
 
+["Fork & Pull"]: https://help.github.com/articles/fork-a-repo/
+[installed Elixir]: http://elixir-lang.org/install.html
+
+### Documentation
+
 Generated [ExDoc][] API reference documentation can be found at
 <https://gullintanni.github.io/gullintanni/api-reference.html>
 
-["Fork & Pull"]: https://help.github.com/articles/fork-a-repo/
-[installed Elixir]: http://elixir-lang.org/install.html
 [ExDoc]: https://github.com/elixir-lang/ex_doc
 
-Issue Labels
-------------
+Reporting Issues
+----------------
+
+Follow these steps for filing useful bug reports:
+
+1. Figure out how to reproduce the bug.
+2. Make sure your software is up-to-date to see whether the bug has already
+   been fixed.
+3. Check if the bug has already been reported in the [issue tracker][].
+4. Finally, [open a new issue][] and provide detailed information regarding the bug and your
+   environment.
+
+Your report should minimally include:
+
+  * the precise steps to reproduce the bug
+  * the expected results and actual results
+  * the versions of software you're running
+
+If you have multiple issues, please file separate bug reports.
+
+[open a new issue]: https://github.com/gullintanni/gullintanni/issues/new
+
+### Issue Labels
 
 Here is the full list of labels that Gullintanni uses and what they stand for:
 

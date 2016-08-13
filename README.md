@@ -6,7 +6,7 @@ cleanly.
 
 [![Build Status](https://travis-ci.org/gullintanni/gullintanni.svg?branch=master)](https://travis-ci.org/gullintanni/gullintanni)
 
-> Generated [ExDoc][] API Reference documentation can be found at
+> Generated [ExDoc][] API reference documentation can be found at
 > <https://gullintanni.github.io/gullintanni/api-reference.html>
 
 [Elixir]: http://elixir-lang.org/
@@ -20,6 +20,15 @@ Overview
 > -- Graydon Hoare ([summarizing Ben Elliston])
 
 [summarizing Ben Elliston]: http://graydon.livejournal.com/186550.html 'technicalities: "not rocket science" (the story of monotone and bors)'
+
+Contributing
+------------
+
+Gullintanni welcomes contributions from everyone. If you're thinking of helping
+out, please read the [guidelines for contributing][CONTRIBUTING.md] to the
+project.
+
+[CONTRIBUTING.md]: https://github.com/gullintanni/gullintanni/blob/master/CONTRIBUTING.md
 
 Inspiration
 -----------
