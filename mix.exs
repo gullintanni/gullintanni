@@ -13,7 +13,7 @@ defmodule Gullintanni.Mixfile do
      deps: deps(),
      docs: [logo: "priv/images/logo.png",
             main: "README",
-            extras: ["Cheatsheet.md", "README.md"]]]
+            extras: ["README.md", "pages/Cheatsheet.md"]]]
   end
 
   def application do

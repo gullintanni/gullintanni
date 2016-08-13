@@ -21,8 +21,8 @@ user specifically.
 ### `r+`
 
 > Approve a merge request and add it to the build queue.  
-> The approval will apply to the latest commit in the merge request at the time
-> of the approval.
+> The approval will apply to the latest commit in the merge request branch at
+> the time of the approval.
 
 ### `r-`
 
