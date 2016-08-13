@@ -12,8 +12,8 @@ defmodule Gullintanni.Mixfile do
      start_permanent: Mix.env == :prod,
      deps: deps(),
      docs: [logo: "priv/images/logo.png",
-            main: "README",
-            extras: ["README.md", "pages/Cheatsheet.md"]]]
+            main: "readme",
+            extras: ["CONTRIBUTING.md", "README.md", "pages/Cheatsheet.md"]]]
   end
 
   def application do
