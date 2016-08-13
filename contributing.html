@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.13.0">
+    <title>CONTRIBUTING – Gullintanni v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="extras">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
+
+<div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="readme.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Gullintanni
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+      <img src="assets/logo.png" alt="Gullintanni" class="sidebar-projectImage">
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+<h1>Contributing to Gullintanni</h1>
+<p>Gullintanni welcomes contributions from everyone. Here are the guidelines if
+you’re thinking of helping out.</p>
+<h2>Where to Start</h2>
+<p>Contributions to Gullintanni should be made in the form of GitHub <a href="https://help.github.com/articles/using-pull-requests/" title="">pull
+requests</a>. Each PR will be reviewed by a core contributor (someone with
+permission to approve patches) and either merged, or given feedback for changes
+that would be required. All merging is handled via <a href="https://github.com/gulbot" title=""><code class="inline">@gulbot</code></a>, our own
+Gullintanni bot instance. <em>All contributions should follow this format, even
+those from core contributors.</em></p>
+<p>The project uses the <a href="https://github.com/gullintanni/gullintanni/issues" title="">GitHub issue tracker</a> to organize all known bugs,
+feature requests, community questions, etc. Some issues are easier than others,
+and we try to apply the <a href="https://github.com/gullintanni/gullintanni/labels/Effort%253A%2520Low" title=""><em><strong>Effort: Low</strong></em></a> label to those issues.</p>
+<p>If you’d like to work on an issue, please leave a comment so we can assign the
+issue to you. This is to prevent duplicated efforts from contributors on the
+same issue. We’re glad to mentor contributors as well, so if you’d like some
+guidance or clarification, just ask!</p>
+<h2>Development</h2>
+<p>Gullintanni follows the <a href="https://help.github.com/articles/fork-a-repo/" title="">“Fork &amp; Pull”</a> model of development, so once you
+have <a href="http://elixir-lang.org/install.html" title="">installed Elixir</a>, you should fork this repository and then create
+a local clone of your fork.</p>
+<p>You can then download the application dependencies and run the tests via the
+following commands:</p>
+<pre><code class="elixir">$ mix deps.get
+$ mix test</code></pre>
+<p>…add the <code class="inline">--trace</code> option to the test command to run with detailed reporting.</p>
+<p>To explore the project in Elixir’s interactive shell, run the following
+command:</p>
+<pre><code class="elixir">$ iex -S mix</code></pre>
+<p>Generated <a href="https://github.com/elixir-lang/ex_doc" title="">ExDoc</a> API reference documentation can be found at
+<a href="https://gullintanni.github.io/gullintanni/api-reference.html">https://gullintanni.github.io/gullintanni/api-reference.html</a></p>
+<h2>Issue Labels</h2>
+<p>Here is the full list of labels that Gullintanni uses and what they stand for:</p>
+<blockquote><p><em><strong>Effort: Low</strong></em><br/>An issue that should require a relatively low amount of effort to resolve.
+A great choice for a new contributor looking to get their feet wet!</p>
+<p><em><strong>Effort: High</strong></em><br/>An issue that will take a decent amount of work, but is likely to have
+a bigger impact on the project.</p>
+</blockquote>
+<hr class="thin"/>
+<blockquote><p><em><strong>Priority: Low</strong></em><br/>An issue that would be nice to resolve at some point, but is not critical.</p>
+<p><em><strong>Priority: High</strong></em><br/> An issue that should be resolved as quickly as possible.</p>
+</blockquote>
+<hr class="thin"/>
+<blockquote><p><em><strong>Type: Bug</strong></em><br/>An issue describing unexpected or malicious behavior.</p>
+<p><em><strong>Type: Enhancement</strong></em><br/>An issue containing a feature request or a suggestion for improvement.</p>
+<p><em><strong>Type: Question</strong></em><br/>An issue that needs answering but does not require code changes.</p>
+</blockquote>
+<hr class="thin"/>
+<blockquote><p><em><strong>~ Duplicate</strong></em><br/>An issue that was closed because it was a duplicate of another
+previously-reported issue.</p>
+<p><em><strong>~ Invalid</strong></em><br/>An issue that was closed because it could not be reproduced.</p>
+<p><em><strong>~ Won’t Fix</strong></em><br/>An issue that was closed because the proposed change was not in line with the
+goals of the project.</p>
+</blockquote>
+<h2>Conventions</h2>
+<h3>Git Workflow</h3>
+<p>Please <strong>do not rewrite history</strong> (rebase/amend/etc.) once you’ve filed a pull
+request. At that point, the code on your branch should be considered public,
+and rewriting history will inhibit collaboration. Read the <a href="https://gist.github.com/djspiewak/9f2f91085607a4859a66#branches" title="">Branches section
+of <em>Git DMZ Flow</em></a> if you want a more detailed explanation.</p>
+<h3>Coding Style</h3>
+<p>Gullintanni tries to follow the current conventions use by the Elixir community
+at large. Most style choices should be easy enough to pick up from looking at
+the code, but there are a couple of good style guides out there that you can
+use as a reference (each with slightly differing advice):</p>
+<ul>
+<li><a href="https://github.com/levionessa/elixir_style_guide">https://github.com/levionessa/elixir_style_guide</a>
+</li>
+<li><a href="https://github.com/rrrene/elixir-style-guide">https://github.com/rrrene/elixir-style-guide</a>
+</li>
+</ul>
+<p>…that said, don’t get too hung up on style. If there’s a major style issue
+with your code, we’ll suggest some fixes to make before approving your pull
+request. If there’s a minor style issue, it’s likely that we’ll merge your code
+as-is and someone might clean it up later.</p>
+<p>We do include an <a href="https://github.com/gullintanni/gullintanni/blob/master/.editorconfig" title="">.editorconfig file</a> in order to facilitate basic formating
+consistency. See the <a href="http://editorconfig.org/" title="">EditorConfig</a> website for details and to check if your
+preferred text editor is supported.</p>
+
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-21f1a20b9e.js"></script>
+  </body>
+</html>
+
