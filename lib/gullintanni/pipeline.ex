@@ -111,3 +111,15 @@ defmodule Gullintanni.Pipeline do
     pipeline.provider.download_merge_requests(pipeline.repo, pipeline.config)
   end
 end
+
+
+defimpl Inspect, for: Gullintanni.Pipeline do
+  import Inspect.Algebra
+
+  def inspect(pipeline, _opts) do
+    provider = pipeline.provider.__domain__
+    repo = pipeline.repo
+
+    surround("#Pipeline<id: ", "#{provider}/#{repo}", ">")
+  end
+end
