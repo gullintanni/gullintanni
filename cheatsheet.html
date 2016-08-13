@@ -61,10 +61,10 @@
 
 
 <h1>Gullintanni Cheatsheet</h1>
-<p>Once Gullintanni is configured and the merge bot is running, it will listen for
-commands sent via comments posted on open merge requests. Gullintanni will only
-respond to commands made by authorized reviewers on repositories that you have
-defined in your pipeline configurations.</p>
+<p>Gullintanni will listen for commands sent via comments posted on open merge
+requests. Gullintanni will only respond to commands made by authorized
+reviewers on repositories that you have defined in your pipeline
+configurations.</p>
 <p><em><strong>NOTE:</strong> If the contents of a merge request branch changes upstream, it will
 automatically be removed from the build queue and placed back in the “under
 review” state.</em></p>
@@ -84,6 +84,11 @@ the time of the approval.</p>
 <h3>Examples</h3>
 <pre><code class="elixir">@gulbot r+</code></pre>
 <pre><code class="elixir">@gulbot r-</code></pre>
+<h2>Build States</h2>
+<h3>Under Review</h3>
+<p>This is the default build state for all open merge requests in a repository. It
+simply means that the merge request has yet to meet the required number of
+approvals in order to be tested.</p>
 
       <footer class="footer">
         <p>
