@@ -33,7 +33,7 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
         event_type = Event.get_req_header(event, "x-github-event")
         payload = Event.get_payload(event)
 
-        _ = Logger.debug("#{event_type} event received from GitHub repo #{repo}")
+        _ = Logger.debug("#{event_type} event received from repo #{repo}")
         handle_event(event_type, payload, repo)
       end
     end

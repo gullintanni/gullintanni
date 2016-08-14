@@ -29,6 +29,24 @@ defmodule Gullintanni.Pipeline do
     worker: nil
   ]
 
+  @spec id(t) :: atom
+  defp id(pipeline), do: String.to_atom("#{pipeline.repo}")
+
+  @doc """
+  Starts an agent linked to the current process to cache pipeline data.
+
+  The pipeline data is loaded from the configuration specified by `name`.
+  """
+  @spec start_link(atom) :: Agent.on_start
+  def start_link(name) when is_atom(name) do
+    case load(name) do
+      {:ok, pipeline} ->
+        Agent.start_link(fn -> pipeline end, name: id(pipeline))
+      :error ->
+        {:error, :nonexistent_pipeline}
+    end
+  end
+
   @doc """
   Creates a pipeline with settings loaded from the application configuration.
 
