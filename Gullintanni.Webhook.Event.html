@@ -93,6 +93,15 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
+    <a href="#t:payload/0">payload()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>The payload of an event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#t:t/0">t()</a>
   </div>
   
@@ -147,7 +156,14 @@
             Types
           </h1>
           <div class="types-list">
-            <div id="t:t/0" class="type-detail">
+            <div id="t:payload/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:payload/0">payload</a> :: map</code></pre>
+  
+    <div class="typespec-doc"><p>The payload of an event</p>
+</div>
+  
+</div>
+<div id="t:t/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:t/0">t</a> :: Plug.Conn.t</code></pre>
   
     <div class="typespec-doc"><p>The event type</p>
@@ -174,7 +190,7 @@
     </a>
     <span class="signature">get_payload(event)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L26" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L29" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -185,7 +201,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">get_payload(<a href="#t:t/0">t</a>) :: map</code></pre>
+          <pre><code class="elixir">get_payload(<a href="#t:t/0">t</a>) :: <a href="#t:payload/0">payload</a></code></pre>
         
       </div>
     </div>
@@ -202,7 +218,7 @@
     </a>
     <span class="signature">get_req_header(event, key)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L15" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/event.ex#L18" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
