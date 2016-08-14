@@ -29,46 +29,40 @@ defmodule Gullintanni.Pipeline do
     worker: nil
   ]
 
-  @spec id(t) :: atom
-  defp id(pipeline), do: String.to_atom("#{pipeline.repo}")
+  # Returns an atom representation that uniquely identifies a `pipeline`.
+  @spec __id__(t) :: atom
+  def __id__(pipeline), do: String.to_atom("#{pipeline.repo}")
 
   @doc """
   Starts an agent linked to the current process to cache pipeline data.
-
-  The pipeline data is loaded from the configuration specified by `name`.
   """
-  @spec start_link(atom) :: Agent.on_start
-  def start_link(name) when is_atom(name) do
-    case load(name) do
-      {:ok, pipeline} ->
-        Agent.start_link(fn -> pipeline end, name: id(pipeline))
-      :error ->
-        {:error, :nonexistent_pipeline}
-    end
+  @spec start_link(t) :: Agent.on_start
+  def start_link(pipeline) do
+    Agent.start_link(fn -> pipeline end, name: __id__(pipeline))
   end
 
   @doc """
-  Creates a pipeline with settings loaded from the application configuration.
-
-  The settings are loaded from the named pipeline's config, as set in the
-  application configuration. Any options specified in `opts` will then override
-  those settings.
+  Creates a new pipeline with the given `config` settings.
 
   Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
   """
-  @spec load(atom, Keyword.t) :: {:ok, t} | :error
-  def load(name, opts \\ []) when is_atom(name) do
-    _ = Logger.info "loading #{inspect name} pipeline configuration"
-
-    config =
-      Config.load_config(:pipeline, name)
-      |> Keyword.merge(opts)
-      |> Config.parse_runtime_settings()
-
+  @spec new(Config.t) :: {:ok, t} :: :error
+  def new(config) do
     case valid_config?(config) do
-      true -> {:ok, new(config)}
+      true -> {:ok, _new(config)}
       false -> :error
     end
+  end
+
+  @spec _new(Config.t) :: t
+  defp _new(config) do
+    repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
+
+    %Pipeline{
+      config: config,
+      repo: repo,
+      worker: config[:worker]
+    }
   end
 
   @doc """
@@ -88,13 +82,23 @@ defmodule Gullintanni.Pipeline do
       do: true
   end
 
-  @spec new(Config.t) :: t
-  defp new(config) do
-    %Pipeline{
-      config: config,
-      repo: Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name]),
-      worker: config[:worker]
-    }
+  @doc """
+  Creates a pipeline with settings loaded from the application configuration.
+
+  The settings are loaded from the named pipeline's config, as set in the
+  application configuration. Any options specified in `opts` will then override
+  those settings.
+
+  Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
+  """
+  @spec load(atom, Keyword.t) :: {:ok, t} | :error
+  def load(name, opts \\ []) when is_atom(name) do
+    _ = Logger.info "loading #{inspect name} pipeline configuration"
+
+    Config.load_config(:pipeline, name)
+    |> Keyword.merge(opts)
+    |> Config.parse_runtime_settings()
+    |> new()
   end
 
   @doc """
