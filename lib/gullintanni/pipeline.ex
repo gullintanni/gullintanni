@@ -46,7 +46,7 @@ defmodule Gullintanni.Pipeline do
 
   Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
   """
-  @spec new(Config.t) :: {:ok, t} :: :error
+  @spec new(Config.t) :: {:ok, t} | :error
   def new(config) do
     case valid_config?(config) do
       true -> {:ok, _new(config)}
