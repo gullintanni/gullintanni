@@ -6,6 +6,7 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   """
 
   use GenStage
+  alias Gullintanni.Comment
   alias Gullintanni.Pipeline
   alias Gullintanni.Repo
   alias Gullintanni.Webhook.Event
@@ -69,6 +70,6 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
 
     Comment.new(merge_request_id, sender, body, timestamp)
-    |> Pipeline.handle(@provider, repo)
+    |> Pipeline.handle_comment(@provider, repo)
   end
 end

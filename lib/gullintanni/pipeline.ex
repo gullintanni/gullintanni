@@ -9,7 +9,6 @@ defmodule Gullintanni.Pipeline do
   alias __MODULE__, as: Pipeline
   alias Gullintanni.Config
   alias Gullintanni.Comment
-  alias Gullintanni.MergeRequest
   alias Gullintanni.Provider
   alias Gullintanni.Repo
   alias Gullintanni.Worker
@@ -117,8 +116,8 @@ defmodule Gullintanni.Pipeline do
     %{pipeline | merge_requests: reqs}
   end
 
-  @spec handle(Comment.t, Provider.t, Repo.t) :: :ok
-  def handle(%Comment{} = comment, provider, repo) do
+  @spec handle_comment(Comment.t, Provider.t, Repo.t) :: :ok
+  def handle_comment(%Comment{} = comment, provider, repo) do
     # TODO: implement; this is a stub
     :ok
   end
