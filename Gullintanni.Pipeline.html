@@ -138,6 +138,15 @@ repository’s open MRs</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#start_link/1">start_link(name)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Starts an agent linked to the current process to cache pipeline data</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#valid_config?/1">valid_config?(config)</a>
   </div>
   
@@ -202,7 +211,7 @@ repository’s open MRs</p>
     </a>
     <span class="signature">handle_comment(comment, repo)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L106" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L124" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -229,7 +238,7 @@ repository’s open MRs</p>
     </a>
     <span class="signature">init_merge_requests(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L97" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L115" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -259,7 +268,7 @@ repository’s open MRs.</p>
     </a>
     <span class="signature">load(name, opts \\ [])</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L60" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -284,6 +293,35 @@ those settings.</p>
 
   </section>
 </div>
+<div class="detail" id="start_link/1">
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link(name)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L41" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">start_link(atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/Agent.html#t:on_start/0">Agent.on_start</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Starts an agent linked to the current process to cache pipeline data.</p>
+<p>The pipeline data is loaded from the configuration specified by <code class="inline">name</code>.</p>
+
+  </section>
+</div>
 <div class="detail" id="valid_config?/1">
   <div class="detail-header">
     <a href="#valid_config?/1" class="detail-link" title="Link to this function">
@@ -291,7 +329,7 @@ those settings.</p>
     </a>
     <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L61" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L79" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -320,7 +358,7 @@ those settings.</p>
     </a>
     <span class="signature">whoami(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L86" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L104" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
