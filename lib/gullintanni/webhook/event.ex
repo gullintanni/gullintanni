@@ -3,6 +3,9 @@ defmodule Gullintanni.Webhook.Event do
   Utility module for extracting information from webhook events.
   """
 
+  @typedoc "The payload of an event"
+  @type payload :: map
+
   @typedoc "The event type"
   @type t :: Plug.Conn.t
 
@@ -22,6 +25,6 @@ defmodule Gullintanni.Webhook.Event do
   @doc """
   Returns the payload from the `event`.
   """
-  @spec get_payload(t) :: map
+  @spec get_payload(t) :: payload
   def get_payload(%Plug.Conn{} = event), do: event.body_params
 end

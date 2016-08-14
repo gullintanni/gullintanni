@@ -6,9 +6,12 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   """
 
   use GenStage
+  alias Gullintanni.Pipeline
   alias Gullintanni.Repo
   alias Gullintanni.Webhook.Event
   require Logger
+
+  @provider Gullintanni.Providers.GitHub
 
   def start_link() do
     GenStage.start_link(__MODULE__, :ok)
@@ -24,15 +27,18 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
 
   def handle_events(events, _from, state) do
     for event <- events do
-      with true <- from_github?(event),
-           repo <- parse_repo(event) do
-        _ = Logger.debug "Event received from GitHub repo #{repo}"
+      if from_github?(event) do
+        repo = parse_repo(event)
+        event_type = Event.get_req_header(event, "x-github-event")
+        payload = Event.get_payload(event)
+
+        _ = Logger.debug("#{event_type} event received from GitHub repo #{repo}")
+        handle_event(event_type, payload, repo)
       end
     end
     {:noreply, [], state}
   end
 
-  # Returns `true` if the connection came from GitHub, otherwise `false`.
   @spec from_github?(Event.t) :: boolean
   defp from_github?(event) do
     event
@@ -49,5 +55,20 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     name = payload["repository"]["owner"]["login"]
 
     Repo.new(owner, name)
+  end
+
+  @spec handle_event(String.t, Event.payload, Repo.t) :: :ok
+  defp handle_event(type, payload, repo)
+  defp handle_event("issue_comment", %{"action" => "created"} = payload, repo) do
+    # only respond to new comments, not edits
+
+    # https://developer.github.com/v3/activity/events/types/#issuecommentevent
+    merge_request_id = payload["issue"]["number"]
+    sender = payload["sender"]["login"]
+    body = payload["comment"]["body"]
+    timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
+
+    Comment.new(merge_request_id, sender, body, timestamp)
+    |> Pipeline.handle(@provider, repo)
   end
 end
