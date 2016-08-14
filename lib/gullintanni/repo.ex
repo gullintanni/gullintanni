@@ -4,28 +4,31 @@ defmodule Gullintanni.Repo do
   """
 
   alias __MODULE__, as: Repo
+  alias Gullintanni.Provider
 
   @typedoc "The repository type"
   @type t ::
     %Repo{
+      provider: Provider.t,
       owner: String.t,
       name: String.t
     }
 
-  @enforce_keys [:owner, :name]
-  defstruct [:owner, :name]
+  @enforce_keys [:provider, :owner, :name]
+  defstruct [:provider, :owner, :name]
 
   @doc """
   Creates a new repository with the given metadata.
 
   ## Examples
 
-      iex> Gullintanni.Repo.new("elixir-lang", "elixir")
-      #Repo<owner: "elixir-lang", name: "elixir">
+      iex> Gullintanni.Repo.new(Gullintanni.Providers.GitHub, "elixir-lang", "elixir")
+      #Repo<github.com/elixir-lang/elixir>
   """
-  @spec new(String.t, String.t) :: t
-  def new(owner, name) do
+  @spec new(Provider.t, String.t, String.t) :: t
+  def new(provider, owner, name) do
     %Repo{
+      provider: provider,
       owner: owner,
       name: name
     }
@@ -36,18 +39,15 @@ end
 defimpl Inspect, for: Gullintanni.Repo do
   import Inspect.Algebra
 
-  def inspect(repo, opts) do
-    owner = "owner: #{inspect repo.owner}"
-    name = "name: #{inspect repo.name}"
-
-    surround_many("#Repo<", [owner, name], ">",
-      opts, fn(i, _opts) -> i end)
+  def inspect(repo, _opts) do
+    surround("#Repo<", "#{repo}", ">")
   end
 end
 
 
 defimpl String.Chars, for: Gullintanni.Repo do
   def to_string(repo) do
-    "#{repo.owner}/#{repo.name}"
+    provider = repo.provider.__domain__
+    "#{provider}/#{repo.owner}/#{repo.name}"
   end
 end

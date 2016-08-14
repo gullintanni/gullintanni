@@ -5,6 +5,7 @@ defmodule Gullintanni.Providers.GitHub do
 
   alias Gullintanni.Config
   alias Gullintanni.MergeRequest
+  alias Gullintanni.Repo
 
   @behaviour Gullintanni.Provider
 
@@ -22,7 +23,7 @@ defmodule Gullintanni.Providers.GitHub do
     Tentacat.Users.me(client(config))["login"]
   end
 
-  def download_merge_requests(repo, config) do
+  def download_merge_requests(%Repo{} = repo, config) do
     Tentacat.Pulls.list(repo.owner, repo.name, client(config))
     |> Enum.map(&parse_merge_request/1)
   end

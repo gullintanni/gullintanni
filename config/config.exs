@@ -13,10 +13,10 @@ config :logger, :console,
 config :gullintanni, :pipeline,
   my_project:
     [
-      provider: Gullintanni.Providers.GitHub,
-      provider_auth_token: {:system, "GULBOT_PROVIDER_AUTH_TOKEN"},
+      repo_provider: Gullintanni.Providers.GitHub,
       repo_owner: {:system, "GULBOT_REPO_OWNER"},
       repo_name: {:system, "GULBOT_REPO_NAME"},
+      provider_auth_token: {:system, "GULBOT_PROVIDER_AUTH_TOKEN"},
       worker: Gullintanni.Workers.TravisCI,
     ]
 

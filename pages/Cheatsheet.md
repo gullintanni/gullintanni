@@ -15,8 +15,8 @@ Commands
 
 All commands **must mention** the provider account associated with the
 repository's pipeline configuration. For example, if you connect Gullintanni to
-GitHub via authorizing as the `@gulbot` user, your commands must mention that
-user specifically.
+a GitHub repository via authorizing as the `@gulbot` user, your commands must
+mention that user specifically.
 
 ### `r+`
 

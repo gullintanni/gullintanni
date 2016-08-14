@@ -55,7 +55,7 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     owner = payload["repository"]["name"]
     name = payload["repository"]["owner"]["login"]
 
-    Repo.new(owner, name)
+    Repo.new(@provider, owner, name)
   end
 
   @spec handle_event(String.t, Event.payload, Repo.t) :: :ok
@@ -70,6 +70,6 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
 
     Comment.new(merge_request_id, sender, body, timestamp)
-    |> Pipeline.handle_comment(@provider, repo)
+    |> Pipeline.handle_comment(repo)
   end
 end
