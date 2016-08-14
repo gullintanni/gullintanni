@@ -10,7 +10,6 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.Config
   alias Gullintanni.MergeRequest
   alias Gullintanni.Provider
-  alias Gullintanni.Queue
   alias Gullintanni.Repo
   alias Gullintanni.Worker
   require Logger
@@ -21,11 +20,17 @@ defmodule Gullintanni.Pipeline do
       config: Config.t,
       provider: Provider.t,
       repo: Repo.t,
-      queue: Queue.t,
+      merge_requests: map,
       worker: Worker.t
     }
 
-  defstruct [:config, :provider, :repo, :queue, :worker]
+  defstruct [
+    config: [],
+    provider: nil,
+    repo: nil,
+    merge_requests: %{},
+    worker: nil
+  ]
 
   @doc """
   Creates a pipeline with settings loaded from the application configuration.
@@ -74,7 +79,6 @@ defmodule Gullintanni.Pipeline do
       config: config,
       provider: config[:provider],
       repo: Repo.new(config[:repo_owner], config[:repo_name]),
-      queue: Queue.new,
       worker: config[:worker]
     }
   end
@@ -98,27 +102,18 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
-  Initializes the pipeline's queue by downloading a list of the repository's
-  open merge requests.
+  Initializes the pipeline's merge requests by downloading a list of the
+  repository's open MRs from its provider.
 
-  This replaces any existing queue that may be stored in the pipeline.
+  This replaces any existing MRs that were stored in the pipeline.
   """
-  @spec init_queue(t) :: t
-  def init_queue(pipeline) do
-    queue =
-      pipeline
-      |> download_merge_requests()
-      |> Queue.new
+  @spec init_merge_requests(t) :: t
+  def init_merge_requests(pipeline) do
+    reqs =
+      pipeline.provider.download_merge_requests(pipeline.repo, pipeline.config)
+      |> Map.new(fn(req) -> {req.id, req} end)
 
-    %{pipeline | queue: queue}
-  end
-
-  @doc """
-  Downloads a list of the repository's open merge requests.
-  """
-  @spec download_merge_requests(t) :: [MergeRequest.t]
-  def download_merge_requests(pipeline) do
-    pipeline.provider.download_merge_requests(pipeline.repo, pipeline.config)
+    %{pipeline | merge_requests: reqs}
   end
 end
 
