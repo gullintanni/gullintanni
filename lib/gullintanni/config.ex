@@ -31,8 +31,8 @@ defmodule Gullintanni.Config do
 
   Returns `[]` if no configuration was found.
   """
-  @spec load_config(atom, t) :: t
-  def load_config(key) when is_atom(key) do
+  @spec load(atom, t) :: t
+  def load(key) when is_atom(key) do
     Application.get_env(:gullintanni, key, [])
   end
 
@@ -42,10 +42,10 @@ defmodule Gullintanni.Config do
 
   Returns `[]` if no configuration was found.
   """
-  @spec load_config(atom, atom) :: t
-  def load_config(key, subkey) when is_atom(subkey) do
+  @spec load(atom, atom) :: t
+  def load(key, subkey) when is_atom(subkey) do
     key
-    |> load_config()
+    |> load()
     |> Keyword.get(subkey, [])
   end
 

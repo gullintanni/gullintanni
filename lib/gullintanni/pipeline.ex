@@ -29,17 +29,22 @@ defmodule Gullintanni.Pipeline do
     worker: nil
   ]
 
-  # Returns an atom representation that uniquely identifies a `pipeline`.
-  @spec __id__(t) :: atom
-  def __id__(pipeline), do: String.to_atom("#{pipeline.repo}")
+  # Returns the pid of the specified pipeline's agent.
+  def __whereis__(%Pipeline{} = pipeline), do: __whereis__(pipeline.repo)
+  def __whereis__(%Repo{} = repo), do: :gproc.where({:n, :l, {__MODULE__, repo}})
 
   @doc """
   Starts an agent linked to the current process to cache pipeline data.
   """
-  @spec start_link(t) :: Agent.on_start
-  def start_link(pipeline) do
-    Agent.start_link(fn -> pipeline end, name: __id__(pipeline))
+  @spec start_link(Config.t) :: Agent.on_start | :error
+  def start_link(config) do
+    with {:ok, pipeline} <- new(config) do
+      Agent.start_link(fn -> pipeline end, name: via_tuple(pipeline))
+    end
   end
+
+  def via_tuple(%Pipeline{} = pipeline), do: via_tuple(pipeline.repo)
+  def via_tuple(%Repo{} = repo), do: {:via, :gproc, {:n, :l, {__MODULE__, repo}}}
 
   @doc """
   Creates a new pipeline with the given `config` settings.
@@ -48,6 +53,8 @@ defmodule Gullintanni.Pipeline do
   """
   @spec new(Config.t) :: {:ok, t} | :error
   def new(config) do
+    config = Config.parse_runtime_settings(config)
+
     case valid_config?(config) do
       true -> {:ok, _new(config)}
       false -> :error
@@ -83,22 +90,15 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
-  Creates a pipeline with settings loaded from the application configuration.
+  Loads pipeline settings from the named application configuration.
 
-  The settings are loaded from the named pipeline's config, as set in the
-  application configuration. Any options specified in `opts` will then override
-  those settings.
-
-  Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
+  Any options specified in `opts` will then override those settings.
   """
-  @spec load(atom, Keyword.t) :: {:ok, t} | :error
-  def load(name, opts \\ []) when is_atom(name) do
+  @spec load_config(atom, Keyword.t) :: Config.t
+  def load_config(name, opts \\ []) when is_atom(name) do
     _ = Logger.info "loading #{inspect name} pipeline configuration"
 
-    Config.load_config(:pipeline, name)
-    |> Keyword.merge(opts)
-    |> Config.parse_runtime_settings()
-    |> new()
+    Config.load(:pipeline, name) |> Keyword.merge(opts)
   end
 
   @doc """
