@@ -18,7 +18,7 @@ defmodule Gullintanni.Mixfile do
 
   def application do
     [mod: {Gullintanni, []},
-     applications: [:cowboy, :logger, :plug, :tentacat],
+     applications: [:cowboy, :gproc, :logger, :plug, :tentacat],
      env: [enable_http_workers: true,
            webhook: [bind_ip: "0.0.0.0", bind_port: 13931]]]
   end
@@ -28,6 +28,7 @@ defmodule Gullintanni.Mixfile do
      {:dialyxir, "~> 0.3", only: :dev},
      {:ex_doc, "~> 0.12", only: :dev},
      {:gen_stage, "~> 0.5"},
+     {:gproc, git: "https://github.com/uwiger/gproc.git", tag: "0.6"},
      {:poison, "~> 2.2"},
      {:plug, "~> 1.2"},
      {:tentacat, "~> 0.5"}]
