@@ -31,7 +31,8 @@ defmodule Gullintanni.Pipeline do
 
   # Returns the pid of the specified pipeline's agent.
   def __whereis__(%Pipeline{} = pipeline), do: __whereis__(pipeline.repo)
-  def __whereis__(%Repo{} = repo), do: :gproc.where({:n, :l, {__MODULE__, repo}})
+  def __whereis__(%Repo{} = repo), do: __whereis__("#{repo}")
+  def __whereis__(name) when is_binary(name), do: :gproc.where({:n, :l, {:pipeline, name}})
 
   @doc """
   Starts an agent linked to the current process to cache pipeline data.
@@ -43,8 +44,9 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  def via_tuple(%Pipeline{} = pipeline), do: via_tuple(pipeline.repo)
-  def via_tuple(%Repo{} = repo), do: {:via, :gproc, {:n, :l, {__MODULE__, repo}}}
+  defp via_tuple(%Pipeline{} = pipeline), do: via_tuple(pipeline.repo)
+  defp via_tuple(%Repo{} = repo), do: via_tuple("#{repo}")
+  defp via_tuple(name) when is_binary(name), do: {:via, :gproc, {:n, :l, {:pipeline, name}}}
 
   @doc """
   Creates a new pipeline with the given `config` settings.
