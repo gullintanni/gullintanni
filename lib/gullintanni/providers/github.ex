@@ -11,12 +11,12 @@ defmodule Gullintanni.Providers.GitHub do
 
   @domain "github.com"
   @default_endpoint "https://api.github.com/"
+  @required_config_settings [:provider_auth_token]
 
   def __domain__, do: @domain
 
   def valid_config?(config) do
-    [:provider_auth_token]
-    |> Config.settings_present?(config)
+    Config.settings_present?(@required_config_settings, config)
   end
 
   def whoami(config) do

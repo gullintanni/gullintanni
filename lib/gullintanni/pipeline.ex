@@ -22,12 +22,15 @@ defmodule Gullintanni.Pipeline do
       worker: Worker.t
     }
 
+  @enforce_keys [:repo]
   defstruct [
     config: [],
     repo: nil,
     merge_requests: %{},
     worker: nil
   ]
+
+  @required_config_settings [:repo_provider, :repo_owner, :repo_name, :worker]
 
   @doc """
   Starts an agent linked to the current process to cache pipeline data.
@@ -85,15 +88,11 @@ defmodule Gullintanni.Pipeline do
   """
   @spec valid_config?(Config.t) :: boolean
   def valid_config?(config) do
-    answer =
-      [:repo_provider, :repo_owner, :repo_name, :worker]
-      |> Config.settings_present?(config)
-
-    # dispatch to check for additional required keys
-    with true <- answer,
+    with true <- Config.settings_present?(@required_config_settings, config),
          true <- config[:repo_provider].valid_config?(config),
-         true <- config[:worker].valid_config?(config),
-      do: true
+         true <- config[:worker].valid_config?(config) do
+      true
+    end
   end
 
   @doc """
