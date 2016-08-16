@@ -4,42 +4,27 @@ defmodule Gullintanni do
   """
 
   use Application
-  import Supervisor.Spec, warn: false
-  alias Gullintanni.Socket
+  alias Gullintanni.Config
+  alias Gullintanni.Pipeline
+  require Logger
 
   def start(_type, _args) do
-    children =
-      default_workers() ++ http_workers()
+    import Supervisor.Spec, warn: false
+
+    children = [
+      supervisor(Gullintanni.Pipeline.Supervisor, []),
+      worker(Task, [&load_configured_pipelines/0], restart: :transient),
+      supervisor(Gullintanni.Webhook.Supervisor, []),
+    ]
 
     opts = [strategy: :one_for_one, name: Gullintanni.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
-  defp default_workers do
-    # TODO: figure out an appropriate supervisor tree
-    [supervisor(Gullintanni.Pipeline.Supervisor, []),
-     worker(Gullintanni.Webhook.EventManager, []),
-     worker(Gullintanni.Providers.GitHub.EventHandler, [])]
-  end
-
-  defp http_workers do
-    if Application.get_env(:gullintanni, :enable_http_workers),
-      do: [webhook_worker()],
-      else: []
-  end
-
-  defp webhook_worker do
-    config = Application.get_env(:gullintanni, :webhook)
-    cowboy_opts =
-      case Socket.new(config[:bind_ip], config[:bind_port]) do
-        {:ok, socket} ->
-          [ip: socket.ip, port: socket.port]
-        {:error, :invalid_ip_address} ->
-          raise ArgumentError, "invalid :webhook, :bind_ip configuration setting"
-        {:error, :invalid_port} ->
-          raise ArgumentError, "invalid :webhook, :bind_port configuration setting"
-      end
-
-    Plug.Adapters.Cowboy.child_spec(:http, Gullintanni.Webhook.Router, [], cowboy_opts)
+  defp load_configured_pipelines do
+    Enum.each(Config.load(:pipeline), fn({name, config}) ->
+      _ = Logger.info "loading #{inspect name} pipeline configuration"
+      Pipeline.Supervisor.start_pipeline(config)
+    end)
   end
 end
