@@ -17,7 +17,8 @@ defmodule Gullintanni do
 
   defp default_workers do
     # TODO: figure out an appropriate supervisor tree
-    [worker(Gullintanni.Webhook.EventManager, []),
+    [supervisor(Gullintanni.Pipeline.Supervisor, []),
+     worker(Gullintanni.Webhook.EventManager, []),
      worker(Gullintanni.Providers.GitHub.EventHandler, [])]
   end
 
