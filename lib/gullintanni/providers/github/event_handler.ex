@@ -52,8 +52,8 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
 
   defp parse_repo(event) do
     payload = Event.get_payload(event)
-    owner = payload["repository"]["name"]
-    name = payload["repository"]["owner"]["login"]
+    owner = payload["repository"]["owner"]["login"]
+    name = payload["repository"]["name"]
 
     Repo.new(@provider, owner, name)
   end
