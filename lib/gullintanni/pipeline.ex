@@ -29,11 +29,6 @@ defmodule Gullintanni.Pipeline do
     worker: nil
   ]
 
-  # Returns the pid of the specified pipeline's agent.
-  def __whereis__(%Pipeline{} = pipeline), do: __whereis__(pipeline.repo)
-  def __whereis__(%Repo{} = repo), do: __whereis__("#{repo}")
-  def __whereis__(name) when is_binary(name), do: :gproc.where({:n, :l, {:pipeline, name}})
-
   @doc """
   Starts an agent linked to the current process to cache pipeline data.
   """
@@ -44,9 +39,28 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  defp via_tuple(%Pipeline{} = pipeline), do: via_tuple(pipeline.repo)
-  defp via_tuple(%Repo{} = repo), do: via_tuple("#{repo}")
-  defp via_tuple(name) when is_binary(name), do: {:via, :gproc, {:n, :l, {:pipeline, name}}}
+  # Returns a gproc via tuple for identifying pipeline Agents.
+  defp via_tuple(identifier) do
+    {:via, :gproc, gproc_key(identifier)}
+  end
+
+  # Returns a key for identifying pipelines in the gproc extended process
+  # registry.
+  #
+  # * type ':n` means 'name' and is unique within the given context
+  # * scope `:l` means the 'local' context
+  defp gproc_key(%Pipeline{} = pipeline), do: gproc_key(pipeline.repo)
+  defp gproc_key(%Repo{} = repo), do: gproc_key("#{repo}")
+  defp gproc_key(name) when is_binary(name) do
+    {:n, :l, {__MODULE__, name}}
+  end
+
+  # Returns the pid of the specified pipeline's agent.
+  #
+  # Returns `:undefined` if no process is registered with the given key.
+  def __whereis__(identifier) do
+    :gproc.where(gproc_key(identifier))
+  end
 
   @doc """
   Creates a new pipeline with the given `config` settings.
@@ -55,23 +69,14 @@ defmodule Gullintanni.Pipeline do
   """
   @spec new(Config.t) :: {:ok, t} | :error
   def new(config) do
-    config = Config.parse_runtime_settings(config)
-
-    case valid_config?(config) do
-      true -> {:ok, _new(config)}
-      false -> :error
+    with config = Config.parse_runtime_settings(config),
+         true <- valid_config?(config),
+         repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name]),
+         pipeline = %Pipeline{config: config, repo: repo, worker: config[:worker]} do
+      {:ok, pipeline}
+    else
+      _ -> :error
     end
-  end
-
-  @spec _new(Config.t) :: t
-  defp _new(config) do
-    repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
-
-    %Pipeline{
-      config: config,
-      repo: repo,
-      worker: config[:worker]
-    }
   end
 
   @doc """
