@@ -16,7 +16,7 @@ defmodule Gullintanni.Webhook.Supervisor do
 
   defp default_workers do
     [worker(Gullintanni.Webhook.EventManager, []),
-     worker(Gullintanni.Providers.GitHub.EventHandler, [], name: Gullintanni.Webhook.EventHandler.GitHub)]
+     worker(Gullintanni.Providers.GitHub.EventHandler, [])]
   end
 
   defp http_workers do

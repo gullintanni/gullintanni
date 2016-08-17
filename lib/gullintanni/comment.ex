@@ -6,6 +6,8 @@ defmodule Gullintanni.Comment do
   alias __MODULE__, as: Comment
   alias Gullintanni.MergeRequest
 
+  @opaque command :: :approve | :unapprove | :noop
+
   @type t ::
     %Comment{
       merge_request_id: MergeRequest.id,
@@ -32,7 +34,7 @@ defmodule Gullintanni.Comment do
   @doc """
   Returns a list of recognized commands sent to `bot_name`.
   """
-  @spec parse_commands(t, String.t) :: [atom]
+  @spec parse_commands(t, String.t) :: [command]
   def parse_commands(%Comment{} = comment, bot_name) do
     mention = :binary.compile_pattern("@#{bot_name} ")
 
@@ -46,7 +48,7 @@ defmodule Gullintanni.Comment do
     |> Enum.reject(&(&1 == :noop))
   end
 
-  @spec parse_command(String.t) :: atom
+  @spec parse_command(String.t) :: command
   defp parse_command(line) do
      case String.split(line) do
        ["r+" | _rest] -> :approve

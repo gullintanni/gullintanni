@@ -44,7 +44,7 @@ defmodule Gullintanni.Pipeline do
   @doc """
   Starts a new pipeline with the given `config` settings.
   """
-  @spec start_link(Config.t) :: Agent.on_start | :error
+  @spec start_link(Config.t) :: Agent.on_start
   def start_link(config) do
     with {:ok, pipeline} <- new(config) do
       Agent.start_link(fn -> pipeline end, name: via_tuple(pipeline))
@@ -122,9 +122,9 @@ defmodule Gullintanni.Pipeline do
     merge_request = Map.get(pipeline.merge_requests, comment.merge_request_id)
     commands = Comment.parse_commands(comment, pipeline.bot_name)
 
-    IO.inspect merge_request
-    IO.inspect comment
-    IO.inspect commands
+    _ = IO.inspect merge_request
+    _ = IO.inspect comment
+    _ = IO.inspect commands
     :ok
   end
 end
