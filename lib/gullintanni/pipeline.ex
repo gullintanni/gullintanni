@@ -118,12 +118,13 @@ defmodule Gullintanni.Pipeline do
   def handle_comment(:undefined, _), do: :ok
   def handle_comment(pipeline, %Comment{} = comment) do
     # TODO: implement; this is a stub
-    pipeline
-    |> Agent.get(&(&1.merge_requests))
-    |> Map.get(comment.merge_request_id)
-    |> IO.inspect
+    pipeline = Agent.get(pipeline, &(&1))
+    merge_request = Map.get(pipeline.merge_requests, comment.merge_request_id)
+    commands = Comment.parse_commands(comment, pipeline.bot_name)
 
+    IO.inspect merge_request
     IO.inspect comment
+    IO.inspect commands
     :ok
   end
 end
