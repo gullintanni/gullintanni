@@ -11,13 +11,13 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.Comment
   alias Gullintanni.Repo
   alias Gullintanni.Worker
-  require Logger
 
   @typedoc "The pipeline type"
   @type t ::
     %Pipeline{
       config: Config.t,
       repo: Repo.t,
+      bot_name: String.t,
       merge_requests: map,
       worker: Worker.t
     }
@@ -26,6 +26,7 @@ defmodule Gullintanni.Pipeline do
   defstruct [
     config: [],
     repo: nil,
+    bot_name: nil,
     merge_requests: %{},
     worker: nil
   ]
@@ -33,7 +34,7 @@ defmodule Gullintanni.Pipeline do
   @required_config_settings [:repo_provider, :repo_owner, :repo_name, :worker]
 
   @doc """
-  Starts an agent linked to the current process to cache pipeline data.
+  Starts a new pipeline with the given `config` settings.
   """
   @spec start_link(Config.t) :: Agent.on_start | :error
   def start_link(config) do
@@ -42,43 +43,30 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  # Returns a gproc via tuple for identifying pipeline Agents.
-  defp via_tuple(identifier) do
-    {:via, :gproc, gproc_key(identifier)}
-  end
+  defp via_tuple(pipeline), do: {:via, :gproc, gproc_key(pipeline)}
 
-  # Returns a key for identifying pipelines in the gproc extended process
-  # registry.
-  #
-  # * type ':n` means 'name' and is unique within the given context
-  # * scope `:l` means the 'local' context
+  @spec gproc_key(t | Repo.t | String.t) :: tuple
   defp gproc_key(%Pipeline{} = pipeline), do: gproc_key(pipeline.repo)
   defp gproc_key(%Repo{} = repo), do: gproc_key("#{repo}")
   defp gproc_key(name) when is_binary(name) do
     {:n, :l, {__MODULE__, name}}
   end
 
-  # Returns the pid of the specified pipeline's agent.
+  # TODO: remove this after figuring out appropriate module interfaces
+  def __whereis__(pipeline), do: :gproc.where(gproc_key(pipeline))
+
+  # Creates a new pipeline with the given `config` settings.
   #
-  # Returns `:undefined` if no process is registered with the given key.
-  def __whereis__(identifier) do
-    :gproc.where(gproc_key(identifier))
-  end
-
-  @doc """
-  Creates a new pipeline with the given `config` settings.
-
-  Returns `{:ok, pipeline}` if the configuration is valid, otherwise `:error`.
-  """
-  @spec new(Config.t) :: {:ok, t} | :error
-  def new(config) do
+  # Returns `{:ok, pipeline}` if the configuration is valid, otherwise
+  # `{:error, :invalid_config}`.
+  @spec new(Config.t) :: {:ok, t} | {:error, :invalid_config}
+  defp new(config) do
     with config = Config.parse_runtime_settings(config),
          true <- valid_config?(config),
-         repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name]),
-         pipeline = %Pipeline{config: config, repo: repo, worker: config[:worker]} do
+         pipeline = from_config(config) do
       {:ok, pipeline}
     else
-      _ -> :error
+      _ -> {:error, :invalid_config}
     end
   end
 
@@ -95,39 +83,21 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  @doc """
-  Loads pipeline settings from the named application configuration.
-
-  Any options specified in `opts` will then override those settings.
-  """
-  @spec load_config(atom, Keyword.t) :: Config.t
-  def load_config(name, opts \\ []) when is_atom(name) do
-    _ = Logger.info "loading #{inspect name} pipeline configuration"
-
-    Config.load(:pipeline, name) |> Keyword.merge(opts)
-  end
-
-  @doc """
-  Returns the provider account's effective user identity.
-  """
-  @spec whoami(t) :: String.t
-  def whoami(pipeline) do
-    pipeline.repo.provider.whoami(pipeline.config)
-  end
-
-  @doc """
-  Initializes the pipeline's merge requests by downloading a list of the
-  repository's open MRs.
-
-  This replaces any existing MRs that were stored in the pipeline.
-  """
-  @spec init_merge_requests(t) :: t
-  def init_merge_requests(pipeline) do
+  @spec from_config(Config.t) :: t
+  defp from_config(config) do
+    repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
+    bot_name = repo.provider.whoami(config)
     reqs =
-      pipeline.repo.provider.download_merge_requests(pipeline.repo, pipeline.config)
-      |> Map.new(fn(req) -> {req.id, req} end)
+      repo.provider.download_merge_requests(repo, config)
+      |> Map.new(fn req -> {req.id, req} end)
 
-    %{pipeline | merge_requests: reqs}
+    %Pipeline{
+      config: config,
+      repo: repo,
+      bot_name: bot_name,
+      merge_requests: reqs,
+      worker: config[:worker]
+    }
   end
 
   @spec handle_comment(Comment.t, Repo.t) :: :ok
