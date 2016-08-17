@@ -93,6 +93,12 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
+    <a href="#command/0">command()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#t:t/0">t()</a>
   </div>
   
@@ -112,6 +118,15 @@
   </div>
   
     <div class="summary-synopsis"><p>Creates a new comment</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#parse_commands/2">parse_commands(comment, bot_name)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of recognized commands sent to <code class="inline">bot_name</code></p>
 </div>
   
 </div>
@@ -135,7 +150,11 @@
             Types
           </h1>
           <div class="types-list">
-            <div id="t:t/0" class="type-detail">
+            <div id="command/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:command/0">command</a></code></pre>
+  
+</div>
+<div id="t:t/0" class="type-detail">
   <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.Comment{body: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, merge_request_id: <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, sender: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, timestamp: <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>}</code></pre>
   
 </div>
@@ -159,7 +178,7 @@
     </a>
     <span class="signature">new(merge_request_id, sender, body, timestamp)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/comment.ex#L23" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/comment.ex#L25" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -177,6 +196,34 @@
   
   <section class="docstring">
     <p>Creates a new comment.</p>
+
+  </section>
+</div>
+<div class="detail" id="parse_commands/2">
+  <div class="detail-header">
+    <a href="#parse_commands/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">parse_commands(comment, bot_name)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/comment.ex#L38" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">parse_commands(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: [<a href="#t:command/0">command</a>]</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns a list of recognized commands sent to <code class="inline">bot_name</code>.</p>
 
   </section>
 </div>
