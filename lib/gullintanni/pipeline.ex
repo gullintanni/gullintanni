@@ -43,17 +43,23 @@ defmodule Gullintanni.Pipeline do
     end
   end
 
-  defp via_tuple(pipeline), do: {:via, :gproc, gproc_key(pipeline)}
-
-  @spec gproc_key(t | Repo.t | String.t) :: tuple
-  defp gproc_key(%Pipeline{} = pipeline), do: gproc_key(pipeline.repo)
-  defp gproc_key(%Repo{} = repo), do: gproc_key("#{repo}")
-  defp gproc_key(name) when is_binary(name) do
-    {:n, :l, {__MODULE__, name}}
+  defp via_tuple(pipeline) do
+    {:via, :gproc, {:n, :l, {__MODULE__, identify(pipeline)}}}
   end
 
-  # TODO: remove this after figuring out appropriate module interfaces
-  def __whereis__(pipeline), do: :gproc.where(gproc_key(pipeline))
+  @spec identify(t | Repo.t | String.t) :: String.t
+  defp identify(%Pipeline{} = pipeline), do: identify(pipeline.repo)
+  defp identify(%Repo{} = repo), do: identify("#{repo}")
+  defp identify(name) when is_binary(name), do: name
+
+  @doc """
+  Returns the `pid` of a pipeline agent, or `:undefined` if no process is
+  associated with the given `identifier`.
+  """
+  @spec whereis(t | Repo.t | String.t) :: pid | :undefined
+  def whereis(identifier)
+    :gproc.where({:n, :l, {__MODULE__, identify(identifier)}})
+  end
 
   # Creates a new pipeline with the given `config` settings.
   #
@@ -100,8 +106,9 @@ defmodule Gullintanni.Pipeline do
     }
   end
 
-  @spec handle_comment(Comment.t, Repo.t) :: :ok
-  def handle_comment(%Comment{} = comment, repo) do
+  @spec handle_comment(pid, Comment.t) :: :ok
+  def handle_comment(:undefined, _comment), do: :ok
+  def handle_comment(pid, %Comment{} = comment) do
     # TODO: implement; this is a stub
     :ok
   end

@@ -62,14 +62,18 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   defp handle_event(type, payload, repo)
   defp handle_event("issue_comment", %{"action" => "created"} = payload, repo) do
     # only respond to new comments, not edits
+    with comment <- parse_comment(payload),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_comment(pid, comment)
+    end
+  end
 
-    # https://developer.github.com/v3/activity/events/types/#issuecommentevent
+  defp parse_comment(payload) do
     merge_request_id = payload["issue"]["number"]
     sender = payload["sender"]["login"]
     body = payload["comment"]["body"]
     timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
 
     Comment.new(merge_request_id, sender, body, timestamp)
-    |> Pipeline.handle_comment(repo)
   end
 end
