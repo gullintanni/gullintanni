@@ -12,6 +12,14 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.Repo
   alias Gullintanni.Worker
 
+  @typedoc "The pipeline reference"
+  @type pipeline :: pid | {atom, node} | name
+
+  @typedoc "The pipeline name"
+  @type name :: atom
+              | {:global, term}
+              | {:via, module, term}
+
   @typedoc "The pipeline type"
   @type t ::
     %Pipeline{
@@ -106,10 +114,16 @@ defmodule Gullintanni.Pipeline do
     }
   end
 
-  @spec handle_comment(pid, Comment.t) :: :ok
-  def handle_comment(:undefined, _comment), do: :ok
-  def handle_comment(pid, %Comment{} = comment) do
+  @spec handle_comment(pipeline, Comment.t) :: :ok
+  def handle_comment(:undefined, _), do: :ok
+  def handle_comment(pipeline, %Comment{} = comment) do
     # TODO: implement; this is a stub
+    pipeline
+    |> Agent.get(&(&1.merge_requests))
+    |> Map.get(comment.merge_request_id)
+    |> IO.inspect
+
+    IO.inspect comment
     :ok
   end
 end
