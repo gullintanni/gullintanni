@@ -57,7 +57,7 @@ defmodule Gullintanni.Pipeline do
   associated with the given `identifier`.
   """
   @spec whereis(t | Repo.t | String.t) :: pid | :undefined
-  def whereis(identifier)
+  def whereis(identifier) do
     :gproc.where({:n, :l, {__MODULE__, identify(identifier)}})
   end
 
