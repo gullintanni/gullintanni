@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni.Providers.GitHub – Gullintanni v0.1.0</title>
+    <title>Gullintanni.Pipeline.Supervisor – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -62,20 +62,15 @@
 
       <h1>
         <small class="visible-xs">Gullintanni v0.1.0</small>
-        Gullintanni.Providers.GitHub
+        Gullintanni.Pipeline.Supervisor
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L3" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
       </h1>
 
-      
-        <section id="moduledoc" class="docstring">
-          <p>Provider adapter module for GitHub — <a href="https://github.com/">https://github.com/</a>.</p>
-
-        </section>
       
 
       
@@ -95,38 +90,23 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#download_merge_requests/2">download_merge_requests(repo, config)</a>
+    <a href="#init/1">init()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:download_merge_requests/2"><code class="inline">Gullintanni.Provider.download_merge_requests/2</code></a></p>
+    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Experimental.DynamicSupervisor.init/1</code></p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#parse_merge_request/1">parse_merge_request(data)</a>
+    <a href="#start_link/0">start_link()</a>
   </div>
-  
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:parse_merge_request/1"><code class="inline">Gullintanni.Provider.parse_merge_request/1</code></a></p>
-</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#valid_config?/1">valid_config?(config)</a>
+    <a href="#start_pipeline/1">start_pipeline(config)</a>
   </div>
-  
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:valid_config?/1"><code class="inline">Gullintanni.Provider.valid_config?/1</code></a></p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#whoami/1">whoami(config)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:whoami/1"><code class="inline">Gullintanni.Provider.whoami/1</code></a></p>
-</div>
   
 </div>
 
@@ -150,14 +130,14 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="download_merge_requests/2">
+          <div class="detail" id="init/1">
   <div class="detail-header">
-    <a href="#download_merge_requests/2" class="detail-link" title="Link to this function">
+    <a href="#init/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">download_merge_requests(repo, config)</span>
+    <span class="signature">init()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L26" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L14" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -165,18 +145,18 @@
   </div>
   
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:download_merge_requests/2"><code class="inline">Gullintanni.Provider.download_merge_requests/2</code></a>.</p>
+    <p>Callback implementation for <code class="inline">c:Experimental.DynamicSupervisor.init/1</code>.</p>
 
   </section>
 </div>
-<div class="detail" id="parse_merge_request/1">
+<div class="detail" id="start_link/0">
   <div class="detail-header">
-    <a href="#parse_merge_request/1" class="detail-link" title="Link to this function">
+    <a href="#start_link/0" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">parse_merge_request(data)</span>
+    <span class="signature">start_link()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L31" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L6" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -184,18 +164,17 @@
   </div>
   
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:parse_merge_request/1"><code class="inline">Gullintanni.Provider.parse_merge_request/1</code></a>.</p>
-
+    
   </section>
 </div>
-<div class="detail" id="valid_config?/1">
+<div class="detail" id="start_pipeline/1">
   <div class="detail-header">
-    <a href="#valid_config?/1" class="detail-link" title="Link to this function">
+    <a href="#start_pipeline/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">valid_config?(config)</span>
+    <span class="signature">start_pipeline(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -203,27 +182,7 @@
   </div>
   
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:valid_config?/1"><code class="inline">Gullintanni.Provider.valid_config?/1</code></a>.</p>
-
-  </section>
-</div>
-<div class="detail" id="whoami/1">
-  <div class="detail-header">
-    <a href="#whoami/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">whoami(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L22" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-  </div>
-  
-  <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:whoami/1"><code class="inline">Gullintanni.Provider.whoami/1</code></a>.</p>
-
   </section>
 </div>
 

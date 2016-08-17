@@ -65,22 +65,34 @@
 requests. Gullintanni will only respond to commands made by authorized
 reviewers on repositories that you have defined in your pipeline
 configurations.</p>
-<p><em><strong>NOTE:</strong> If the contents of a merge request branch changes upstream, it will
-automatically be removed from the build queue and placed back in the “under
-review” state.</em></p>
 <h2>Commands</h2>
 <p>All commands <strong>must mention</strong> the provider account associated with the
 repository’s pipeline configuration. For example, if you connect Gullintanni to
 a GitHub repository via authorizing as the <code class="inline">@gulbot</code> user, your commands must
 mention that user specifically.</p>
-<h3><code class="inline">r+</code></h3>
-<blockquote><p>Approve a merge request and add it to the build queue.  
-The approval will apply to the latest commit in the merge request branch at
-the time of the approval.</p>
-</blockquote>
-<h3><code class="inline">r-</code></h3>
-<blockquote><p>Cancel the approval of a merge request and remove it from the build queue.</p>
-</blockquote>
+<table>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left">Command</th><th style="text-align: left">Description</th>
+</tr>
+</thead>
+<tr>
+<td style="text-align: left"><code class="inline">r+</code></td><td style="text-align: left">Approve a merge request and add it to the build queue.*</td>
+</tr>
+<tr>
+<td style="text-align: left"><code class="inline">r-</code></td><td style="text-align: left">Cancel the approval of a merge request and remove it from the build queue.</td>
+</tr>
+</table>
+<p><em><strong>Notes</strong></em></p>
+<ul>
+<li><em>An approval will apply to the latest commit in the merge request branch at
+  the time of the approval.</em>
+</li>
+</ul>
 <h3>Examples</h3>
 <pre><code class="elixir">@gulbot r+</code></pre>
 <pre><code class="elixir">@gulbot r-</code></pre>
@@ -89,6 +101,9 @@ the time of the approval.</p>
 <p>This is the default build state for all open merge requests in a repository. It
 simply means that the merge request has yet to meet the required number of
 approvals in order to be tested.</p>
+<p>If the contents of a merge request branch changes upstream, it will
+automatically be removed from the build queue and placed back in the “under
+review” state.</p>
 
       <footer class="footer">
         <p>

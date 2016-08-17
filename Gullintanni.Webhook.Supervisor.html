@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.13.0">
-    <title>Gullintanni – Gullintanni v0.1.0</title>
+    <title>Gullintanni.Webhook.Supervisor – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
     
     <script src="dist/sidebar_items.js"></script>
@@ -62,20 +62,15 @@
 
       <h1>
         <small class="visible-xs">Gullintanni v0.1.0</small>
-        Gullintanni
+        Gullintanni.Webhook.Supervisor
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/supervisor.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
       </h1>
 
-      
-        <section id="moduledoc" class="docstring">
-          <p>The Gullintanni Git merge bot application.</p>
-
-        </section>
       
 
       
@@ -95,11 +90,17 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#start/2">start(type, args)</a>
+    <a href="#init/1">init()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Application.start/2</code></p>
+    <div class="summary-synopsis"><p>Callback implementation for <code class="inline">c:Supervisor.init/1</code></p>
 </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/0">start_link()</a>
+  </div>
   
 </div>
 
@@ -123,14 +124,14 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="start/2">
+          <div class="detail" id="init/1">
   <div class="detail-header">
-    <a href="#start/2" class="detail-link" title="Link to this function">
+    <a href="#init/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">start(type, args)</span>
+    <span class="signature">init()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni.ex#L11" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/supervisor.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -138,8 +139,26 @@
   </div>
   
   <section class="docstring">
-    <p>Callback implementation for <code class="inline">c:Application.start/2</code>.</p>
+    <p>Callback implementation for <code class="inline">c:Supervisor.init/1</code>.</p>
 
+  </section>
+</div>
+<div class="detail" id="start_link/0">
+  <div class="detail-header">
+    <a href="#start_link/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/webhook/supervisor.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
   </section>
 </div>
 
