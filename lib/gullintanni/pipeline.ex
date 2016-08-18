@@ -211,21 +211,27 @@ defmodule Gullintanni.Pipeline do
 
   defp _handle_commands(pid, comment, [:approve]) do
     with {:ok, pipeline} = fetch(pid),
-         {:ok, mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
-      mreq = MergeRequest.approve(mreq, comment.sender, comment.timestamp)
-      mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
+         {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+      new_mreq =
+        old_mreq
+        |> MergeRequest.approve(comment.sender, comment.timestamp)
 
-      put(pid, :merge_requests, mreqs)
+      # suppress notifications if there was no state change
+      unless new_mreq == old_mreq do
+        mreqs = Map.put(pipeline.merge_requests, new_mreq.id, new_mreq)
 
-      # send notifications
-      message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
-      pipeline.repo.provider.post_comment(
-        pipeline.repo,
-        mreq.id,
-        ":+1: " <> message,
-        pipeline.config
-      )
-      _ = Logger.info message <> " on #{mreq.url}"
+        put(pid, :merge_requests, mreqs)
+
+        # send notifications
+        message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
+        pipeline.repo.provider.post_comment(
+          pipeline.repo,
+          mreq.id,
+          ":+1: " <> message,
+          pipeline.config
+        )
+        _ = Logger.info message <> " on #{mreq.url}"
+      end
       :ok
     else
       _ -> :ok
@@ -233,21 +239,27 @@ defmodule Gullintanni.Pipeline do
   end
   defp _handle_commands(pid, comment, [:unapprove]) do
     with {:ok, pipeline} = fetch(pid),
-         {:ok, mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
-      mreq = MergeRequest.unapprove(mreq, comment.sender)
-      mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
+         {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+      new_mreq =
+        old_mreq
+        |> MergeRequest.unapprove(comment.sender)
 
-      put(pid, :merge_requests, mreqs)
+      # suppress notifications if there was no state change
+      unless new_mreq == old_mreq do
+        mreqs = Map.put(pipeline.merge_requests, new_mreq.id, new_mreq)
 
-      # send notifications
-      message = "approval has been cancelled by @#{comment.sender}"
-      pipeline.repo.provider.post_comment(
-        pipeline.repo,
-        mreq.id,
-        ":broken_heart: " <> message,
-        pipeline.config
-      )
-      _ = Logger.info message <> " on #{mreq.url}"
+        put(pid, :merge_requests, mreqs)
+
+        # send notifications
+        message = "approval has been cancelled by @#{comment.sender}"
+        pipeline.repo.provider.post_comment(
+          pipeline.repo,
+          mreq.id,
+          ":broken_heart: " <> message,
+          pipeline.config
+        )
+        _ = Logger.info message <> " on #{mreq.url}"
+      end
       :ok
     else
       _ -> :ok
