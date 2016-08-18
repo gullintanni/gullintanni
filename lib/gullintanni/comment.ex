@@ -14,6 +14,7 @@ defmodule Gullintanni.Comment do
       timestamp: NaiveDateTime.t
     }
 
+  @enforce_keys [:mreq_id, :sender, :body, :timestamp]
   defstruct [:mreq_id, :sender, :body, :timestamp]
 
   @doc """

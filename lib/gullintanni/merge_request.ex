@@ -24,7 +24,7 @@ defmodule Gullintanni.MergeRequest do
       branch_name: String.t,
       target_branch: String.t,
       latest_commit: sha,
-      approval: NaiveDateTime.t,
+      approved_by: %{optional(String.t) => NaiveDateTime.t},
       state: state
     }
 
@@ -37,7 +37,7 @@ defmodule Gullintanni.MergeRequest do
     :branch_name,
     :target_branch,
     :latest_commit,
-    :approval,
+    approved_by: %{},
     state: :under_review
   ]
 
@@ -54,7 +54,7 @@ defmodule Gullintanni.MergeRequest do
     * `:branch_name` - the Git branch name of the merge request
     * `:target_branch` - the name of the Git branch that the merge request is targeting
     * `:latest_commit` - the SHA-1 hash of the latest commit on the merge request
-    * `:approval` - the date and time the merge request was approved
+    * `:approved_by` - the users that have approved the merge request
     * `:state` - the state of the merge request; valid states are defined by `t:state/0`
   """
   @spec new(id, Keyword.t) :: t
@@ -66,13 +66,15 @@ defmodule Gullintanni.MergeRequest do
 
   # A basic Finite State Machine
 
-  def approve(%MergeRequest{state: :approved} = mreq, _), do: mreq
-  def approve(%MergeRequest{state: :under_review} = mreq, timestamp) do
-    %{mreq | state: :approved, approval: timestamp}
+  @spec approve(t, String.t, NaiveDateTime.t) :: t
+  def approve(%MergeRequest{state: :under_review} = mreq, username, timestamp) do
+    %{mreq | state: :approved,
+             approved_by: Map.put_new(mreq.approved_by, username, timestamp)}
   end
+  def approve(%MergeRequest{} = mreq, _, _), do: mreq
 
   def unapprove(%MergeRequest{} = mreq) do
-    %{mreq | state: :under_review}
+    %{mreq | state: :under_review, approved_by: %{}}
   end
 
   def merge_passed(%MergeRequest{state: :approved} = mreq),

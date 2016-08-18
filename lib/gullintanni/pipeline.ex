@@ -124,7 +124,10 @@ defmodule Gullintanni.Pipeline do
   """
   @spec get(pipeline) :: t
   def get(pipeline) do
-    Agent.get(whereis(pipeline), &(&1))
+    case whereis(pipeline) do
+      :undefined -> :undefined
+      pid -> Agent.get(pid, &(&1))
+    end
   end
 
   @doc """
@@ -132,7 +135,18 @@ defmodule Gullintanni.Pipeline do
   """
   @spec get(pipeline, atom) :: any
   def get(pipeline, key) do
-    Agent.get(whereis(pipeline), &Map.get(&1, key))
+    case whereis(pipeline) do
+      :undefined -> :undefined
+      pid -> Agent.get(pid, &Map.get(&1, key))
+    end
+  end
+
+  @spec fetch(pipeline) :: {:ok, t} | :error
+  defp fetch(pipeline) do
+    case get(pipeline) do
+      :undefined -> :error
+      pipeline -> {:ok, pipeline}
+    end
   end
 
   @doc """
@@ -196,24 +210,30 @@ defmodule Gullintanni.Pipeline do
   end
 
   defp _handle_commands(pid, comment, [:approve]) do
-    pipeline = get(pid)
-    mreq =
-      pipeline.merge_requests
-      |> Map.get(comment.mreq_id)
-      |> MergeRequest.approve(comment.timestamp)
+    with {:ok, pipeline} = fetch(pid),
+         {:ok, mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+      mreq = MergeRequest.approve(mreq, comment.sender, comment.timestamp)
+      mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
-    mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
-    put(pid, :merge_requests, mreqs)
+      put(pid, :merge_requests, mreqs)
 
-    # send notifications
-    message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
-    pipeline.repo.provider.post_comment(
-      pipeline.repo,
-      mreq.id,
-      ":+1: " <> message,
-      pipeline.config
-    )
-    _ = Logger.info message <> " on #{mreq.url}"
+      # send notifications
+      message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
+      pipeline.repo.provider.post_comment(
+        pipeline.repo,
+        mreq.id,
+        ":+1: " <> message,
+        pipeline.config
+      )
+      _ = Logger.info message <> " on #{mreq.url}"
+      :ok
+    else
+      _ -> :ok
+    end
+  end
+  defp _handle_commands(_pid, _comment, commands) do
+    # catch-all clause
+    Logger.debug "unhandled commands #{inspect commands}"
   end
 end
 
