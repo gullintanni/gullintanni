@@ -71,10 +71,13 @@ defmodule Gullintanni.MergeRequest do
     %{mreq | state: :approved,
              approved_by: Map.put_new(mreq.approved_by, username, timestamp)}
   end
-  def approve(%MergeRequest{} = mreq, _, _), do: mreq
+  def approve(%MergeRequest{} = mreq, _username, _timestamp) do
+    mreq
+  end
 
-  def unapprove(%MergeRequest{} = mreq) do
-    %{mreq | state: :under_review, approved_by: %{}}
+  def unapprove(%MergeRequest{} = mreq, _username) do
+    %{mreq | state: :under_review,
+             approved_by: %{}}
   end
 
   def merge_passed(%MergeRequest{state: :approved} = mreq),

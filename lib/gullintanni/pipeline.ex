@@ -231,6 +231,28 @@ defmodule Gullintanni.Pipeline do
       _ -> :ok
     end
   end
+  defp _handle_commands(pid, comment, [:unapprove]) do
+    with {:ok, pipeline} = fetch(pid),
+         {:ok, mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+      mreq = MergeRequest.unapprove(mreq, comment.sender)
+      mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
+
+      put(pid, :merge_requests, mreqs)
+
+      # send notifications
+      message = "approval has been cancelled by @#{comment.sender}"
+      pipeline.repo.provider.post_comment(
+        pipeline.repo,
+        mreq.id,
+        ":broken_heart: " <> message,
+        pipeline.config
+      )
+      _ = Logger.info message <> " on #{mreq.url}"
+      :ok
+    else
+      _ -> :ok
+    end
+  end
   defp _handle_commands(_pid, _comment, commands) do
     # catch-all clause
     Logger.debug "unhandled commands #{inspect commands}"
