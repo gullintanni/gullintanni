@@ -64,7 +64,22 @@ defmodule Gullintanni.MergeRequest do
     end)
   end
 
+  @doc """
+  Replaces the latest commit on the merge request with `sha`.
+
+  This will reset the state back to "under review" as well, canceling any
+  existing approvals.
+  """
+  @spec update_sha(t, sha) :: t
+  def update_sha(%MergeRequest{} = mreq, sha) do
+    %{mreq | latest_commit: sha} |> reset
+  end
+
   # A basic Finite State Machine
+
+  def reset(%MergeRequest{} = mreq) do
+    %{mreq | state: :under_review, approved_by: %{}}
+  end
 
   @spec approve(t, String.t, NaiveDateTime.t) :: t
   def approve(%MergeRequest{state: :under_review} = mreq, username, timestamp) do
@@ -76,8 +91,7 @@ defmodule Gullintanni.MergeRequest do
   end
 
   def unapprove(%MergeRequest{} = mreq, _username) do
-    %{mreq | state: :under_review,
-             approved_by: %{}}
+    reset(mreq)
   end
 
   def merge_passed(%MergeRequest{state: :approved} = mreq),

@@ -29,12 +29,11 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   def handle_events(events, _from, state) do
     for event <- events do
       if from_github?(event) do
-        repo = parse_repo(event)
         event_type = Event.get_req_header(event, "x-github-event")
         payload = Event.get_payload(event)
 
-        _ = Logger.debug("#{event_type} event received from repo #{repo}")
-        handle_event(event_type, payload, repo)
+        _ = Logger.debug("#{event_type} event received from GitHub")
+        handle_event(event_type, payload)
       end
     end
     {:noreply, [], state}
@@ -50,22 +49,34 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     #       output from Plug.Parsers.JSON. https://developer.github.com/webhooks/securing/#validating-payloads-from-github
   end
 
-  defp parse_repo(event) do
-    payload = Event.get_payload(event)
+  @spec handle_event(String.t, Event.payload) :: :ok
+  defp handle_event(type, payload)
+  defp handle_event("issue_comment", %{"action" => "created"} = payload) do
+    # only respond to new comments, not edits
+    with comment <- parse_comment(payload),
+         repo = parse_repo(payload),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_comment(pid, comment)
+    end
+  end
+  defp handle_event("pull_request", %{"action" => "synchronize"} = payload) do
+    with mreq_id = payload["number"],
+         latest_commit = payload["after"],
+         repo = parse_repo(payload),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_push(pid, mreq_id, latest_commit)
+    end
+  end
+  defp handle_event(_type, _payload) do
+    # catch-all clause
+    :ok
+  end
+
+  defp parse_repo(payload) do
     owner = payload["repository"]["owner"]["login"]
     name = payload["repository"]["name"]
 
     Repo.new(@provider, owner, name)
-  end
-
-  @spec handle_event(String.t, Event.payload, Repo.t) :: :ok
-  defp handle_event(type, payload, repo)
-  defp handle_event("issue_comment", %{"action" => "created"} = payload, repo) do
-    # only respond to new comments, not edits
-    with comment <- parse_comment(payload),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_comment(pid, comment)
-    end
   end
 
   defp parse_comment(payload) do

@@ -257,6 +257,26 @@ defmodule Gullintanni.Pipeline do
     # catch-all clause
     Logger.debug "unhandled commands #{inspect commands}"
   end
+
+  @spec handle_push(pipeline, MergeRequest.id, MergeRequest.sha) :: :ok
+  def handle_push(pipeline, mreq_id, sha)
+  def handle_push(:undefined, _, _), do: :ok
+  def handle_push(pid, mreq_id, sha) do
+    with {:ok, pipeline} = fetch(pid),
+         {:ok, mreq} = Map.fetch(pipeline.merge_requests, mreq_id) do
+      mreq = MergeRequest.update_sha(mreq, sha)
+      mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
+
+      put(pid, :merge_requests, mreqs)
+
+      # send notifications
+      message = "commit #{mreq.latest_commit} was pushed to branch #{mreq.branch_name}"
+      _ = Logger.info message <> " on #{mreq.url}"
+      :ok
+    else
+      _ -> :ok
+    end
+  end
 end
 
 
