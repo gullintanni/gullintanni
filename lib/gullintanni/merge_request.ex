@@ -24,6 +24,7 @@ defmodule Gullintanni.MergeRequest do
       branch_name: String.t,
       target_branch: String.t,
       latest_commit: sha,
+      approval: NaiveDateTime.t,
       state: state
     }
 
@@ -36,6 +37,7 @@ defmodule Gullintanni.MergeRequest do
     :branch_name,
     :target_branch,
     :latest_commit,
+    :approval,
     state: :under_review
   ]
 
@@ -52,55 +54,59 @@ defmodule Gullintanni.MergeRequest do
     * `:branch_name` - the Git branch name of the merge request
     * `:target_branch` - the name of the Git branch that the merge request is targeting
     * `:latest_commit` - the SHA-1 hash of the latest commit on the merge request
+    * `:approval` - the date and time the merge request was approved
     * `:state` - the state of the merge request; valid states are defined by `t:state/0`
   """
   @spec new(id, Keyword.t) :: t
   def new(id, opts \\ []) do
-    Enum.reduce(opts, %MergeRequest{id: id}, fn({key, value}, req) ->
-      %{req | key => value}
+    Enum.reduce(opts, %MergeRequest{id: id}, fn({key, value}, mreq) ->
+      %{mreq | key => value}
     end)
   end
 
   # A basic Finite State Machine
 
-  def approve(%MergeRequest{state: :under_review} = req),
-    do: %{req | state: :approved}
+  def approve(%MergeRequest{state: :approved} = mreq, _), do: mreq
+  def approve(%MergeRequest{state: :under_review} = mreq, timestamp) do
+    %{mreq | state: :approved, approval: timestamp}
+  end
 
-  def unapprove(%MergeRequest{} = req),
-    do: %{req | state: :under_review}
+  def unapprove(%MergeRequest{} = mreq) do
+    %{mreq | state: :under_review}
+  end
 
-  def merge_passed(%MergeRequest{state: :approved} = req),
-    do: %{req | state: :build_pending}
+  def merge_passed(%MergeRequest{state: :approved} = mreq),
+    do: %{mreq | state: :build_pending}
 
-  def merge_failed(%MergeRequest{state: :approved} = req),
-    do: %{req | state: :error}
+  def merge_failed(%MergeRequest{state: :approved} = mreq),
+    do: %{mreq | state: :error}
 
-  def build_passed(%MergeRequest{state: :build_pending} = req),
-    do: %{req | state: :build_passed}
+  def build_passed(%MergeRequest{state: :build_pending} = mreq),
+    do: %{mreq | state: :build_passed}
 
-  def build_failed(%MergeRequest{state: :build_pending} = req),
-    do: %{req | state: :build_failed}
+  def build_failed(%MergeRequest{state: :build_pending} = mreq),
+    do: %{mreq | state: :build_failed}
 
-  def build_error(%MergeRequest{state: :build_pending} = req),
-    do: %{req | state: :error}
+  def build_error(%MergeRequest{state: :build_pending} = mreq),
+    do: %{mreq | state: :error}
 
-  def ffwd_failed(%MergeRequest{state: :build_passed} = req),
-    do: %{req | state: :error}
+  def ffwd_failed(%MergeRequest{state: :build_passed} = mreq),
+    do: %{mreq | state: :error}
 end
 
 
 defimpl Inspect, for: Gullintanni.MergeRequest do
   import Inspect.Algebra
 
-  def inspect(req, opts) do
+  def inspect(mreq, opts) do
     keys = [:id, :state, :title, :url]
     attributes =
       keys
       |> Enum.reduce([], fn(key, attributes) ->
-           value = Map.get(req, key)
+           value = Map.get(mreq, key)
            case value do
              nil -> attributes
-             _ -> ["#{key}: #{inspect value}"|attributes]
+             _ -> ["#{key}: #{inspect value}" | attributes]
            end
          end)
       |> Enum.reverse

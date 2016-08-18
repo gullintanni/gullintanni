@@ -42,6 +42,26 @@ defmodule Gullintanni.Providers.GitHub do
     )
   end
 
+  @doc """
+  Publishes a comment in response to the given `message`.
+  """
+  @spec post_comment(Repo.t, MergeRequest.id, String.t, Config.t) :: :ok | :error
+  def post_comment(%Repo{} = repo, thread, comment, config) do
+    response =
+      Tentacat.Issues.Comments.create(
+        repo.owner,
+        repo.name,
+        thread,
+        %{body: comment},
+        client(config)
+      )
+
+    case response do
+      {201, _} -> :ok
+      _ -> :error
+    end
+  end
+
   @spec client(Config.t) :: Tentacat.Client.t
   defp client(config) do
     endpoint = config[:provider_endpoint] || @default_endpoint

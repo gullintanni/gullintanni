@@ -9,8 +9,12 @@ defmodule Gullintanni.Pipeline do
   alias __MODULE__, as: Pipeline
   alias Gullintanni.Config
   alias Gullintanni.Comment
+  alias Gullintanni.MergeRequest
   alias Gullintanni.Repo
   alias Gullintanni.Worker
+  require Logger
+
+  @typep command :: :approve | :unapprove | :noop
 
   @typedoc "The pipeline reference"
   @type pipeline :: pid | {atom, node} | name
@@ -64,7 +68,8 @@ defmodule Gullintanni.Pipeline do
   Returns the `pid` of a pipeline agent, or `:undefined` if no process is
   associated with the given `identifier`.
   """
-  @spec whereis(t | Repo.t | String.t) :: pid | :undefined
+  @spec whereis(pid | t | Repo.t | String.t) :: pid | :undefined
+  def whereis(identifier) when is_pid(identifier), do: identifier
   def whereis(identifier) do
     :gproc.where({:n, :l, {__MODULE__, identify(identifier)}})
   end
@@ -101,31 +106,114 @@ defmodule Gullintanni.Pipeline do
   defp from_config(config) do
     repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
     bot_name = repo.provider.whoami(config)
-    reqs =
+    mreqs =
       repo.provider.download_merge_requests(repo, config)
-      |> Map.new(fn req -> {req.id, req} end)
+      |> Map.new(fn mreq -> {mreq.id, mreq} end)
 
     %Pipeline{
       config: config,
       repo: repo,
       bot_name: bot_name,
-      merge_requests: reqs,
+      merge_requests: mreqs,
       worker: config[:worker]
     }
   end
 
-  @spec handle_comment(pipeline, Comment.t) :: :ok
-  def handle_comment(:undefined, _), do: :ok
-  def handle_comment(pipeline, %Comment{} = comment) do
-    # TODO: implement; this is a stub
-    pipeline = Agent.get(pipeline, &(&1))
-    merge_request = Map.get(pipeline.merge_requests, comment.merge_request_id)
-    commands = Comment.parse_commands(comment, pipeline.bot_name)
+  @doc """
+  Gets the current state of a `pipeline`.
+  """
+  @spec get(pipeline) :: t
+  def get(pipeline) do
+    Agent.get(whereis(pipeline), &(&1))
+  end
 
-    _ = IO.inspect merge_request
-    _ = IO.inspect comment
-    _ = IO.inspect commands
-    :ok
+  @doc """
+  Gets a value from a `pipeline` by `key`.
+  """
+  @spec get(pipeline, atom) :: any
+  def get(pipeline, key) do
+    Agent.get(whereis(pipeline), &Map.get(&1, key))
+  end
+
+  @doc """
+  Puts the `value` for the given `key` in the `pipeline`.
+  """
+  @spec put(pipeline, :atom, any) :: :ok
+  def put(pipeline, key, value) do
+    Agent.update(whereis(pipeline), &Map.put(&1, key, value))
+  end
+
+  @doc """
+  Returns `true` if the user is an authorized reviewer on `pipeline`.
+  """
+  @spec authorized?(pipeline, String.t) :: boolean
+  def authorized?(_pipeline, _username) do
+    # TODO: implement; this is a stub
+    true
+  end
+
+  @spec handle_comment(pipeline, Comment.t) :: :ok
+  def handle_comment(pipeline, comment)
+  def handle_comment(:undefined, _), do: :ok
+  def handle_comment(pid, %Comment{} = comment) do
+    case parse_commands(comment.body, get(pid, :bot_name)) do
+      [] -> :ok
+      commands -> handle_commands(pid, comment, commands)
+    end
+  end
+
+  # Returns a list of recognized commands sent to `bot_name`.
+  @spec parse_commands(String.t, String.t) :: [command]
+  defp parse_commands(text, bot_name) do
+    mention = :binary.compile_pattern("@#{bot_name} ")
+
+    text
+    |> String.split("\n")
+    |> Stream.filter_map(&String.contains?(&1, mention), fn line ->
+         # only parse the text after a mention
+         line
+         |> String.split(mention)
+         |> List.last
+         |> parse_command()
+       end)
+    |> Enum.reject(&(&1 == :noop))
+  end
+
+  @spec parse_command(String.t) :: command
+  defp parse_command(line) do
+     case String.split(line) do
+       ["r+" | _rest] -> :approve
+       ["r-" | _rest] -> :unapprove
+       _ -> :noop
+     end
+  end
+
+  defp handle_commands(pid, comment, commands) do
+    case authorized?(pid, comment.sender) do
+      true -> _handle_commands(pid, comment, commands)
+      false -> :ok
+    end
+  end
+
+  defp _handle_commands(pid, comment, [:approve]) do
+    pipeline = get(pid)
+    mreq =
+      pipeline.merge_requests
+      |> Map.get(comment.mreq_id)
+      |> MergeRequest.approve(comment.timestamp)
+
+    mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
+    put(pid, :merge_requests, mreqs)
+
+    # send notifications
+    message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
+    pipeline.repo.provider.post_comment(
+      pipeline.repo,
+      mreq.id,
+      ":+1: " <> message,
+      pipeline.config
+    )
+    _ = Logger.info message <> " on #{mreq.url}"
   end
 end
 

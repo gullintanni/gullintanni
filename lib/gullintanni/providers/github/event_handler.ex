@@ -69,11 +69,11 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   end
 
   defp parse_comment(payload) do
-    merge_request_id = payload["issue"]["number"]
+    mreq_id = payload["issue"]["number"]
     sender = payload["sender"]["login"]
     body = payload["comment"]["body"]
     timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
 
-    Comment.new(merge_request_id, sender, body, timestamp)
+    Comment.new(mreq_id, sender, body, timestamp)
   end
 end
