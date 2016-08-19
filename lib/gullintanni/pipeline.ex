@@ -212,13 +212,13 @@ defmodule Gullintanni.Pipeline do
   defp _handle_commands(pid, comment, [:approve]) do
     with {:ok, pipeline} = fetch(pid),
          {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
-      new_mreq =
+      mreq =
         old_mreq
         |> MergeRequest.approve(comment.sender, comment.timestamp)
 
       # suppress notifications if there was no state change
-      unless new_mreq == old_mreq do
-        mreqs = Map.put(pipeline.merge_requests, new_mreq.id, new_mreq)
+      unless mreq == old_mreq do
+        mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
         put(pid, :merge_requests, mreqs)
 
@@ -240,13 +240,13 @@ defmodule Gullintanni.Pipeline do
   defp _handle_commands(pid, comment, [:unapprove]) do
     with {:ok, pipeline} = fetch(pid),
          {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
-      new_mreq =
+      mreq =
         old_mreq
         |> MergeRequest.unapprove(comment.sender)
 
       # suppress notifications if there was no state change
-      unless new_mreq == old_mreq do
-        mreqs = Map.put(pipeline.merge_requests, new_mreq.id, new_mreq)
+      unless mreq == old_mreq do
+        mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
         put(pid, :merge_requests, mreqs)
 
