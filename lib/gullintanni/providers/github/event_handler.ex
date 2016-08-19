@@ -6,19 +6,16 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   """
 
   use GenStage
-  alias Gullintanni.Comment
   alias Gullintanni.Pipeline
-  alias Gullintanni.Repo
+  alias Gullintanni.Providers.GitHub
   alias Gullintanni.Webhook.Event
   require Logger
-
-  @provider Gullintanni.Providers.GitHub
 
   def start_link() do
     GenStage.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
-  ## Callbacks
+  ## GenStage Callbacks
 
   def init(:ok) do
     # Starts a permanent subscription to the broadcaster
@@ -39,6 +36,8 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     {:noreply, [], state}
   end
 
+  ## GitHub-specific handling
+
   @spec from_github?(Event.t) :: boolean
   defp from_github?(event) do
     event
@@ -51,40 +50,47 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
 
   @spec handle_event(String.t, Event.payload) :: :ok
   defp handle_event(type, payload)
+  # Merge Requests
+  # --------------
+  defp handle_event("pull_request", %{"action" => "opened"} = payload) do
+    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+         repo = GitHub.parse_repo(payload["repository"]),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_mreq_open(pid, mreq)
+    end
+  end
+  defp handle_event("pull_request", %{"action" => "synchronize"} = payload) do
+    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+         repo = GitHub.parse_repo(payload["repository"]),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_push(pid, mreq.id, mreq.latest_commit)
+    end
+  end
+  defp handle_event("pull_request", %{"action" => "closed"} = payload) do
+    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+         repo = GitHub.parse_repo(payload["repository"]),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_mreq_close(pid, mreq.id)
+    end
+  end
+  defp handle_event("pull_request", %{"action" => "reopened"} = payload) do
+    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+         repo = GitHub.parse_repo(payload["repository"]),
+         pid <- Pipeline.whereis(repo) do
+      Pipeline.handle_mreq_open(pid, mreq)
+    end
+  end
+  # Comments
+  # --------
+  # Only handle new comments, not edits.
   defp handle_event("issue_comment", %{"action" => "created"} = payload) do
-    # only respond to new comments, not edits
-    with comment <- parse_comment(payload),
-         repo = parse_repo(payload),
+    with comment <- GitHub.parse_comment(payload),
+         repo = GitHub.parse_repo(payload["repository"]),
          pid <- Pipeline.whereis(repo) do
       Pipeline.handle_comment(pid, comment)
     end
   end
-  defp handle_event("pull_request", %{"action" => "synchronize"} = payload) do
-    with mreq_id = payload["number"],
-         latest_commit = payload["after"],
-         repo = parse_repo(payload),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_push(pid, mreq_id, latest_commit)
-    end
-  end
-  defp handle_event(_type, _payload) do
-    # catch-all clause
-    :ok
-  end
-
-  defp parse_repo(payload) do
-    owner = payload["repository"]["owner"]["login"]
-    name = payload["repository"]["name"]
-
-    Repo.new(@provider, owner, name)
-  end
-
-  defp parse_comment(payload) do
-    mreq_id = payload["issue"]["number"]
-    sender = payload["sender"]["login"]
-    body = payload["comment"]["body"]
-    timestamp = payload["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
-
-    Comment.new(mreq_id, sender, body, timestamp)
-  end
+  # Catch-all clause
+  # ----------------
+  defp handle_event(_type, _payload), do: :ok
 end

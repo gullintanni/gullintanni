@@ -70,6 +70,7 @@ defmodule Gullintanni.Pipeline do
   """
   @spec whereis(pid | t | Repo.t | String.t) :: pid | :undefined
   def whereis(identifier) when is_pid(identifier), do: identifier
+  def whereis(identifier) when is_atom(identifier), do: :undefined
   def whereis(identifier) do
     :gproc.where({:n, :l, {__MODULE__, identify(identifier)}})
   end
@@ -167,12 +168,10 @@ defmodule Gullintanni.Pipeline do
   end
 
   @spec handle_comment(pipeline, Comment.t) :: :ok
-  def handle_comment(pipeline, comment)
-  def handle_comment(:undefined, _), do: :ok
-  def handle_comment(pid, %Comment{} = comment) do
-    case parse_commands(comment.body, get(pid, :bot_name)) do
+  def handle_comment(pipeline, %Comment{} = comment) do
+    case parse_commands(comment.body, get(pipeline, :bot_name)) do
       [] -> :ok
-      commands -> handle_commands(pid, comment, commands)
+      commands -> handle_commands(pipeline, comment, commands)
     end
   end
 
@@ -202,16 +201,16 @@ defmodule Gullintanni.Pipeline do
      end
   end
 
-  defp handle_commands(pid, comment, commands) do
-    case authorized?(pid, comment.sender) do
-      true -> _handle_commands(pid, comment, commands)
+  defp handle_commands(pipeline, comment, commands) do
+    case authorized?(pipeline, comment.sender) do
+      true -> _handle_commands(pipeline, comment, commands)
       false -> :ok
     end
   end
 
-  defp _handle_commands(pid, comment, [:approve]) do
-    with {:ok, pipeline} = fetch(pid),
-         {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+  defp _handle_commands(pipeline, comment, [:approve]) do
+    with {:ok, pipeline} <- fetch(pipeline),
+         {:ok, old_mreq} <- Map.fetch(pipeline.merge_requests, comment.mreq_id) do
       mreq =
         old_mreq
         |> MergeRequest.approve(comment.sender, comment.timestamp)
@@ -220,7 +219,7 @@ defmodule Gullintanni.Pipeline do
       unless mreq == old_mreq do
         mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
-        put(pid, :merge_requests, mreqs)
+        put(pipeline, :merge_requests, mreqs)
 
         # send notifications
         message = "commit #{mreq.latest_commit} has been approved by @#{comment.sender}"
@@ -237,9 +236,9 @@ defmodule Gullintanni.Pipeline do
       _ -> :ok
     end
   end
-  defp _handle_commands(pid, comment, [:unapprove]) do
-    with {:ok, pipeline} = fetch(pid),
-         {:ok, old_mreq} = Map.fetch(pipeline.merge_requests, comment.mreq_id) do
+  defp _handle_commands(pipeline, comment, [:unapprove]) do
+    with {:ok, pipeline} <- fetch(pipeline),
+         {:ok, old_mreq} <- Map.fetch(pipeline.merge_requests, comment.mreq_id) do
       mreq =
         old_mreq
         |> MergeRequest.unapprove(comment.sender)
@@ -248,7 +247,7 @@ defmodule Gullintanni.Pipeline do
       unless mreq == old_mreq do
         mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
-        put(pid, :merge_requests, mreqs)
+        put(pipeline, :merge_requests, mreqs)
 
         # send notifications
         message = "approval has been cancelled by @#{comment.sender}"
@@ -265,25 +264,56 @@ defmodule Gullintanni.Pipeline do
       _ -> :ok
     end
   end
-  defp _handle_commands(_pid, _comment, commands) do
+  defp _handle_commands(_pipeline, _comment, commands) do
     # catch-all clause
     Logger.debug "unhandled commands #{inspect commands}"
   end
 
   @spec handle_push(pipeline, MergeRequest.id, MergeRequest.sha) :: :ok
-  def handle_push(pipeline, mreq_id, sha)
-  def handle_push(:undefined, _, _), do: :ok
-  def handle_push(pid, mreq_id, sha) do
-    with {:ok, pipeline} = fetch(pid),
-         {:ok, mreq} = Map.fetch(pipeline.merge_requests, mreq_id) do
+  def handle_push(pipeline, mreq_id, sha) do
+    with {:ok, pipeline} <- fetch(pipeline),
+         {:ok, mreq} <- Map.fetch(pipeline.merge_requests, mreq_id) do
       mreq = MergeRequest.update_sha(mreq, sha)
       mreqs = Map.put(pipeline.merge_requests, mreq.id, mreq)
 
-      put(pid, :merge_requests, mreqs)
+      put(pipeline, :merge_requests, mreqs)
 
       # send notifications
       message = "commit #{mreq.latest_commit} was pushed to branch #{mreq.branch_name}"
       _ = Logger.info message <> " on #{mreq.url}"
+      :ok
+    else
+      _ -> :ok
+    end
+  end
+
+  @spec handle_mreq_open(pipeline, MergeRequest.t) :: :ok
+  def handle_mreq_open(pipeline, mreq) do
+    with {:ok, pipeline} <- fetch(pipeline) do
+      mreqs = Map.put_new(pipeline.merge_requests, mreq.id, mreq)
+
+      put(pipeline, :merge_requests, mreqs)
+
+      # send notifications
+      message = "opened merge request #{mreq.url}"
+      _ = Logger.info message
+      :ok
+    else
+      _ -> :ok
+    end
+  end
+
+  @spec handle_mreq_close(pipeline, MergeRequest.id) :: :ok
+  def handle_mreq_close(pipeline, mreq_id) do
+    with {:ok, pipeline} <- fetch(pipeline),
+         {:ok, mreq} <- Map.fetch(pipeline.merge_requests, mreq_id) do
+      mreqs = Map.delete(pipeline.merge_requests, mreq.id)
+
+      put(pipeline, :merge_requests, mreqs)
+
+      # send notifications
+      message = "closed merge request #{mreq.url}"
+      _ = Logger.info message
       :ok
     else
       _ -> :ok

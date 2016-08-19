@@ -3,6 +3,7 @@ defmodule Gullintanni.Providers.GitHub do
   Provider adapter module for GitHub -- https://github.com/.
   """
 
+  alias Gullintanni.Comment
   alias Gullintanni.Config
   alias Gullintanni.MergeRequest
   alias Gullintanni.Repo
@@ -19,6 +20,12 @@ defmodule Gullintanni.Providers.GitHub do
     Config.settings_present?(@required_config_settings, config)
   end
 
+  @spec client(Config.t) :: Tentacat.Client.t
+  defp client(config) do
+    endpoint = config[:provider_endpoint] || @default_endpoint
+    Tentacat.Client.new(%{access_token: config[:provider_auth_token]}, endpoint)
+  end
+
   def whoami(config) do
     Tentacat.Users.me(client(config))["login"]
   end
@@ -26,20 +33,6 @@ defmodule Gullintanni.Providers.GitHub do
   def download_merge_requests(%Repo{} = repo, config) do
     Tentacat.Pulls.list(repo.owner, repo.name, client(config))
     |> Enum.map(&parse_merge_request/1)
-  end
-
-  def parse_merge_request(data) do
-    MergeRequest.new(
-      data["number"],
-      [
-        title: data["title"],
-        url: data["html_url"],
-        clone_url: data["head"]["repo"]["clone_url"],
-        branch_name: data["head"]["ref"],
-        target_branch: data["base"]["ref"],
-        latest_commit: data["head"]["sha"]
-      ]
-    )
   end
 
   @doc """
@@ -62,9 +55,37 @@ defmodule Gullintanni.Providers.GitHub do
     end
   end
 
-  @spec client(Config.t) :: Tentacat.Client.t
-  defp client(config) do
-    endpoint = config[:provider_endpoint] || @default_endpoint
-    Tentacat.Client.new(%{access_token: config[:provider_auth_token]}, endpoint)
+  ## Parsing API data
+
+  def parse_repo(data) do
+    owner = data["owner"]["login"]
+    name = data["name"]
+
+    Repo.new(__MODULE__, owner, name)
+  end
+
+  def parse_merge_request(data) do
+    id = data["number"]
+
+    MergeRequest.new(
+      id,
+      [
+        title: data["title"],
+        url: data["html_url"],
+        clone_url: data["head"]["repo"]["clone_url"],
+        branch_name: data["head"]["ref"],
+        target_branch: data["base"]["ref"],
+        latest_commit: data["head"]["sha"]
+      ]
+    )
+  end
+
+  def parse_comment(data) do
+    mreq_id = data["issue"]["number"]
+    sender = data["sender"]["login"]
+    body = data["comment"]["body"]
+    timestamp = data["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
+
+    Comment.new(mreq_id, sender, body, timestamp)
   end
 end
