@@ -186,8 +186,23 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#reset/1">reset(mreq)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#unapprove/2">unapprove(mreq, username)</a>
   </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_sha/2">update_sha(mreq, sha)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Replaces the latest commit on the merge request with <code class="inline">sha</code></p>
+</div>
   
 </div>
 
@@ -261,7 +276,7 @@
     </a>
     <span class="signature">approve(mreq, username, timestamp)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L70" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L85" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -288,7 +303,7 @@
     </a>
     <span class="signature">build_error(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L95" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L109" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -306,7 +321,7 @@
     </a>
     <span class="signature">build_failed(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L92" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L106" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -324,7 +339,7 @@
     </a>
     <span class="signature">build_passed(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L89" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L103" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -342,7 +357,7 @@
     </a>
     <span class="signature">ffwd_failed(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L98" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L112" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -360,7 +375,7 @@
     </a>
     <span class="signature">merge_failed(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L86" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L100" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -378,7 +393,7 @@
     </a>
     <span class="signature">merge_passed(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L83" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L97" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -437,14 +452,14 @@
 
   </section>
 </div>
-<div class="detail" id="unapprove/2">
+<div class="detail" id="reset/1">
   <div class="detail-header">
-    <a href="#unapprove/2" class="detail-link" title="Link to this function">
+    <a href="#reset/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">unapprove(mreq, username)</span>
+    <span class="signature">reset(mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L78" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L80" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -453,6 +468,54 @@
   
   <section class="docstring">
     
+  </section>
+</div>
+<div class="detail" id="unapprove/2">
+  <div class="detail-header">
+    <a href="#unapprove/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">unapprove(mreq, username)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L93" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="update_sha/2">
+  <div class="detail-header">
+    <a href="#update_sha/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">update_sha(mreq, sha)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L74" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">update_sha(<a href="#t:t/0">t</a>, <a href="#t:sha/0">sha</a>) :: <a href="#t:t/0">t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Replaces the latest commit on the merge request with <code class="inline">sha</code>.</p>
+<p>This will reset the state back to “under review” as well, canceling any
+existing approvals.</p>
+
   </section>
 </div>
 
