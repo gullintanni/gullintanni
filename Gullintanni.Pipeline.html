@@ -164,6 +164,18 @@ necessary to coordinate builds and merges.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#handle_mreq_close/2">handle_mreq_close(pipeline, mreq_id)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#handle_mreq_open/2">handle_mreq_open(pipeline, mreq)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#handle_push/3">handle_push(pipeline, mreq_id, sha)</a>
   </div>
   
@@ -270,7 +282,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">authorized?(pipeline, username)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L164" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L165" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -298,7 +310,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">get(pipeline)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L126" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L127" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -326,7 +338,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">get(pipeline, key)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L137" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L138" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -354,7 +366,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">handle_comment(pipeline, comment)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L170" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L171" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -374,6 +386,60 @@ associated with the given <code class="inline">identifier</code></p>
     
   </section>
 </div>
+<div class="detail" id="handle_mreq_close/2">
+  <div class="detail-header">
+    <a href="#handle_mreq_close/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">handle_mreq_close(pipeline, mreq_id)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L307" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">handle_mreq_close(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>) :: :ok</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="handle_mreq_open/2">
+  <div class="detail-header">
+    <a href="#handle_mreq_open/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">handle_mreq_open(pipeline, mreq)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L291" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">handle_mreq_open(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>) :: :ok</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
 <div class="detail" id="handle_push/3">
   <div class="detail-header">
     <a href="#handle_push/3" class="detail-link" title="Link to this function">
@@ -381,7 +447,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">handle_push(pipeline, mreq_id, sha)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L274" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L273" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -408,7 +474,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">put(pipeline, key, value)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L156" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L157" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -464,7 +530,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L97" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L98" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
