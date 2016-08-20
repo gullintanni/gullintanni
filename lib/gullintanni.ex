@@ -23,9 +23,11 @@ defmodule Gullintanni do
   end
 
   defp load_configured_pipelines do
-    Enum.each(Config.load(:pipeline), fn({name, config}) ->
-      _ = Logger.info "loading #{inspect name} pipeline configuration"
-      Pipeline.Supervisor.start_pipeline(config)
-    end)
+    with true <- Config.load(:enable_load_pipelines) do
+      Enum.each(Config.load(:pipeline), fn({name, config}) ->
+        _ = Logger.info "loading #{inspect name} pipeline configuration"
+        Pipeline.Supervisor.start_pipeline(config)
+      end)
+    end
   end
 end

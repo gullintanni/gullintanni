@@ -20,6 +20,7 @@ defmodule Gullintanni.Mixfile do
     [mod: {Gullintanni, []},
      applications: [:cowboy, :gproc, :logger, :plug, :tentacat],
      env: [enable_http_workers: true,
+           enable_load_pipelines: true,
            status_page: [bind_ip: "127.0.0.1", bind_port: 13980],
            webhook: [bind_ip: "0.0.0.0", bind_port: 13931]]]
   end

@@ -2,4 +2,5 @@
 use Mix.Config
 
 config :gullintanni,
-  enable_http_workers: false
+  enable_http_workers: false,
+  enable_load_pipelines: false
