@@ -68,7 +68,7 @@ defmodule Gullintanni.Pipeline do
   Returns the `pid` of a pipeline agent, or `:undefined` if no process is
   associated with the given `identifier`.
   """
-  @spec whereis(pid | t | Repo.t | String.t) :: pid | :undefined
+  @spec whereis(pid | atom | t | Repo.t | String.t) :: pid | :undefined
   def whereis(identifier) when is_pid(identifier), do: identifier
   def whereis(identifier) when is_atom(identifier), do: :undefined
   def whereis(identifier) do
@@ -123,7 +123,7 @@ defmodule Gullintanni.Pipeline do
   @doc """
   Gets the current state of a `pipeline`.
   """
-  @spec get(pipeline) :: t
+  @spec get(pipeline) :: t | :undefined
   def get(pipeline) do
     case whereis(pipeline) do
       :undefined -> :undefined
@@ -134,7 +134,7 @@ defmodule Gullintanni.Pipeline do
   @doc """
   Gets a value from a `pipeline` by `key`.
   """
-  @spec get(pipeline, atom) :: any
+  @spec get(pipeline, atom) :: any | :undefined
   def get(pipeline, key) do
     case whereis(pipeline) do
       :undefined -> :undefined
@@ -153,7 +153,7 @@ defmodule Gullintanni.Pipeline do
   @doc """
   Puts the `value` for the given `key` in the `pipeline`.
   """
-  @spec put(pipeline, :atom, any) :: :ok
+  @spec put(pipeline, any, any) :: :ok
   def put(pipeline, key, value) do
     Agent.update(whereis(pipeline), &Map.put(&1, key, value))
   end

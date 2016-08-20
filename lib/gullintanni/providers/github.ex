@@ -57,6 +57,7 @@ defmodule Gullintanni.Providers.GitHub do
 
   ## Parsing API data
 
+  @spec parse_repo(map) :: Repo.t
   def parse_repo(data) do
     owner = data["owner"]["login"]
     name = data["name"]
@@ -64,6 +65,7 @@ defmodule Gullintanni.Providers.GitHub do
     Repo.new(__MODULE__, owner, name)
   end
 
+  @spec parse_merge_request(map) :: MergeRequest.t
   def parse_merge_request(data) do
     id = data["number"]
 
@@ -80,6 +82,7 @@ defmodule Gullintanni.Providers.GitHub do
     )
   end
 
+  @spec parse_comment(map) :: Comment.t
   def parse_comment(data) do
     mreq_id = data["issue"]["number"]
     sender = data["sender"]["login"]
