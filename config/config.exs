@@ -6,6 +6,10 @@ config :logger,
 config :logger, :console,
   format: "$date $time $metadata[$level] $levelpad$message\n"
 
+#config :gullintanni, :status_page,
+#  bind_ip: "127.0.0.1",
+#  bind_port: 13980
+
 #config :gullintanni, :webhook,
 #  bind_ip: "0.0.0.0",
 #  bind_port: 13931
