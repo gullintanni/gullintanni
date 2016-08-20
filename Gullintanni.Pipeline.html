@@ -321,7 +321,7 @@ associated with the given <code class="inline">identifier</code></p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>) :: <a href="#t:t/0">t</a> | :undefined</code></pre>
         
       </div>
     </div>
@@ -349,7 +349,7 @@ associated with the given <code class="inline">identifier</code></p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>, atom) :: any</code></pre>
+          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>, atom) :: any | :undefined</code></pre>
         
       </div>
     </div>
@@ -485,7 +485,7 @@ associated with the given <code class="inline">identifier</code></p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">put(<a href="#t:pipeline/0">pipeline</a>, :atom, any) :: :ok</code></pre>
+          <pre><code class="elixir">put(<a href="#t:pipeline/0">pipeline</a>, any, any) :: :ok</code></pre>
         
       </div>
     </div>
@@ -570,7 +570,7 @@ associated with the given <code class="inline">identifier</code></p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">whereis(pid | <a href="#t:t/0">t</a> | <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) ::
+          <pre><code class="elixir">whereis(pid | atom | <a href="#t:t/0">t</a> | <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) ::
   pid |
   :undefined</code></pre>
         
