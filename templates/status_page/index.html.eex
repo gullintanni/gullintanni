@@ -6,6 +6,7 @@
 
   <title><%= @title %></title>
 
+  <link rel="icon" href="/images/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
 
   <style type="text/css">
@@ -93,9 +94,14 @@
       margin: -10em;
       padding: 10em;
     }
+    .logo {
+      float: right;
+      height: 90px;
+      margin-right: 20px;
+      width: 90px;
+    }
   </style>
 </head>
-
 <body>
 <%= cond do %>
   <% Keyword.has_key?(assigns, :pipelines) -> %>

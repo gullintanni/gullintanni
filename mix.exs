@@ -11,7 +11,7 @@ defmodule Gullintanni.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     docs: [logo: "priv/images/logo.png",
+     docs: [logo: "priv/static/images/logo.png",
             main: "readme",
             extras: ["CONTRIBUTING.md", "README.md", "pages/Cheatsheet.md"]]]
   end

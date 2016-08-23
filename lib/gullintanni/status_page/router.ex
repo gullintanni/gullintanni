@@ -17,6 +17,11 @@ defmodule Gullintanni.StatusPage.Router do
   plug Plug.Logger,
     log: :debug
 
+  plug Plug.Static,
+    at: "/",
+    from: :gullintanni,
+    only: ["images"]
+
   plug :match
   plug :dispatch
 

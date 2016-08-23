@@ -2,6 +2,8 @@
 
 <p><code>@<%= pipeline.bot_name %></code> must be mentioned for all commands; see the <a href="https://github.com/gullintanni/gullintanni/blob/master/pages/Cheatsheet.md">Gullintanni CHEATSHEET</a> for details.</p>
 
+<a href="https://gullintanni.github.io/gullintanni"><img src="images/logo.png" alt="Gullintanni Logo" class="logo" /></a>
+
 <h2>Build Queue</h2>
 
 <p><a href="https://<%= pipeline.repo %>"><%= pipeline.repo.provider.__display_name__ %></a>
@@ -10,10 +12,10 @@
 <table>
   <thead>
     <tr>
-      <th>Status</th>
       <th>ID</th>
-      <th>Title</th>
+      <th>Status</th>
       <th>Approved By</th>
+      <th>Title</th>
     </tr>
   </thead>
   <tbody>
