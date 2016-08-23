@@ -151,6 +151,62 @@ defmodule Gullintanni.Pipeline do
   end
 
   @doc """
+  Returns a list of all pipelines.
+  """
+  @spec get_all :: [t]
+  def get_all do
+    Supervisor.which_children(__MODULE__.Supervisor)
+    |> Enum.map(fn {_id, child, _type, _modules} ->
+         Agent.get(child, &(&1))
+       end)
+  end
+
+  @doc """
+  Finds a pipeline based solely on the repository `name`.
+
+  Returns `{:ok, pipeline}` if found, otherwise `:error`. If there are multiple
+  repositories with the same name, returns just the first match.
+  """
+  @spec fetch_repo(String.t) :: {:ok, t} | :error
+  def fetch_repo(name) do
+    # TODO: This feels inefficient and duplicate repository names will cause an
+    # issue for the use case of the overview status page. Perhaps we should
+    # store a friendly pipeline "slug" instead?
+    result =
+      Supervisor.which_children(__MODULE__.Supervisor)
+      |> Stream.map(fn {_id, child, _type, _modules} ->
+           Agent.get(child, &(&1))
+         end)
+      |> Enum.find(:undefined, fn pipeline ->
+           pipeline.repo.name == name
+         end)
+
+    case result do
+      :undefined -> :error
+      pipeline -> {:ok, pipeline}
+    end
+  end
+
+  @doc """
+  Returns a tuple of `{queued, total}` representing the number of merge
+  requests in the build queue and in total.
+  """
+  @spec count_queued(pipeline) :: {non_neg_integer, non_neg_integer}
+  def count_queued(pipeline) do
+    queued =
+      Enum.reduce(pipeline.merge_requests, 0, fn({_id, mreq}, acc) ->
+        case mreq.state do
+          :under_review -> acc
+          _ -> acc + 1
+        end
+      end)
+
+    total = map_size(pipeline.merge_requests)
+
+    {queued, total}
+  end
+
+  @doc """
   Puts the `value` for the given `key` in the `pipeline`.
   """
   @spec put(pipeline, any, any) :: :ok

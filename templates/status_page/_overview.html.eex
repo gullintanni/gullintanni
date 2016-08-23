@@ -1,0 +1,29 @@
+<h1>Pipelines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Repository</th>
+      <th>Provider</th>
+      <th>Worker</th>
+      <th>Build Queue</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= if Enum.empty?(pipelines) do %>
+    <tr>
+      <td>No active pipelines configured&hellip;</td>
+    </tr>
+  <% else %>
+    <%= for pipeline <- pipelines do %>
+      <tr>
+        <td class="fill-link"><a href="status/<%= pipeline.repo.name %>"><%= pipeline.repo.owner %> / <%= pipeline.repo.name %></a></td>
+        <td><%= pipeline.repo.provider.__display_name__ %></td>
+        <td><%= pipeline.worker.__display_name__ %></td>
+        <% {queued, total} = Pipeline.count_queued(pipeline) %>
+        <td><%= queued %> queued / <%= total %> merge requests</td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

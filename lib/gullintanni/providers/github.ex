@@ -10,10 +10,12 @@ defmodule Gullintanni.Providers.GitHub do
 
   @behaviour Gullintanni.Provider
 
-  @domain "github.com"
   @default_endpoint "https://api.github.com/"
+  @display_name "GitHub"
+  @domain "github.com"
   @required_config_settings [:provider_auth_token]
 
+  def __display_name__, do: @display_name
   def __domain__, do: @domain
 
   def valid_config?(config) do

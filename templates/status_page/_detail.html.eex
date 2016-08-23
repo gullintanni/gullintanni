@@ -1,0 +1,34 @@
+<h1><a href="/status">Pipelines</a> / <%= pipeline.repo.name %></h1>
+
+<p><code>@<%= pipeline.bot_name %></code> must be mentioned for all commands; see the <a href="https://github.com/gullintanni/gullintanni/blob/master/pages/Cheatsheet.md">Gullintanni CHEATSHEET</a> for details.</p>
+
+<h2>Build Queue</h2>
+
+<p><a href="https://<%= pipeline.repo %>"><%= pipeline.repo.provider.__display_name__ %></a>
+&hArr; <%= pipeline.worker.__display_name__%> </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Approved By</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<h2>Under Review</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

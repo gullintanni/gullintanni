@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%= @title %></title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+
+  <style type="text/css">
+    body {
+      max-width: 60em;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    a:link,
+    a:visited {
+      text-decoration: none;
+    }
+    a:link:focus,
+    a:visited:focus {
+      text-decoration: underline;
+      color: #03C;
+    }
+    a:link {
+      color: #06C;
+    }
+    a:visited {
+      color: #4D0073;
+    }
+    a:link:hover,
+    a:visited:hover {
+      text-decoration: underline;
+      color: #03C;
+    }
+    a:link:active,
+    a:visited:active {
+      text-decoration: underline;
+      color: #03C;
+    }
+
+    table {
+      width: 100%;
+      border: solid 1px #CCC;
+      border-radius: 6px;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+    }
+    tr {
+      transition-duration: 0.25s;
+      transition-timing-function: ease;
+      transition-property: background;
+    }
+    tbody > tr:hover {
+      background: #EEE;
+    }
+    tr td {
+      border-top: solid 1px #CCC;
+    }
+    tr:first-child td {
+      border-top: none;
+    }
+    th {
+      border-bottom: solid 2px #CCC;
+      color: #666;
+      font-weight: bold;
+      text-align: left;
+    }
+    th, td {
+      padding: 10px 10px 8px;
+      border-left: solid 1px #CCC;
+    }
+    th:first-child, td:first-child {
+      border-left: none;
+    }
+    .fill-link {
+      overflow: hidden;
+    }
+    .fill-link > * {
+      display: block;
+      margin: -10em;
+      padding: 10em;
+    }
+  </style>
+</head>
+
+<body>
+<%= cond do %>
+  <% Keyword.has_key?(assigns, :pipelines) -> %>
+    <%= overview(@pipelines) %>
+  <% Keyword.has_key?(assigns, :pipeline) -> %>
+    <%= detail(@pipeline) %>
+<% end %>
+</body>
+</html>
