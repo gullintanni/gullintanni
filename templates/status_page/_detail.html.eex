@@ -1,4 +1,4 @@
-<h1><a href="/status">Pipelines</a> / <%= pipeline.repo.name %></h1>
+<h1><a href="/">Pipelines</a> / <%= pipeline.repo.name %></h1>
 
 <p><code>@<%= pipeline.bot_name %></code> must be mentioned for all commands; see the <a href="https://github.com/gullintanni/gullintanni/blob/master/pages/Cheatsheet.md">Gullintanni CHEATSHEET</a> for details.</p>
 

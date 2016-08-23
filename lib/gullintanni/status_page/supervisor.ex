@@ -32,7 +32,7 @@ defmodule Gullintanni.StatusPage.Supervisor do
     cowboy_opts =
       case Socket.new(config[:bind_ip], config[:bind_port]) do
         {:ok, socket} ->
-          _ = Logger.info "started listening on #{socket}/status"
+          _ = Logger.info "started listening on #{socket}"
           [ip: socket.ip, port: socket.port]
         {:error, :invalid_ip_address} ->
           raise ArgumentError, "invalid :status_page, :bind_ip configuration setting"

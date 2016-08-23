@@ -10,8 +10,9 @@
 
   <style type="text/css">
     body {
-      max-width: 60em;
+      color: #3C2F20;
       margin: 0 auto;
+      max-width: 60em;
       padding: 16px 20px;
     }
 
@@ -39,6 +40,13 @@
     a:visited:active {
       text-decoration: underline;
       color: #03C;
+    }
+
+    code {
+      background-color: #E7E7EB;
+      border: 4px solid #E7E7EB;
+      border-radius: 4px;
+      font-family: "Inconsolata", "Courier New", Courier, mono;
     }
 
     table {
@@ -76,6 +84,7 @@
     th:first-child, td:first-child {
       border-left: none;
     }
+
     .fill-link {
       overflow: hidden;
     }

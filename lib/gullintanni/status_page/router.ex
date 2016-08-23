@@ -20,7 +20,7 @@ defmodule Gullintanni.StatusPage.Router do
   plug :match
   plug :dispatch
 
-  get "/status" do
+  get "/" do
     pipelines = Pipeline.get_all()
     title = "Gullintanni Pipelines"
 
@@ -29,7 +29,7 @@ defmodule Gullintanni.StatusPage.Router do
     |> send_resp(200, render(title: title, pipelines: pipelines))
   end
 
-  get "/status/:repo_name" do
+  get "/:repo_name" do
     with {:ok, pipeline} <- Pipeline.fetch_repo("#{repo_name}"),
          title = "Pipeline #{pipeline.repo} - Gullintanni" do
       conn

@@ -17,7 +17,7 @@
   <% else %>
     <%= for pipeline <- pipelines do %>
       <tr>
-        <td class="fill-link"><a href="status/<%= pipeline.repo.name %>"><%= pipeline.repo.owner %> / <%= pipeline.repo.name %></a></td>
+        <td class="fill-link"><a href="/<%= pipeline.repo.name %>"><%= pipeline.repo.owner %> / <%= pipeline.repo.name %></a></td>
         <td><%= pipeline.repo.provider.__display_name__ %></td>
         <td><%= pipeline.worker.__display_name__ %></td>
         <% {queued, total} = Pipeline.count_queued(pipeline) %>
