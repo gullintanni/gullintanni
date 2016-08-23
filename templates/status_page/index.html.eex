@@ -24,23 +24,23 @@
     a:link:focus,
     a:visited:focus {
       text-decoration: underline;
-      color: #03C;
+      color: #255F92;
     }
     a:link {
-      color: #06C;
+      color: #2F79B9;
     }
     a:visited {
-      color: #4D0073;
+      color: #553A7D;
     }
     a:link:hover,
     a:visited:hover {
       text-decoration: underline;
-      color: #03C;
+      color: #255F92;
     }
     a:link:active,
     a:visited:active {
       text-decoration: underline;
-      color: #03C;
+      color: #255F92;
     }
 
     code {
@@ -64,7 +64,7 @@
       transition-property: background;
     }
     tbody > tr:hover {
-      background: #EEE;
+      background: #F7F7F9;
     }
     tr td {
       border-top: solid 1px #CCC;
@@ -74,7 +74,7 @@
     }
     th {
       border-bottom: solid 2px #CCC;
-      color: #666;
+      color: #AB6800;
       font-weight: bold;
       text-align: left;
     }
@@ -94,11 +94,25 @@
       margin: -10em;
       padding: 10em;
     }
+
     .logo {
       float: right;
       height: 90px;
       margin-right: 20px;
       width: 90px;
+    }
+
+    .info {
+      background-color: #D8EDF8;
+    }
+    .success {
+      background-color: #DFF0D7;
+    }
+    .warning {
+      background-color: #FCF8E2;
+    }
+    .danger {
+      background-color: #F2DEDE;
     }
   </style>
 </head>

@@ -191,7 +191,7 @@ defmodule Gullintanni.Pipeline do
   Returns a tuple of `{queued, total}` representing the number of merge
   requests in the build queue and in total.
   """
-  @spec count_queued(pipeline) :: {non_neg_integer, non_neg_integer}
+  @spec count_queued(t) :: {non_neg_integer, non_neg_integer}
   def count_queued(pipeline) do
     queued =
       Enum.reduce(pipeline.merge_requests, 0, fn({_id, mreq}, acc) ->
