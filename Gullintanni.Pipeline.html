@@ -140,25 +140,6 @@ necessary to coordinate builds and merges.</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#count_queued/1">count_queued(pipeline)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Returns a tuple of <code class="inline">{queued, total}</code> representing the number of merge
-requests in the build queue and in total</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#fetch_repo/1">fetch_repo(name)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Finds a pipeline based solely on the repository <code class="inline">name</code></p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#get/1">get(pipeline)</a>
   </div>
   
@@ -172,15 +153,6 @@ requests in the build queue and in total</p>
   </div>
   
     <div class="summary-synopsis"><p>Gets a value from a <code class="inline">pipeline</code> by <code class="inline">key</code></p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get_all/0">get_all()</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Returns a list of all pipelines</p>
 </div>
   
 </div>
@@ -310,7 +282,7 @@ associated with the given <code class="inline">identifier</code></p>
     </a>
     <span class="signature">authorized?(pipeline, username)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L221" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L165" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -328,65 +300,6 @@ associated with the given <code class="inline">identifier</code></p>
   
   <section class="docstring">
     <p>Returns <code class="inline">true</code> if the user is an authorized reviewer on <code class="inline">pipeline</code>.</p>
-
-  </section>
-</div>
-<div class="detail" id="count_queued/1">
-  <div class="detail-header">
-    <a href="#count_queued/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">count_queued(pipeline)</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L195" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">count_queued(<a href="#t:pipeline/0">pipeline</a>) :: {non_neg_integer, non_neg_integer}</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Returns a tuple of <code class="inline">{queued, total}</code> representing the number of merge
-requests in the build queue and in total.</p>
-
-  </section>
-</div>
-<div class="detail" id="fetch_repo/1">
-  <div class="detail-header">
-    <a href="#fetch_repo/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">fetch_repo(name)</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L171" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">fetch_repo(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: {:ok, <a href="#t:t/0">t</a>} | :error</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Finds a pipeline based solely on the repository <code class="inline">name</code>.</p>
-<p>Returns <code class="inline">{:ok, pipeline}</code> if found, otherwise <code class="inline">:error</code>. If there are multiple
-repositories with the same name, returns just the first match.</p>
 
   </section>
 </div>
@@ -446,34 +359,6 @@ repositories with the same name, returns just the first match.</p>
 
   </section>
 </div>
-<div class="detail" id="get_all/0">
-  <div class="detail-header">
-    <a href="#get_all/0" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">get_all()</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L157" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">get_all :: [<a href="#t:t/0">t</a>]</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Returns a list of all pipelines.</p>
-
-  </section>
-</div>
 <div class="detail" id="handle_comment/2">
   <div class="detail-header">
     <a href="#handle_comment/2" class="detail-link" title="Link to this function">
@@ -481,7 +366,7 @@ repositories with the same name, returns just the first match.</p>
     </a>
     <span class="signature">handle_comment(pipeline, comment)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L227" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L171" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -508,7 +393,7 @@ repositories with the same name, returns just the first match.</p>
     </a>
     <span class="signature">handle_mreq_close(pipeline, mreq_id)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L363" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L307" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -535,7 +420,7 @@ repositories with the same name, returns just the first match.</p>
     </a>
     <span class="signature">handle_mreq_open(pipeline, mreq)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L347" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L291" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -562,7 +447,7 @@ repositories with the same name, returns just the first match.</p>
     </a>
     <span class="signature">handle_push(pipeline, mreq_id, sha)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L329" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L273" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -589,7 +474,7 @@ repositories with the same name, returns just the first match.</p>
     </a>
     <span class="signature">put(pipeline, key, value)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L213" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L157" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
