@@ -75,6 +75,14 @@ defmodule Gullintanni.MergeRequest do
     %{mreq | latest_commit: sha} |> reset
   end
 
+  @spec approved_at(t) :: NaiveDateTime.t
+  def approved_at(%MergeRequest{} = mreq) do
+    mreq.approved_by
+    |> Map.values
+    |> Enum.sort
+    |> List.first
+  end
+
   # A basic Finite State Machine
 
   def reset(%MergeRequest{} = mreq) do

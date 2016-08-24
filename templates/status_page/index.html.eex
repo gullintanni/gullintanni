@@ -102,6 +102,9 @@
       width: 90px;
     }
 
+    .state {
+      font-variant: small-caps;
+    }
     .info {
       background-color: #D8EDF8;
     }

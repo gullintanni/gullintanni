@@ -4,7 +4,7 @@
 
 <a href="https://gullintanni.github.io/gullintanni"><img src="images/logo.png" alt="Gullintanni Logo" class="logo" /></a>
 
-<h2>Build Queue</h2>
+<h2 id="build-queue">Build Queue</h2>
 
 <p><a href="https://<%= pipeline.repo %>"><%= pipeline.repo.provider.__display_name__ %></a>
 &hArr; <%= pipeline.worker.__display_name__%> </p>
@@ -13,40 +13,26 @@
   <thead>
     <tr>
       <th width="50">ID</th>
-      <th width="100">Status</th>
-      <th width="140">Approved By</th>
+      <th width="110">State</th>
+      <th width="120">Approved By</th>
       <th>Title</th>
     </tr>
   </thead>
   <tbody>
+  <% mreqs = list_queued_mreqs(pipeline) %>
+  <%= for mreq <- mreqs do %>
     <tr>
-      <td class="fill-link"><a href="https://github.com/elasticdog/gateway/issues/8">8</a></td>
-      <td class="success">Build Pending</td>
-      <td>@elasticdog</td>
-      <td>Add commit for status testing</td>
+      <td class="fill-link"><a href="<%= mreq.url %>"><%= mreq.id %></a></td>
+      <% {class, text} = state_display(mreq.state) %>
+      <td class="state <%= class %>"><%= text %></td>
+      <td><%= mreq.approved_by |> Map.keys |> Enum.join(", ") %></td>
+      <td><%= mreq.title %></td>
     </tr>
-    <tr>
-      <td class="fill-link"><a href="https://github.com/elasticdog/gateway/issues/8">8</a></td>
-      <td class="warning">Build Pending</td>
-      <td>@elasticdog</td>
-      <td>Add commit for status testing</td>
-    </tr>
-    <tr>
-      <td class="fill-link"><a href="https://github.com/elasticdog/gateway/issues/8">8</a></td>
-      <td class="danger">Build Pending</td>
-      <td>@elasticdog</td>
-      <td>Add commit for status testing</td>
-    </tr>
-    <tr>
-      <td class="fill-link"><a href="https://github.com/elasticdog/gateway/issues/8">8</a></td>
-      <td class="info">Build Pending</td>
-      <td>@elasticdog</td>
-      <td>Add commit for status testing</td>
-    </tr>
+  <% end %>
   </tbody>
 </table>
 
-<h2>Under Review</h2>
+<h2 id="under-review">Under Review</h2>
 
 <table>
   <thead>
@@ -56,5 +42,12 @@
     </tr>
   </thead>
   <tbody>
+  <% mreqs = list_under_review_mreqs(pipeline) %>
+  <%= for mreq <- mreqs do %>
+    <tr>
+      <td class="fill-link"><a href="<%= mreq.url %>"><%= mreq.id %></a></td>
+      <td><%= mreq.title %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
