@@ -11,6 +11,8 @@ defmodule Gullintanni.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: [coveralls: :test],
      docs: [logo: "priv/static/images/logo.png",
             main: "readme",
             extras: ["CONTRIBUTING.md", "README.md", "pages/Cheatsheet.md"]]]
@@ -29,6 +31,7 @@ defmodule Gullintanni.Mixfile do
     [{:cowboy, "~> 1.0"},
      {:dialyxir, "~> 0.3", only: :dev},
      {:ex_doc, "~> 0.12", only: :dev},
+     {:excoveralls, "~> 0.5", only: :test},
      {:gen_stage, "~> 0.5"},
      {:gproc, git: "https://github.com/uwiger/gproc.git", tag: "0.6"},
      {:poison, "~> 2.2"},
