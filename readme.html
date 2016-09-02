@@ -63,13 +63,83 @@
 <h1>Gullintanni</h1>
 <p>A Git merge bot, written in <a href="http://elixir-lang.org/" title="">Elixir</a>, that ensures your master branch builds
 cleanly.</p>
-<p><a href="https://travis-ci.org/gullintanni/gullintanni"><img src="https://travis-ci.org/gullintanni/gullintanni.svg?branch=master" alt="Build Status"/></a></p>
-<blockquote><p>Generated <a href="https://github.com/elixir-lang/ex_doc" title="">ExDoc</a> API reference documentation can be found at
-<a href="https://gullintanni.github.io/gullintanni/api-reference.html">https://gullintanni.github.io/gullintanni/api-reference.html</a></p>
-</blockquote>
+<p><a href="https://travis-ci.org/gullintanni/gullintanni" title=""><img src="https://travis-ci.org/gullintanni/gullintanni.svg?branch=master" alt="Build Status" title=""/></a></p>
 <h2>Overview</h2>
-<blockquote><p><em><strong>The Not Rocket Science Rule Of Software Engineering</strong></em><br/><em>Automatically maintain a repository of code that always passes all the tests.</em><br/>— Graydon Hoare (<a href="http://graydon.livejournal.com/186550.html" title="technicalities: &quot;not rocket science&quot; (the story of monotone and bors)">summarizing Ben Elliston</a>)</p>
+<blockquote><p><em><strong>The Not Rocket Science Rule Of Software Engineering</strong></em><br/><em>Automatically maintain a repository of code that always passes all the tests.</em><br/>— Graydon Hoare (<a href="http://graydon.livejournal.com/186550.html" title="">summarizing Ben Elliston</a>)</p>
 </blockquote>
+<p>  ‘technicalities: “not rocket science” (the story of monotone and bors)’</p>
+<p>Gullintanni is a means for satisfying the above rule, and acts as an
+intermediary between your Git hosting provider and your Continuous Integration
+workers.</p>
+<h3>The Problem</h3>
+<p>When the build is broken on the master branch, <em>all</em> developers are blocked
+from safely basing their work on master until it has been fixed. This also
+unnecessarily increases the communication burden between collaborators until
+the issue is resolved. Testing unrelated code becomes unreliable, so merging
+changes can become delayed across the board. As teams scale up in size, that
+can mean a substantial loss of time and productivity.</p>
+<p>Even with comprehensive test suites, most Git workflows don’t do enough to
+prevent broken commits from getting merged. The classic example would be two
+open merge requests:</p>
+<ol>
+<li>a merge request that renames a function and all of its invocations
+</li>
+<li>a merge request that uses the original function name
+</li>
+</ol>
+<p>When tested against the master branch individually, they can both pass the test
+suite; but as soon as they’re both merged, the function call in the second
+merge request will be broken.</p>
+<p>The “protected branch” feature of GitHub can solve the above problem by forcing
+all merge requests to be up-to-date with the master branch (and pass all tests)
+before merging. But, there are some downsides:</p>
+<ul>
+<li>It becomes a laborious process to merge in updates from the master branch,
+  especially if it’s a highly-active project.
+</li>
+<li>Each time you merge in changes, you have to wait for the test suite to pass
+  and hope that no additional changes were pushed to master in the mean time.
+</li>
+<li>Once you’ve got the green light to merge, it must be manually executed,
+  despite being a trivial process.
+</li>
+<li>Not everyone wants to use GitHub, and the idea of a protected branch is not
+  ubiquitous across Git hosting providers.
+</li>
+</ul>
+<p>Luckily, those downsides can be addressed with a little bit of automation…</p>
+<h3>The Solution</h3>
+<p>Gullintanni has a couple of key features:</p>
+<ol>
+<li>it maintains a project-wide build queue to coordinate the testing and
+   merging of multiple merge requests
+</li>
+<li>it eliminates the need to ever manually merge branches (assuming there are
+   no syntactic-level conflicts)
+</li>
+</ol>
+<p>Once a proposed code change looks ready to merge, a user will post a comment
+directing Gullintanni to approve the merge request and add it into the build
+queue. For each approved merge request, the bot will create a <em>copy</em> of the
+master branch with the proposed code change on top of it, and then run the
+tests. If the build passes, the master branch can be automatically
+fast-forwarded to the state in the temporary branch, and then the next merge
+request in the build queue will go through the same process.</p>
+<p>The forced serialization of testing means that every merge request will be
+tested against an up-to-date master branch, and that the master branch’s tests
+will always pass. Aside from the initial approval of a merge request, this
+process can happen without a need for manual intervention.</p>
+<h3>Caveats</h3>
+<p>The safety that Gullintanni provides is only as good as the test suite that you
+run. While using a merge bot will prevent a lot of issues in your repository’s
+release branches you can never fully prevent transient bugs from making their
+way into the codebase.</p>
+<p>One potential downside to Gullintanni’s workflow is the serialization of
+testing; if your test suite takes a long time to complete, say an hour, then
+you’re limited to merging in just 24 changes per a day. I don’t expect that to
+be a realistic concern for for most projects, but it <em>is</em> worth mentioning. To
+address this limiting factor, there are plans to safely parallelize builds in
+the future through <a href="https://github.com/gullintanni/gullintanni/issues/3" title="">automatic rollups</a>.</p>
 <h2>Usage</h2>
 <h3>Command the Bot</h3>
 <p>Once Gullintanni is configured and the merge bot is running, it will listen for
@@ -80,8 +150,7 @@ defined in your pipeline configurations.</p>
 commands and how to interpret the build queue status.</p>
 <h2>Contributing</h2>
 <p>Gullintanni welcomes contributions from everyone. If you’re thinking of helping
-out, please read the <a href="https://github.com/gullintanni/gullintanni/blob/master/CONTRIBUTING.md" title="">guidelines for contributing</a> to the
-project.</p>
+out, please read the <a href="https://github.com/gullintanni/gullintanni/blob/master/CONTRIBUTING.md" title="">guidelines for contributing</a> to the project.</p>
 <h2>Inspiration</h2>
 <ul>
 <li><a href="https://github.com/graydon/bors" title="">bors</a>: The original merge bot.
@@ -106,7 +175,8 @@ all have their own idiosyncrasies that could be improved upon, as well as
 individual strengths that are not commonly shared. Many of them are
 tightly-coupled to a specific project’s ecosystem, and lack flexibility in
 external integrations. So, the origin of this project is not <em>entirely</em> due to
-an affliction of <a href="https://en.wikipedia.org/wiki/Not_invented_here" title="Not Invented Here">NIH Syndrome</a>.</p>
+an affliction of <a href="https://en.wikipedia.org/wiki/Not_invented_here" title="">NIH Syndrome</a>.</p>
+<p>  “Not Invented Here”</p>
 <p>Professionally, I’ve had the responsibility of creating and maintaining
 complicated CI infrastructure for a number of large projects. Over the course
 of years, I have seen strange edge cases and failures which have helped me to
