@@ -84,39 +84,18 @@ If you have multiple issues, please file separate bug reports.
 
 Here is the full list of labels that Gullintanni uses and what they stand for:
 
-> _**Effort: Low**_  
-> An issue that should require a relatively low amount of effort to resolve.
-> A great choice for a new contributor looking to get their feet wet!
->
-> _**Effort: High**_  
-> An issue that will take a decent amount of work, but is likely to have
-> a bigger impact on the project.
-- - -
-> _**Priority: Low**_  
-> An issue that would be nice to resolve at some point, but is not critical.
->
-> _**Priority: High**_  
->  An issue that should be resolved as quickly as possible.
-- - -
-> _**Type: Bug**_  
-> An issue describing unexpected or malicious behavior.
->
-> _**Type: Enhancement**_  
-> An issue containing a feature request or a suggestion for improvement.
->
-> _**Type: Question**_  
-> An issue that needs answering but does not require code changes.
-- - -
-> _**~ Duplicate**_  
-> An issue that was closed because it was a duplicate of another
-> previously-reported issue.
->
-> _**~ Invalid**_  
-> An issue that was closed because it could not be reproduced.
->
-> _**~ Won't Fix**_  
-> An issue that was closed because the proposed change was not in line with the
-> goals of the project.
+| Tag | Description |
+| --- | ----------- |
+| _Effort: Low_ | An issue that should require a relatively low amount of effort to resolve. A great choice for a new contributor looking to get their feet wet! |
+| _Effort: High_ | An issue that will take a decent amount of work, but is likely to have a bigger impact on the project. |
+| _Priority: Low_ | An issue that would be nice to resolve at some point, but is not critical. |
+| _Priority: High_ |  An issue that should be resolved as quickly as possible. |
+| _Type: Bug_ | An issue describing unexpected or malicious behavior. |
+| _Type:&nbsp;Enhancement_ | An issue containing a feature request or a suggestion for improvement. |
+| _Type: Question_ | An issue that needs answering but does not require code changes. |
+| _~ Duplicate_ | An issue that was closed because it was a duplicate of another previously-reported issue. |
+| _~ Invalid_ | An issue that was closed because it could not be reproduced. |
+| _~ Won't Fix_ | An issue that was closed because the proposed change was not in line with the goals of the project. |
 
 Conventions
 -----------
