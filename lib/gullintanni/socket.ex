@@ -13,7 +13,7 @@ defmodule Gullintanni.Socket do
   @type ip_address :: String.t | char_list | :inet.ip_address
 
   @typedoc "The port number of a socket"
-  @type port_number :: 0..65535
+  @type port_number :: 0..65_535
 
   @typedoc "The socket address type"
   @type t :: %Socket{ip: :inet.ip_address, port: port_number}
@@ -21,7 +21,7 @@ defmodule Gullintanni.Socket do
   @enforce_keys [:ip, :port]
   defstruct [:ip, :port]
 
-  @valid_ports 0..65535
+  @valid_ports 0..65_535
 
   @doc """
   Creates a new socket address with the given `ip` and `port`.
