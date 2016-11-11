@@ -88,7 +88,7 @@ process can happen without a need for manual intervention.
 
 The safety that Gullintanni provides is only as good as the test suite that you
 run. While using a merge bot will prevent a lot of issues in your repository's
-release branches you can never fully prevent transient bugs from making their
+release branches, you can never fully prevent transient bugs from making their
 way into the codebase.
 
 One potential downside to Gullintanni's workflow is the serialization of
