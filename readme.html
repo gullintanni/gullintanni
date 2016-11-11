@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.13.0">
-    <title>README – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    <meta name="generator" content="ExDoc v0.14.3">
+    <title>Gullintanni – Gullintanni v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-091c05798a.css" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -50,9 +50,8 @@
 
     
   </ul>
-
+  <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
-  <div class="sidebar-noResults"></div>
 </section>
 
 <section class="content">
@@ -63,9 +62,13 @@
 <h1>Gullintanni</h1>
 <p>A Git merge bot, written in <a href="http://elixir-lang.org/" title="">Elixir</a>, that ensures your master branch builds
 cleanly.</p>
-<p><a href="https://travis-ci.org/gullintanni/gullintanni" title=""><img src="https://travis-ci.org/gullintanni/gullintanni.svg?branch=master" alt="Build Status" title=""/></a>
-<a href="https://coveralls.io/github/gullintanni/gullintanni?branch=master" title=""><img src="https://coveralls.io/repos/github/gullintanni/gullintanni/badge.svg?branch=master" alt="Coverage Status" title=""/></a></p>
-<h2>Overview</h2>
+<p><a href="https://coveralls.io/github/gullintanni/gullintanni?branch=master" title="">!<a href="https://travis-ci.org/gullintanni/gullintanni" title="">Build Status]</a>
+[<img src="https://coveralls.io/repos/github/gullintanni/gullintanni/badge.svg?branch=master" alt="Coverage Status" title=""/></a></p>
+<h2 id="overview" class="section-heading">
+  <a href="#overview" class="hover-link"><i class="icon-link"></i></a>
+  Overview
+</h2>
+
 <blockquote><p><em><strong>The Not Rocket Science Rule Of Software Engineering</strong></em><br/><em>Automatically maintain a repository of code that always passes all the tests.</em><br/>— Graydon Hoare (<a href="http://graydon.livejournal.com/186550.html" title="">summarizing Ben Elliston</a>)</p>
 </blockquote>
 <p>  ‘technicalities: “not rocket science” (the story of monotone and bors)’</p>
@@ -133,7 +136,7 @@ process can happen without a need for manual intervention.</p>
 <h3>Caveats</h3>
 <p>The safety that Gullintanni provides is only as good as the test suite that you
 run. While using a merge bot will prevent a lot of issues in your repository’s
-release branches you can never fully prevent transient bugs from making their
+release branches, you can never fully prevent transient bugs from making their
 way into the codebase.</p>
 <p>One potential downside to Gullintanni’s workflow is the serialization of
 testing; if your test suite takes a long time to complete, say an hour, then
@@ -141,7 +144,11 @@ you’re limited to merging in just 24 changes per a day. I don’t expect that 
 be a realistic concern for for most projects, but it <em>is</em> worth mentioning. To
 address this limiting factor, there are plans to safely parallelize builds in
 the future through <a href="https://github.com/gullintanni/gullintanni/issues/3" title="">automatic rollups</a>.</p>
-<h2>Usage</h2>
+<h2 id="usage" class="section-heading">
+  <a href="#usage" class="hover-link"><i class="icon-link"></i></a>
+  Usage
+</h2>
+
 <h3>Command the Bot</h3>
 <p>Once Gullintanni is configured and the merge bot is running, it will listen for
 commands sent via comments posted on open merge requests. Gullintanni will only
@@ -149,10 +156,18 @@ respond to commands made by authorized reviewers on repositories that you have
 defined in your pipeline configurations.</p>
 <p>Read the <a href="https://github.com/gullintanni/gullintanni/blob/master/pages/Cheatsheet.md" title="">cheatsheet</a> document for a detailed breakdown of the supported
 commands and how to interpret the build queue status.</p>
-<h2>Contributing</h2>
+<h2 id="contributing" class="section-heading">
+  <a href="#contributing" class="hover-link"><i class="icon-link"></i></a>
+  Contributing
+</h2>
+
 <p>Gullintanni welcomes contributions from everyone. If you’re thinking of helping
 out, please read the <a href="https://github.com/gullintanni/gullintanni/blob/master/CONTRIBUTING.md" title="">guidelines for contributing</a> to the project.</p>
-<h2>Inspiration</h2>
+<h2 id="inspiration" class="section-heading">
+  <a href="#inspiration" class="hover-link"><i class="icon-link"></i></a>
+  Inspiration
+</h2>
+
 <ul>
 <li><a href="https://github.com/graydon/bors" title="">bors</a>: The original merge bot.
 </li>
@@ -185,7 +200,11 @@ form strong opinions on how to develop projects safely and efficiently. On an
 operational-level, I appreciate when tools are well documented, tested
 thoroughly, and easy to run. I’m hoping my hard-won lessons are reflected by
 Gullintanni.</p>
-<h2>License</h2>
+<h2 id="license" class="section-heading">
+  <a href="#license" class="hover-link"><i class="icon-link"></i></a>
+  License
+</h2>
+
 <p>Gullintanni is provided under the terms of the
 <a href="https://en.wikipedia.org/wiki/ISC_license">ISC License</a>.</p>
 <p>Copyright &copy; 2016, <a href="mailto:aaron@elasticdog.com">Aaron Bull Schaefer</a>.</p>
@@ -194,7 +213,7 @@ Gullintanni.</p>
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
           </span>
           <span class="line">
             designed by
@@ -207,7 +226,7 @@ Gullintanni.</p>
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src="dist/app-574613960f.js"></script>
   </body>
 </html>
 

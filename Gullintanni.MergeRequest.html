@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.13.0">
+    <meta name="generator" content="ExDoc v0.14.3">
     <title>Gullintanni.MergeRequest – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    <link rel="stylesheet" href="dist/app-091c05798a.css" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -50,9 +50,8 @@
 
     
   </ul>
-
+  <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
-  <div class="sidebar-noResults"></div>
 </section>
 
 <section class="content">
@@ -72,7 +71,7 @@
       </h1>
 
       
-        <section id="moduledoc" class="docstring">
+        <section id="moduledoc">
           <p>Defines a merge request.</p>
 
         </section>
@@ -223,7 +222,7 @@
       
 
       
-        <section id="types" class="types details-list">
+        <section id="types" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#types">
               <i class="icon-link"></i>
@@ -231,36 +230,114 @@
             Types
           </h1>
           <div class="types-list">
-            <div id="t:id/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:id/0">id</a> :: pos_integer</code></pre>
+            <div class="detail" id="t:id/0">
   
-    <div class="typespec-doc"><p>A merge request identifier</p>
+  <div class="detail-header">
+    <a href="#t:id/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">id()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L9" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:id/0">id</a> :: pos_integer</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>A merge request identifier</p>
+
+  </section>
 </div>
+<div class="detail" id="t:sha/0">
   
+  <div class="detail-header">
+    <a href="#t:sha/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">sha()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L12" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:sha/0">sha</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>A 40 character SHA-1 hash</p>
+
+  </section>
 </div>
-<div id="t:sha/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:sha/0">sha</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+<div class="detail" id="t:state/0">
   
-    <div class="typespec-doc"><p>A 40 character SHA-1 hash</p>
-</div>
-  
-</div>
-<div id="t:state/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:state/0">state</a> ::
+  <div class="detail-header">
+    <a href="#t:state/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">state()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L15" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:state/0">state</a> ::
   :under_review |
   :approved |
   :build_pending |
   :build_passed |
   :build_failed |
-  :error</code></pre>
-  
-    <div class="typespec-doc"><p>Supported merge request states</p>
+  :error</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Supported merge request states</p>
+
+  </section>
 </div>
+<div class="detail" id="t:t/0">
   
-</div>
-<div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.MergeRequest{approved_by: %{optional(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) => <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>}, branch_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, clone_url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, id: <a href="#t:id/0">id</a>, latest_commit: <a href="#t:sha/0">sha</a>, state: <a href="#t:state/0">state</a>, target_branch: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, title: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
-  
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">t()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/merge_request.ex#L18" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:t/0">t</a> :: %Gullintanni.MergeRequest{approved_by: %{optional(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) => <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>}, branch_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, clone_url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, id: <a href="#t:id/0">id</a>, latest_commit: <a href="#t:sha/0">sha</a>, state: <a href="#t:state/0">state</a>, target_branch: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, title: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    
+  </section>
 </div>
 
           </div>
@@ -276,6 +353,7 @@
             Functions
           </h1>
           <div class="detail" id="approve/3">
+  
   <div class="detail-header">
     <a href="#approve/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -287,22 +365,20 @@
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">approve(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre>approve(<a href="#t:t/0">t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>) :: <a href="#t:t/0">t</a></pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="approved_at/1">
+  
   <div class="detail-header">
     <a href="#approved_at/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -314,22 +390,20 @@
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">approved_at(<a href="#t:t/0">t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a></code></pre>
+          <pre>approved_at(<a href="#t:t/0">t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a></pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="build_error/1">
+  
   <div class="detail-header">
     <a href="#build_error/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -341,13 +415,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="build_failed/1">
+  
   <div class="detail-header">
     <a href="#build_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -359,13 +434,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="build_passed/1">
+  
   <div class="detail-header">
     <a href="#build_passed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -377,13 +453,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="ffwd_failed/1">
+  
   <div class="detail-header">
     <a href="#ffwd_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -395,13 +472,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="merge_failed/1">
+  
   <div class="detail-header">
     <a href="#merge_failed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -413,13 +491,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="merge_passed/1">
+  
   <div class="detail-header">
     <a href="#merge_passed/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -431,13 +510,16 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="new/2">
+  
+    <span id="new/1" />
+  
   <div class="detail-header">
     <a href="#new/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -449,20 +531,21 @@
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">new(<a href="#t:id/0">id</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre>new(<a href="#t:id/0">id</a>, <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: <a href="#t:t/0">t</a></pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Creates a new merge request with the given <code class="inline">id</code>.</p>
-<h2>Options</h2>
+<h2 id="new/2-options" class="section-heading">
+  <a href="#new/2-options" class="hover-link"><i class="icon-link"></i></a>
+  Options
+</h2>
+
 <p>The accepted options are:</p>
 <ul>
 <li><code class="inline">:title</code> - the title of the merge request
@@ -479,13 +562,14 @@
 </li>
 <li><code class="inline">:approved_by</code> - the users that have approved the merge request
 </li>
-<li><code class="inline">:state</code> - the state of the merge request; valid states are defined by <code class="inline">t:state/0</code>
+<li><code class="inline">:state</code> - the state of the merge request; valid states are defined by <a href="#t:state/0"><code class="inline">state/0</code></a>
 </li>
 </ul>
 
   </section>
 </div>
 <div class="detail" id="reset/1">
+  
   <div class="detail-header">
     <a href="#reset/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -497,13 +581,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="unapprove/2">
+  
   <div class="detail-header">
     <a href="#unapprove/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -515,13 +600,14 @@
      </a>
     
     
+    
   </div>
-  
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="update_sha/2">
+  
   <div class="detail-header">
     <a href="#update_sha/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -533,17 +619,14 @@
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">update_sha(<a href="#t:t/0">t</a>, <a href="#t:sha/0">sha</a>) :: <a href="#t:t/0">t</a></code></pre>
+          <pre>update_sha(<a href="#t:t/0">t</a>, <a href="#t:sha/0">sha</a>) :: <a href="#t:t/0">t</a></pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Replaces the latest commit on the merge request with <code class="inline">sha</code>.</p>
 <p>This will reset the state back to “under review” as well, canceling any
@@ -562,7 +645,7 @@ existing approvals.</p>
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
           </span>
           <span class="line">
             designed by
@@ -575,7 +658,7 @@ existing approvals.</p>
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src="dist/app-574613960f.js"></script>
   </body>
 </html>
 

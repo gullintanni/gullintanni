@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.13.0">
+    <meta name="generator" content="ExDoc v0.14.3">
     <title>Gullintanni.Socket – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    <link rel="stylesheet" href="dist/app-091c05798a.css" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -50,9 +50,8 @@
 
     
   </ul>
-
+  <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
-  <div class="sidebar-noResults"></div>
 </section>
 
 <section class="content">
@@ -72,7 +71,7 @@
       </h1>
 
       
-        <section id="moduledoc" class="docstring">
+        <section id="moduledoc">
           <p>Defines an Internet socket address.</p>
 <p>A <em>socket address</em> is the combination of an IP address and a port number.
 This can be used along with a transport protocol in order to define an
@@ -151,7 +150,7 @@ endpoint of a connection across a network.</p>
       
 
       
-        <section id="types" class="types details-list">
+        <section id="types" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#types">
               <i class="icon-link"></i>
@@ -159,29 +158,83 @@ endpoint of a connection across a network.</p>
             Types
           </h1>
           <div class="types-list">
-            <div id="t:ip_address/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:ip_address/0">ip_address</a> ::
-  <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> |
-  charlist |
-  :inet.ip_address</code></pre>
+            <div class="detail" id="t:ip_address/0">
   
-    <div class="typespec-doc"><p>The IP address of a socket</p>
+  <div class="detail-header">
+    <a href="#t:ip_address/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">ip_address()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/socket.ex#L13" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:ip_address/0">ip_address</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | charlist | :inet.ip_address</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The IP address of a socket</p>
+
+  </section>
 </div>
+<div class="detail" id="t:port_number/0">
   
+  <div class="detail-header">
+    <a href="#t:port_number/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">port_number()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/socket.ex#L16" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:port_number/0">port_number</a> :: 0..65535</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The port number of a socket</p>
+
+  </section>
 </div>
-<div id="t:port_number/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:port_number/0">port_number</a> :: 0..65535</code></pre>
+<div class="detail" id="t:t/0">
   
-    <div class="typespec-doc"><p>The port number of a socket</p>
-</div>
-  
-</div>
-<div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.Socket{ip: :inet.ip_address, port: <a href="#t:port_number/0">port_number</a>}</code></pre>
-  
-    <div class="typespec-doc"><p>The socket address type</p>
-</div>
-  
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">t()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/socket.ex#L19" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:t/0">t</a> :: %Gullintanni.Socket{ip: :inet.ip_address, port: <a href="#t:port_number/0">port_number</a>}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The socket address type</p>
+
+  </section>
 </div>
 
           </div>
@@ -197,6 +250,7 @@ endpoint of a connection across a network.</p>
             Functions
           </h1>
           <div class="detail" id="new/2">
+  
   <div class="detail-header">
     <a href="#new/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -208,26 +262,27 @@ endpoint of a connection across a network.</p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">new(<a href="#t:ip_address/0">ip_address</a>, <a href="#t:port_number/0">port_number</a>) ::
+          <pre>new(<a href="#t:ip_address/0">ip_address</a>, <a href="#t:port_number/0">port_number</a>) ::
   {:ok, <a href="#t:t/0">t</a>} |
-  {:error, :invalid_ip_address | :invalid_port}</code></pre>
+  {:error, :invalid_ip_address | :invalid_port}</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Creates a new socket address with the given <code class="inline">ip</code> and <code class="inline">port</code>.</p>
 <p>Returns <code class="inline">{:ok, socket}</code> if the IP address and port number are valid, returns
 <code class="inline">{:error, reason}</code> otherwise. A valid IP address is anything that can be
-parsed by <a href="http://www.erlang.org/doc/man/inet.html#parse_address-1"><code class="inline">:inet.parse_address/1</code></a>, and a valid port must be an integer in the
+parsed by <code class="inline">:inet.parse_address/1</code>, and a valid port must be an integer in the
 range of <code class="inline">0..65535</code>.</p>
-<h2>Examples</h2>
+<h2 id="new/2-examples" class="section-heading">
+  <a href="#new/2-examples" class="hover-link"><i class="icon-link"></i></a>
+  Examples
+</h2>
+
 <pre><code class="iex elixir">iex&gt; {:ok, socket} = Gullintanni.Socket.new(&quot;0.0.0.0&quot;, 80)
 iex&gt; socket
 #Socket&lt;0.0.0.0:80&gt;
@@ -255,7 +310,7 @@ iex&gt; Gullintanni.Socket.new(&quot;0.0.0.0&quot;, 99999)
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
           </span>
           <span class="line">
             designed by
@@ -268,7 +323,7 @@ iex&gt; Gullintanni.Socket.new(&quot;0.0.0.0&quot;, 99999)
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src="dist/app-574613960f.js"></script>
   </body>
 </html>
 

@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.13.0">
+    <meta name="generator" content="ExDoc v0.14.3">
     <title>Gullintanni.Pipeline – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-9c1e3d5aa2.css" />
+    <link rel="stylesheet" href="dist/app-091c05798a.css" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -50,9 +50,8 @@
 
     
   </ul>
-
+  <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
-  <div class="sidebar-noResults"></div>
 </section>
 
 <section class="content">
@@ -72,7 +71,7 @@
       </h1>
 
       
-        <section id="moduledoc" class="docstring">
+        <section id="moduledoc">
           <p>Defines a Gullintanni build pipeline.</p>
 <p>A pipeline is uniquely identified by repository and encapsulates the state
 necessary to coordinate builds and merges.</p>
@@ -230,7 +229,7 @@ associated with the given <code class="inline">identifier</code></p>
       
 
       
-        <section id="types" class="types details-list">
+        <section id="types" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#types">
               <i class="icon-link"></i>
@@ -238,29 +237,83 @@ associated with the given <code class="inline">identifier</code></p>
             Types
           </h1>
           <div class="types-list">
-            <div id="t:name/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:name/0">name</a> ::
-  atom |
-  {:global, term} |
-  {:via, module, term}</code></pre>
+            <div class="detail" id="t:name/0">
   
-    <div class="typespec-doc"><p>The pipeline name</p>
+  <div class="detail-header">
+    <a href="#t:name/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">name()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L23" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:name/0">name</a> :: atom | {:global, term} | {:via, module, term}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The pipeline name</p>
+
+  </section>
 </div>
+<div class="detail" id="t:pipeline/0">
   
+  <div class="detail-header">
+    <a href="#t:pipeline/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">pipeline()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L20" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:pipeline/0">pipeline</a> :: pid | {atom, node} | <a href="#t:name/0">name</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The pipeline reference</p>
+
+  </section>
 </div>
-<div id="t:pipeline/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:pipeline/0">pipeline</a> :: pid | {atom, node} | <a href="#t:name/0">name</a></code></pre>
+<div class="detail" id="t:t/0">
   
-    <div class="typespec-doc"><p>The pipeline reference</p>
-</div>
-  
-</div>
-<div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %Gullintanni.Pipeline{bot_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, config: <a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>, merge_requests: map, repo: <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, worker: <a href="Gullintanni.Worker.html#t:t/0">Gullintanni.Worker.t</a>}</code></pre>
-  
-    <div class="typespec-doc"><p>The pipeline type</p>
-</div>
-  
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">t()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline.ex#L28" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre><a href="#t:t/0">t</a> :: %Gullintanni.Pipeline{bot_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, config: <a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>, merge_requests: map, repo: <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, worker: <a href="Gullintanni.Worker.html#t:t/0">Gullintanni.Worker.t</a>}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The pipeline type</p>
+
+  </section>
 </div>
 
           </div>
@@ -276,6 +329,7 @@ associated with the given <code class="inline">identifier</code></p>
             Functions
           </h1>
           <div class="detail" id="authorized?/2">
+  
   <div class="detail-header">
     <a href="#authorized?/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -287,23 +341,21 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">authorized?(<a href="#t:pipeline/0">pipeline</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: boolean</code></pre>
+          <pre>authorized?(<a href="#t:pipeline/0">pipeline</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: boolean</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Returns <code class="inline">true</code> if the user is an authorized reviewer on <code class="inline">pipeline</code>.</p>
 
   </section>
 </div>
 <div class="detail" id="get/1">
+  
   <div class="detail-header">
     <a href="#get/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -315,23 +367,21 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>) :: <a href="#t:t/0">t</a> | :undefined</code></pre>
+          <pre>get(<a href="#t:pipeline/0">pipeline</a>) :: <a href="#t:t/0">t</a> | :undefined</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Gets the current state of a <code class="inline">pipeline</code>.</p>
 
   </section>
 </div>
 <div class="detail" id="get/2">
+  
   <div class="detail-header">
     <a href="#get/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -343,23 +393,21 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">get(<a href="#t:pipeline/0">pipeline</a>, atom) :: any | :undefined</code></pre>
+          <pre>get(<a href="#t:pipeline/0">pipeline</a>, atom) :: any | :undefined</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Gets a value from a <code class="inline">pipeline</code> by <code class="inline">key</code>.</p>
 
   </section>
 </div>
 <div class="detail" id="handle_comment/2">
+  
   <div class="detail-header">
     <a href="#handle_comment/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -371,22 +419,20 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">handle_comment(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.Comment.html#t:t/0">Gullintanni.Comment.t</a>) :: :ok</code></pre>
+          <pre>handle_comment(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.Comment.html#t:t/0">Gullintanni.Comment.t</a>) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="handle_mreq_close/2">
+  
   <div class="detail-header">
     <a href="#handle_mreq_close/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -398,22 +444,20 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">handle_mreq_close(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>) :: :ok</code></pre>
+          <pre>handle_mreq_close(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="handle_mreq_open/2">
+  
   <div class="detail-header">
     <a href="#handle_mreq_open/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -425,22 +469,20 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">handle_mreq_open(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>) :: :ok</code></pre>
+          <pre>handle_mreq_open(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:t/0">Gullintanni.MergeRequest.t</a>) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="handle_push/3">
+  
   <div class="detail-header">
     <a href="#handle_push/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -452,22 +494,20 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">handle_push(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, <a href="Gullintanni.MergeRequest.html#t:sha/0">Gullintanni.MergeRequest.sha</a>) :: :ok</code></pre>
+          <pre>handle_push(<a href="#t:pipeline/0">pipeline</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, <a href="Gullintanni.MergeRequest.html#t:sha/0">Gullintanni.MergeRequest.sha</a>) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     
   </section>
 </div>
 <div class="detail" id="put/3">
+  
   <div class="detail-header">
     <a href="#put/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -479,23 +519,21 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">put(<a href="#t:pipeline/0">pipeline</a>, any, any) :: :ok</code></pre>
+          <pre>put(<a href="#t:pipeline/0">pipeline</a>, any, any) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Puts the <code class="inline">value</code> for the given <code class="inline">key</code> in the <code class="inline">pipeline</code>.</p>
 
   </section>
 </div>
 <div class="detail" id="start_link/1">
+  
   <div class="detail-header">
     <a href="#start_link/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -507,23 +545,21 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">start_link(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/Agent.html#t:on_start/0">Agent.on_start</a></code></pre>
+          <pre>start_link(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/Agent.html#t:on_start/0">Agent.on_start</a></pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Starts a new pipeline with the given <code class="inline">config</code> settings.</p>
 
   </section>
 </div>
 <div class="detail" id="valid_config?/1">
+  
   <div class="detail-header">
     <a href="#valid_config?/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -535,17 +571,14 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">valid_config?(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: boolean</code></pre>
+          <pre>valid_config?(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: boolean</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Returns <code class="inline">true</code> if all required pipeline configuration values exist in
 <code class="inline">config</code>, otherwise <code class="inline">false</code>.</p>
@@ -553,6 +586,7 @@ associated with the given <code class="inline">identifier</code></p>
   </section>
 </div>
 <div class="detail" id="whereis/1">
+  
   <div class="detail-header">
     <a href="#whereis/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -564,19 +598,16 @@ associated with the given <code class="inline">identifier</code></p>
      </a>
     
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+      <div class="specs">
         
-          <pre><code class="elixir">whereis(pid | atom | <a href="#t:t/0">t</a> | <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) ::
+          <pre>whereis(pid | atom | <a href="#t:t/0">t</a> | <a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) ::
   pid |
-  :undefined</code></pre>
+  :undefined</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Returns the <code class="inline">pid</code> of a pipeline agent, or <code class="inline">:undefined</code> if no process is
 associated with the given <code class="inline">identifier</code>.</p>
@@ -594,7 +625,7 @@ associated with the given <code class="inline">identifier</code>.</p>
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.0),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
           </span>
           <span class="line">
             designed by
@@ -607,7 +638,7 @@ associated with the given <code class="inline">identifier</code>.</p>
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src="dist/app-574613960f.js"></script>
   </body>
 </html>
 
