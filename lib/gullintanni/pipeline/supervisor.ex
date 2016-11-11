@@ -1,6 +1,10 @@
 alias Experimental.DynamicSupervisor
 
 defmodule Gullintanni.Pipeline.Supervisor do
+  @moduledoc """
+  Supervises the Gullintanni build pipline processes.
+  """
+
   use DynamicSupervisor
 
   def start_link do

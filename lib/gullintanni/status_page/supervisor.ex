@@ -1,4 +1,8 @@
 defmodule Gullintanni.StatusPage.Supervisor do
+  @moduledoc """
+  Supervises the Gullintanni status page processes.
+  """
+
   use Supervisor
   alias Gullintanni.Config
   alias Gullintanni.Socket

@@ -1,4 +1,8 @@
 defmodule Gullintanni.Webhook.Supervisor do
+  @moduledoc """
+  Supervises the Gullintanni webhook processes.
+  """
+
   use Supervisor
   alias Gullintanni.Config
   alias Gullintanni.Socket
