@@ -108,7 +108,8 @@ defmodule Gullintanni.Pipeline do
     repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
     bot_name = repo.provider.whoami(config)
     mreqs =
-      repo.provider.download_merge_requests(repo, config)
+      repo
+      |> repo.provider.download_merge_requests(config)
       |> Map.new(fn mreq -> {mreq.id, mreq} end)
 
     %Pipeline{

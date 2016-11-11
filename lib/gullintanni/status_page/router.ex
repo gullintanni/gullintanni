@@ -69,7 +69,8 @@ defmodule Gullintanni.StatusPage.Router do
 
   @spec list_pipelines :: [Pipeline.t]
   defp list_pipelines do
-    Supervisor.which_children(Gullintanni.Pipeline.Supervisor)
+    Gullintanni.Pipeline.Supervisor
+    |> Supervisor.which_children
     |> Enum.map(fn {_id, child, _type, _modules} ->
          Agent.get(child, &(&1))
        end)
@@ -81,7 +82,8 @@ defmodule Gullintanni.StatusPage.Router do
     # issue for the use case of the overview status page. Perhaps we should
     # store a friendly pipeline "slug" instead?
     result =
-      Supervisor.which_children(Gullintanni.Pipeline.Supervisor)
+      Gullintanni.Pipeline.Supervisor
+      |> Supervisor.which_children
       |> Stream.map(fn {_id, child, _type, _modules} ->
            Agent.get(child, &(&1))
          end)
