@@ -30,11 +30,11 @@ defmodule Gullintanni.Mixfile do
   defp deps do
     [{:cowboy, "~> 1.0"},
      {:dialyxir, "~> 0.4", only: :dev},
-     {:ex_doc, "~> 0.12", only: :dev},
+     {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test},
-     {:gen_stage, "~> 0.5"},
-     {:gproc, git: "https://github.com/uwiger/gproc.git", tag: "0.6"},
-     {:poison, "~> 2.2"},
+     {:gen_stage, "~> 0.8"},
+     {:gproc, "~> 0.6"},
+     {:poison, "~> 3.0"},
      {:plug, "~> 1.2"},
      {:tentacat, "~> 0.5"}]
   end
