@@ -29,6 +29,7 @@ defmodule Gullintanni.Mixfile do
 
   defp deps do
     [{:cowboy, "~> 1.0"},
+     {:credo, "~> 0.5", only: :dev},
      {:dialyxir, "~> 0.4", only: :dev},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test},
