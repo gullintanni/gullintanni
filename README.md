@@ -4,14 +4,12 @@ Gullintanni
 A Git merge bot, written in [Elixir][], that ensures your master branch builds
 cleanly.
 
-[![Build Status]][@TravisCI]
-[![Coverage Status]][@Coveralls]
+[![Build Status]](https://travis-ci.org/gullintanni/gullintanni)
+[![Coverage Status]](https://coveralls.io/github/gullintanni/gullintanni?branch=master)
 
 [Elixir]: http://elixir-lang.org/
 [Build Status]: https://travis-ci.org/gullintanni/gullintanni.svg?branch=master
-[@TravisCI]: https://travis-ci.org/gullintanni/gullintanni
 [Coverage Status]: https://coveralls.io/repos/github/gullintanni/gullintanni/badge.svg?branch=master
-[@Coveralls]: https://coveralls.io/github/gullintanni/gullintanni?branch=master
 
 Overview
 --------
