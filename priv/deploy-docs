@@ -32,7 +32,7 @@ if [[ -z $force ]]; then
 fi
 
 # check if the repo is dirty
-if ! git diff-index --quiet HEAD; then
+if ! git diff-index HEAD; then
 	printf 'deploy-docs: the repo is dirty; aborting the documentation deploy\n' >&2
 	exit 1
 fi
