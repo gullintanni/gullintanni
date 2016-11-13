@@ -15,7 +15,9 @@ defmodule Gullintanni.Mixfile do
      preferred_cli_env: [coveralls: :test],
      docs: [logo: "priv/static/images/logo.png",
             main: "readme",
-            extras: ["CONTRIBUTING.md", "README.md", "pages/Cheatsheet.md"]]]
+            extras: ["README.md": [title: "README"],
+                     "pages/Cheatsheet.md": [title: "Cheatsheet"],
+                     "CONTRIBUTING.md": [title: "Contributing"]]]]
   end
 
   def application do
