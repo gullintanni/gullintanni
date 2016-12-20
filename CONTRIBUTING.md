@@ -116,6 +116,7 @@ at large. Most style choices should be easy enough to pick up from looking at
 the code, but there are a couple of good style guides out there that you can
 use as a reference (each with slightly differing advice):
 
+* <https://github.com/lexmag/elixir-style-guide>
 * <https://github.com/levionessa/elixir_style_guide>
 * <https://github.com/rrrene/elixir-style-guide>
 
