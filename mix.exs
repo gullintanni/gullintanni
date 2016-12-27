@@ -35,10 +35,10 @@ defmodule Gullintanni.Mixfile do
      {:dialyxir, "~> 0.4", only: :dev},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test},
-     {:gen_stage, "~> 0.8"},
+     {:gen_stage, "~> 0.10"},
      {:gproc, "~> 0.6"},
      {:poison, "~> 3.0"},
-     {:plug, "~> 1.2"},
+     {:plug, "~> 1.3"},
      {:tentacat, "~> 0.5"}]
   end
 end
