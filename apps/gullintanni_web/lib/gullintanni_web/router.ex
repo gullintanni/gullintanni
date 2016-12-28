@@ -1,4 +1,4 @@
-defmodule Gullintanni.StatusPage.Router do
+defmodule GullintanniWeb.Router do
   @moduledoc """
   Routes incoming requests for the status page endpoint.
   """
@@ -29,7 +29,7 @@ defmodule Gullintanni.StatusPage.Router do
 
   plug Plug.Static,
     at: "/",
-    from: :gullintanni,
+    from: :gullintanni_web,
     only: ["images"]
 
   plug :match

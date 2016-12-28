@@ -1,8 +1,8 @@
-defmodule Gullintanni.Mixfile do
+defmodule GullintanniWeb.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :gullintanni,
+    [app: :gullintanni_web,
      version: "0.1.0",
      build_path: "../../_build",
      config_path: "../../config/config.exs",
@@ -13,17 +13,22 @@ defmodule Gullintanni.Mixfile do
      start_permanent: Mix.env == :prod,
      deps: deps(),
 
+     # Docs
+     name: "Gullintanni Web",
+     docs: [logo: "priv/static/images/logo.png",
+            main: "readme",
+            extras: ["README.md": [title: "README"]]],
+
      # Tests
      test_coverage: [tool: ExCoveralls],
      preferred_cli_env: [coveralls: :test]]
   end
 
   def application do
-    [mod: {Gullintanni, []},
-     applications: [:cowboy, :gproc, :logger, :plug, :tentacat],
+    [mod: {GullintanniWeb, []},
+     applications: [:cowboy, :gullintanni, :logger, :plug],
      env: [enable_http_workers: true,
-           enable_load_pipelines: true,
-           webhook: [bind_ip: "0.0.0.0", bind_port: 13931]]]
+           status_page: [bind_ip: "127.0.0.1", bind_port: 13980]]]
   end
 
   defp deps do
@@ -32,11 +37,8 @@ defmodule Gullintanni.Mixfile do
      {:dialyxir, "~> 0.4", only: :dev},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test},
-     {:gen_stage, "~> 0.10"},
-     {:gproc, "~> 0.6"},
-     {:poison, "~> 3.0"},
+     {:gullintanni, in_umbrella: true},
      {:plug, "~> 1.3"},
-     {:socket, in_umbrella: true},
-     {:tentacat, "~> 0.5"}]
+     {:socket, in_umbrella: true}]
   end
 end

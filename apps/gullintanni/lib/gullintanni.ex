@@ -14,7 +14,6 @@ defmodule Gullintanni do
     children = [
       supervisor(Gullintanni.Pipeline.Supervisor, []),
       worker(Task, [&load_configured_pipelines/0], restart: :temporary),
-      supervisor(Gullintanni.StatusPage.Supervisor, []),
       supervisor(Gullintanni.Webhook.Supervisor, []),
     ]
 

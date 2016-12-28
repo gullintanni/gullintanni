@@ -1,6 +1,6 @@
-defmodule GulWebTest do
+defmodule GullintanniWebTest do
   use ExUnit.Case
-  doctest GulWeb
+  doctest GullintanniWeb
 
   test "the truth" do
     assert 1 + 1 == 2

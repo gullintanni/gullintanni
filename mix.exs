@@ -12,7 +12,7 @@ defmodule Gullintanni.Platform.Mixfile do
      name: "Gullintanni",
      source_url: "https://github.com/gullintanni/gullintanni",
      homepage_url: "https://gullintanni.github.io/gullintanni/",
-     docs: [logo: "priv/static/images/logo.png",
+     docs: [logo: "apps/gullintanni_web/priv/static/images/logo.png",
             main: "readme",
             extras: ["README.md": [title: "README"],
                      "pages/Cheatsheet.md": [title: "Cheatsheet"],

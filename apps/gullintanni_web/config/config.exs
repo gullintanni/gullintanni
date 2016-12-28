@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :gul_web, key: :value
+#     config :gullintanni_web, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:gul_web, :key)
+#     Application.get_env(:gullintanni_web, :key)
 #
 # Or configure a 3rd-party app:
 #
