@@ -5,7 +5,6 @@ defmodule Gullintanni.Webhook.Supervisor do
 
   use Supervisor
   alias Gullintanni.Config
-  alias Gullintanni.Socket
   require Logger
 
   def start_link do

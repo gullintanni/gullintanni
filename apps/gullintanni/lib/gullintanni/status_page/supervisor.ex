@@ -5,7 +5,6 @@ defmodule Gullintanni.StatusPage.Supervisor do
 
   use Supervisor
   alias Gullintanni.Config
-  alias Gullintanni.Socket
   require Logger
 
   def start_link do

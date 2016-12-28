@@ -37,6 +37,7 @@ defmodule Gullintanni.Mixfile do
      {:gproc, "~> 0.6"},
      {:poison, "~> 3.0"},
      {:plug, "~> 1.3"},
+     {:socket, in_umbrella: true},
      {:tentacat, "~> 0.5"}]
   end
 end
