@@ -1,18 +1,17 @@
-defmodule Gullintanni.Mixfile do
+defmodule Gullintanni.Platform.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :gullintanni,
+    [apps_path: "apps",
      version: "0.1.0",
-     elixir: "~> 1.3",
-     name: "Gullintanni",
-     source_url: "https://github.com/gullintanni/gullintanni",
-     homepage_url: "https://gullintanni.github.io/gullintanni/",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     test_coverage: [tool: ExCoveralls],
-     preferred_cli_env: [coveralls: :test],
+
+     # Docs
+     name: "Gullintanni",
+     source_url: "https://github.com/gullintanni/gullintanni",
+     homepage_url: "https://gullintanni.github.io/gullintanni/",
      docs: [logo: "priv/static/images/logo.png",
             main: "readme",
             extras: ["README.md": [title: "README"],
@@ -20,25 +19,19 @@ defmodule Gullintanni.Mixfile do
                      "CONTRIBUTING.md": [title: "Contributing"]]]]
   end
 
-  def application do
-    [mod: {Gullintanni, []},
-     applications: [:cowboy, :gproc, :logger, :plug, :tentacat],
-     env: [enable_http_workers: true,
-           enable_load_pipelines: true,
-           status_page: [bind_ip: "127.0.0.1", bind_port: 13980],
-           webhook: [bind_ip: "0.0.0.0", bind_port: 13931]]]
-  end
-
+  # Dependencies can be Hex packages:
+  #
+  #   {:mydep, "~> 0.3.0"}
+  #
+  # Or git/path repositories:
+  #
+  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
+  #
+  # Type "mix help deps" for more examples and options.
+  #
+  # Dependencies listed here are available only for this project
+  # and cannot be accessed from applications inside the apps folder
   defp deps do
-    [{:cowboy, "~> 1.0"},
-     {:credo, "~> 0.5", only: :dev},
-     {:dialyxir, "~> 0.4", only: :dev},
-     {:ex_doc, "~> 0.14", only: :dev},
-     {:excoveralls, "~> 0.5", only: :test},
-     {:gen_stage, "~> 0.10"},
-     {:gproc, "~> 0.6"},
-     {:poison, "~> 3.0"},
-     {:plug, "~> 1.3"},
-     {:tentacat, "~> 0.5"}]
+    []
   end
 end
