@@ -1,27 +1,17 @@
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :logger,
-  utc_log: true
+# By default, the umbrella project as well as each child
+# application will require this configuration file, ensuring
+# they all use the same configuration. While one could
+# configure all applications here, we prefer to delegate
+# back to each application for organization purposes.
+import_config "../apps/*/config/config.exs"
 
-config :logger, :console,
-  format: "$date $time $metadata[$level] $levelpad$message\n"
-
-#config :gullintanni, :status_page,
-#  bind_ip: "127.0.0.1",
-#  bind_port: 13980
-
-#config :gullintanni, :webhook,
-#  bind_ip: "0.0.0.0",
-#  bind_port: 13931
-
-config :gullintanni, :pipeline,
-  my_project:
-    [
-      repo_provider: Gullintanni.Providers.GitHub,
-      repo_owner: {:system, "GULBOT_REPO_OWNER"},
-      repo_name: {:system, "GULBOT_REPO_NAME"},
-      provider_auth_token: {:system, "GULBOT_PROVIDER_AUTH_TOKEN"},
-      worker: Gullintanni.Workers.TravisCI,
-    ]
-
-import_config "#{Mix.env}.exs"
+# Sample configuration (overrides the imported configuration above):
+#
+#     config :logger, :console,
+#       level: :info,
+#       format: "$date $time [$level] $metadata$message\n",
+#       metadata: [:user_id]
