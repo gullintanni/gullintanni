@@ -31,13 +31,17 @@ defmodule Socket do
 
   ## Examples
 
-      iex> {:ok, socket} = Socket.new("0.0.0.0", 80)
+      iex> {:ok, socket} = Socket.new("127.0.0.1", 80)
       iex> socket
-      #Socket<0.0.0.0:80>
+      #Socket<127.0.0.1:80>
 
       iex> {:ok, socket} = Socket.new("fe80::204:acff:fe17:bf38", 80)
       iex> socket
       #Socket<[FE80::204:ACFF:FE17:BF38]:80>
+      iex> socket.ip
+      {65152, 0, 0, 0, 516, 44287, 65047, 48952}
+      iex> socket.port
+      80
 
       iex> Socket.new("100.200.300.400", 80)
       {:error, :invalid_ip_address}
@@ -45,7 +49,9 @@ defmodule Socket do
       iex> Socket.new("0.0.0.0", 99999)
       {:error, :invalid_port}
   """
-  @spec new(ip_address, port_number) :: {:ok, t} | {:error, :invalid_ip_address | :invalid_port}
+  @spec new(ip_address, port_number) ::
+    {:ok, t} |
+    {:error, :invalid_ip_address | :invalid_port}
   def new(ip, port) do
     ip_address = parse(ip)
 
