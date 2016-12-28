@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.14.5">
-    <title>Gullintanni.Comment – Gullintanni v0.1.0</title>
+    <title>GullintanniWeb.Supervisor – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
     <script src="dist/sidebar_items-9eed99f4ba.js"></script>
@@ -61,10 +61,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni v0.1.0</small>
-        Gullintanni.Comment
+        GullintanniWeb.Supervisor
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/comment.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni_web/lib/gullintanni_web/supervisor.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -72,7 +72,7 @@
 
       
         <section id="moduledoc">
-          <p>Defines an incoming comment from a provider.</p>
+          <p>Supervises the Gullintanni status page processes.</p>
 
         </section>
       
@@ -86,19 +86,6 @@
             Summary
           </h1>
           
-  <div class="summary-types summary">
-    <h2>
-      <a href="#types">Types</a>
-    </h2>
-    <div class="summary-row">
-  <div class="summary-signature">
-    <a href="#t:t/0">t()</a>
-  </div>
-  
-</div>
-
-  </div>
-
 
           
   <div class="summary-functions summary">
@@ -107,11 +94,17 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#new/4">new(mreq_id, sender, body, timestamp)</a>
+    <a href="#init/1">init()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Creates a new comment</p>
+    <div class="summary-synopsis"><p>Callback invoked to start the supervisor and during hot code upgrades</p>
 </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/0">start_link()</a>
+  </div>
   
 </div>
 
@@ -125,43 +118,6 @@
         </section>
       
 
-      
-        <section id="types" class="details-list">
-          <h1 class="section-heading">
-            <a class="hover-link" href="#types">
-              <i class="icon-link"></i>
-            </a>
-            Types
-          </h1>
-          <div class="types-list">
-            <div class="detail" id="t:t/0">
-  
-  <div class="detail-header">
-    <a href="#t:t/0" class="detail-link" title="Link to this type">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">t()</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/comment.ex#L9" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>t() :: %Gullintanni.Comment{body: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, mreq_id: <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, sender: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, timestamp: <a href="https://hexdocs.pm/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>}</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-
-          </div>
-        </section>
       
 
       
@@ -172,30 +128,44 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="new/4">
+          <div class="detail" id="init/1">
   
   <div class="detail-header">
-    <a href="#new/4" class="detail-link" title="Link to this function">
+    <a href="#init/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">new(mreq_id, sender, body, timestamp)</span>
+    <span class="signature">init()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/comment.ex#L24" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni_web/lib/gullintanni_web/supervisor.ex#L13" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
     
-      <div class="specs">
-        
-          <pre>new(<a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="https://hexdocs.pm/elixir/NaiveDateTime.html#t:t/0">NaiveDateTime.t</a>) :: <a href="#t:t/0">t</a></pre>
-        
-      </div>
+  </div>
+  <section class="docstring">
+    <p>Callback invoked to start the supervisor and during hot code upgrades.</p>
+<p>Callback implementation for <a href="https://hexdocs.pm/elixir/Supervisor.html#c:init/1"><code class="inline">Supervisor.init/1</code></a>.</p>
+
+  </section>
+</div>
+<div class="detail" id="start_link/0">
+  
+  <div class="detail-header">
+    <a href="#start_link/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni_web/lib/gullintanni_web/supervisor.ex#L9" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
     
   </div>
   <section class="docstring">
-    <p>Creates a new comment.</p>
-
+    
   </section>
 </div>
 
