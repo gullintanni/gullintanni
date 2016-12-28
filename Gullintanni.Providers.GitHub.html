@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.14.3">
+    <meta name="generator" content="ExDoc v0.14.5">
     <title>Gullintanni.Providers.GitHub – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-091c05798a.css" />
+    <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-    <script src="dist/sidebar_items.js"></script>
+    <script src="dist/sidebar_items-5b361aede5.js"></script>
   </head>
   <body data-type="modules">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
@@ -64,7 +64,7 @@
         Gullintanni.Providers.GitHub
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -97,7 +97,7 @@
     <a href="#download_merge_requests/2">download_merge_requests(repo, config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:download_merge_requests/2"><code class="inline">Gullintanni.Provider.download_merge_requests/2</code></a></p>
+    <div class="summary-synopsis"><p>Downloads a list of the repository’s open merge requests</p>
 </div>
   
 </div>
@@ -112,7 +112,7 @@
     <a href="#parse_merge_request/1">parse_merge_request(data)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:parse_merge_request/1"><code class="inline">Gullintanni.Provider.parse_merge_request/1</code></a></p>
+    <div class="summary-synopsis"><p>Converts raw upstream data into a merge request</p>
 </div>
   
 </div>
@@ -136,7 +136,8 @@
     <a href="#valid_config?/1">valid_config?(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:valid_config?/1"><code class="inline">Gullintanni.Provider.valid_config?/1</code></a></p>
+    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all required provider configuration values exist in
+<code class="inline">config</code>, otherwise <code class="inline">false</code></p>
 </div>
   
 </div>
@@ -145,7 +146,7 @@
     <a href="#whoami/1">whoami(config)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="Gullintanni.Provider.html#c:whoami/1"><code class="inline">Gullintanni.Provider.whoami/1</code></a></p>
+    <div class="summary-synopsis"><p>Returns the provider account’s effective user identity</p>
 </div>
   
 </div>
@@ -178,7 +179,7 @@
     </a>
     <span class="signature">download_merge_requests(repo, config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L35" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L35" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -186,7 +187,8 @@
     
   </div>
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:download_merge_requests/2"><code class="inline">Gullintanni.Provider.download_merge_requests/2</code></a>.</p>
+    <p>Downloads a list of the repository’s open merge requests.</p>
+<p>Callback implementation for <a href="Gullintanni.Provider.html#c:download_merge_requests/2"><code class="inline">Gullintanni.Provider.download_merge_requests/2</code></a>.</p>
 
   </section>
 </div>
@@ -198,7 +200,7 @@
     </a>
     <span class="signature">parse_comment(data)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L88" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L88" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -223,7 +225,7 @@
     </a>
     <span class="signature">parse_merge_request(data)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L71" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L71" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -237,7 +239,8 @@
     
   </div>
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:parse_merge_request/1"><code class="inline">Gullintanni.Provider.parse_merge_request/1</code></a>.</p>
+    <p>Converts raw upstream data into a merge request.</p>
+<p>Callback implementation for <a href="Gullintanni.Provider.html#c:parse_merge_request/1"><code class="inline">Gullintanni.Provider.parse_merge_request/1</code></a>.</p>
 
   </section>
 </div>
@@ -249,7 +252,7 @@
     </a>
     <span class="signature">parse_repo(data)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L63" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -274,7 +277,7 @@
     </a>
     <span class="signature">post_comment(repo, thread, comment, config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L44" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L44" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -282,7 +285,7 @@
     
       <div class="specs">
         
-          <pre>post_comment(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) ::
+          <pre>post_comment(<a href="Gullintanni.Repo.html#t:t/0">Gullintanni.Repo.t</a>, <a href="Gullintanni.MergeRequest.html#t:id/0">Gullintanni.MergeRequest.id</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) ::
   :ok |
   :error</pre>
         
@@ -302,7 +305,7 @@
     </a>
     <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L21" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L21" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -310,7 +313,9 @@
     
   </div>
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:valid_config?/1"><code class="inline">Gullintanni.Provider.valid_config?/1</code></a>.</p>
+    <p>Returns <code class="inline">true</code> if all required provider configuration values exist in
+<code class="inline">config</code>, otherwise <code class="inline">false</code>.</p>
+<p>Callback implementation for <a href="Gullintanni.Provider.html#c:valid_config?/1"><code class="inline">Gullintanni.Provider.valid_config?/1</code></a>.</p>
 
   </section>
 </div>
@@ -322,7 +327,7 @@
     </a>
     <span class="signature">whoami(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/providers/github.ex#L31" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/providers/github.ex#L31" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -330,7 +335,8 @@
     
   </div>
   <section class="docstring">
-    <p>Callback implementation for <a href="Gullintanni.Provider.html#c:whoami/1"><code class="inline">Gullintanni.Provider.whoami/1</code></a>.</p>
+    <p>Returns the provider account’s effective user identity.</p>
+<p>Callback implementation for <a href="Gullintanni.Provider.html#c:whoami/1"><code class="inline">Gullintanni.Provider.whoami/1</code></a>.</p>
 
   </section>
 </div>
@@ -345,7 +351,7 @@
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.5),
           </span>
           <span class="line">
             designed by
@@ -358,7 +364,7 @@
   </div>
 </section>
 </div>
-  <script src="dist/app-574613960f.js"></script>
+  <script src="dist/app-4aef34ad5f.js"></script>
   </body>
 </html>
 

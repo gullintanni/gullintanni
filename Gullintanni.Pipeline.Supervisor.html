@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.14.3">
+    <meta name="generator" content="ExDoc v0.14.5">
     <title>Gullintanni.Pipeline.Supervisor – Gullintanni v0.1.0</title>
-    <link rel="stylesheet" href="dist/app-091c05798a.css" />
+    <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-    <script src="dist/sidebar_items.js"></script>
+    <script src="dist/sidebar_items-5b361aede5.js"></script>
   </head>
   <body data-type="modules">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
@@ -64,7 +64,7 @@
         Gullintanni.Pipeline.Supervisor
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L3" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/pipeline/supervisor.ex#L3" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -97,7 +97,7 @@
     <a href="#init/1">init()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/gen_stage/0.8.0/Experimental.DynamicSupervisor.html#c:init/1"><code class="inline">Experimental.DynamicSupervisor.init/1</code></a></p>
+    <div class="summary-synopsis"><p>Callback invoked to start the supervisor and during hot code upgrades</p>
 </div>
   
 </div>
@@ -142,7 +142,7 @@
     </a>
     <span class="signature">init()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/pipeline/supervisor.ex#L18" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -150,7 +150,31 @@
     
   </div>
   <section class="docstring">
-    <p>Callback implementation for <a href="https://hexdocs.pm/gen_stage/0.8.0/Experimental.DynamicSupervisor.html#c:init/1"><code class="inline">Experimental.DynamicSupervisor.init/1</code></a>.</p>
+    <p>Callback invoked to start the supervisor and during hot code upgrades.</p>
+<h2 id="init/1-options" class="section-heading">
+  <a href="#init/1-options" class="hover-link"><i class="icon-link"></i></a>
+  Options
+</h2>
+
+<ul>
+<li><p><code class="inline">:strategy</code> - the restart strategy option. Only <code class="inline">:one_for_one</code>
+is supported by dynamic supervisors.</p>
+</li>
+<li><p><code class="inline">:max_restarts</code> - the maximum amount of restarts allowed in
+a time frame. Defaults to 3 times.</p>
+</li>
+<li><p><code class="inline">:max_seconds</code> - the time frame in which <code class="inline">:max_restarts</code> applies
+in seconds. Defaults to 5 seconds.</p>
+</li>
+<li><p><code class="inline">:max_dynamic</code> - the maximum number of children started under the
+supervisor via <code class="inline">start_child/2</code>. Defaults to infinity children.</p>
+</li>
+<li><p><code class="inline">:subscribe_to</code> - a list of producers to subscribe to. Each element
+represents the producer or a tuple with the producer and the subscription
+options. e.g. <code class="inline">[Producer]</code> or <code class="inline">[{Producer, max_demand: 10, min_demand: 20}]</code></p>
+</li>
+</ul>
+<p>Callback implementation for <a href="https://hexdocs.pm/gen_stage/0.10.0/Experimental.DynamicSupervisor.html#c:init/1"><code class="inline">Experimental.DynamicSupervisor.init/1</code></a>.</p>
 
   </section>
 </div>
@@ -162,7 +186,7 @@
     </a>
     <span class="signature">start_link()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L10" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/pipeline/supervisor.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -181,7 +205,7 @@
     </a>
     <span class="signature">start_pipeline(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/lib/gullintanni/pipeline/supervisor.ex#L14" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/pipeline/supervisor.ex#L14" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -203,7 +227,7 @@
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.3),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.5),
           </span>
           <span class="line">
             designed by
@@ -216,7 +240,7 @@
   </div>
 </section>
 </div>
-  <script src="dist/app-574613960f.js"></script>
+  <script src="dist/app-4aef34ad5f.js"></script>
   </body>
 </html>
 

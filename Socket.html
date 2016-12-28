@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.14.5">
-    <title>Gullintanni.Worker – Gullintanni v0.1.0</title>
+    <title>Socket – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
     <script src="dist/sidebar_items-5b361aede5.js"></script>
@@ -61,12 +61,10 @@
 
       <h1>
         <small class="visible-xs">Gullintanni v0.1.0</small>
-        Gullintanni.Worker
-        
-          <small>behaviour</small>
+        Socket
         
         
-          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/socket/lib/socket.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
@@ -74,8 +72,10 @@
 
       
         <section id="moduledoc">
-          <p>Specifies the API that a worker module is required to implement.</p>
-<p>Workers are adapter modules that interface with a CI service.</p>
+          <p>Defines an Internet socket address.</p>
+<p>A <em>socket address</em> is the combination of an IP address and a port number.
+This can be used along with a transport protocol in order to define an
+endpoint of a connection across a network.</p>
 
         </section>
       
@@ -95,8 +95,20 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:config/0">config()</a>
+    <a href="#t:ip_address/0">ip_address()</a>
   </div>
+  
+    <div class="summary-synopsis"><p>The IP address of a socket</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:port_number/0">port_number()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>The port number of a socket</p>
+</div>
   
 </div>
 <div class="summary-row">
@@ -104,33 +116,35 @@
     <a href="#t:t/0">t()</a>
   </div>
   
+    <div class="summary-synopsis"><p>The socket address type</p>
+</div>
+  
 </div>
 
   </div>
 
 
           
-
-          
-
-          
-  <div class="summary-callbacks summary">
+  <div class="summary-functions summary">
     <h2>
-      <a href="#callbacks">Callbacks</a>
+      <a href="#functions">Functions</a>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:valid_config?/1">valid_config?(config)</a>
+    <a href="#new/2">new(ip, port)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all required worker configuration values exist in <code class="inline">config</code>,
-otherwise <code class="inline">false</code></p>
+    <div class="summary-synopsis"><p>Creates a new socket address with the given <code class="inline">ip</code> and <code class="inline">port</code></p>
 </div>
   
 </div>
 
   </div>
 
+
+          
+
+          
 
         </section>
       
@@ -144,15 +158,15 @@ otherwise <code class="inline">false</code></p>
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:config/0">
+            <div class="detail" id="t:ip_address/0">
   
   <div class="detail-header">
-    <a href="#t:config/0" class="detail-link" title="Link to this type">
+    <a href="#t:ip_address/0" class="detail-link" title="Link to this type">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">config()</span>
+    <span class="signature">ip_address()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L8" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/socket/lib/socket.ex#L11" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -160,13 +174,40 @@ otherwise <code class="inline">false</code></p>
     
       <div class="specs">
         
-          <pre>config() :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a></pre>
+          <pre>ip_address() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a> | charlist | :inet.ip_address</pre>
         
       </div>
     
   </div>
   <section class="docstring">
+    <p>The IP address of a socket</p>
+
+  </section>
+</div>
+<div class="detail" id="t:port_number/0">
+  
+  <div class="detail-header">
+    <a href="#t:port_number/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">port_number()</span>
     
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/socket/lib/socket.ex#L14" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>port_number() :: 0..65535</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The port number of a socket</p>
+
   </section>
 </div>
 <div class="detail" id="t:t/0">
@@ -177,7 +218,7 @@ otherwise <code class="inline">false</code></p>
     </a>
     <span class="signature">t()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L9" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/socket/lib/socket.ex#L17" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -185,13 +226,14 @@ otherwise <code class="inline">false</code></p>
     
       <div class="specs">
         
-          <pre>t() :: module</pre>
+          <pre>t() :: %Socket{ip: :inet.ip_address, port: <a href="#t:port_number/0">port_number</a>}</pre>
         
       </div>
     
   </div>
   <section class="docstring">
-    
+    <p>The socket address type</p>
+
   </section>
 </div>
 
@@ -200,26 +242,22 @@ otherwise <code class="inline">false</code></p>
       
 
       
-
-      
-
-      
-        <section id="callbacks" class="details-list">
+        <section id="functions" class="details-list">
           <h1 class="section-heading">
-            <a class="hover-link" href="#callbacks">
+            <a class="hover-link" href="#functions">
               <i class="icon-link"></i>
             </a>
-            Callbacks
+            Functions
           </h1>
-          <div class="detail" id="c:valid_config?/1">
+          <div class="detail" id="new/2">
   
   <div class="detail-header">
-    <a href="#c:valid_config?/1" class="detail-link" title="Link to this callback">
+    <a href="#new/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">valid_config?(config)</span>
+    <span class="signature">new(ip, port)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L15" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/socket/lib/socket.ex#L55" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -227,19 +265,50 @@ otherwise <code class="inline">false</code></p>
     
       <div class="specs">
         
-          <pre>valid_config?(<a href="#t:config/0">config</a>) :: boolean</pre>
+          <pre>new(<a href="#t:ip_address/0">ip_address</a>, <a href="#t:port_number/0">port_number</a>) ::
+  {:ok, <a href="#t:t/0">t</a>} |
+  {:error, :invalid_ip_address | :invalid_port}</pre>
         
       </div>
     
   </div>
   <section class="docstring">
-    <p>Returns <code class="inline">true</code> if all required worker configuration values exist in <code class="inline">config</code>,
-otherwise <code class="inline">false</code>.</p>
+    <p>Creates a new socket address with the given <code class="inline">ip</code> and <code class="inline">port</code>.</p>
+<p>Returns <code class="inline">{:ok, socket}</code> if the IP address and port number are valid, returns
+<code class="inline">{:error, reason}</code> otherwise. A valid IP address is anything that can be
+parsed by <code class="inline">:inet.parse_address/1</code>, and a valid port must be an integer in the
+range of <code class="inline">0..65535</code>.</p>
+<h2 id="new/2-examples" class="section-heading">
+  <a href="#new/2-examples" class="hover-link"><i class="icon-link"></i></a>
+  Examples
+</h2>
+
+<pre><code class="iex elixir">iex&gt; {:ok, socket} = Socket.new(&quot;127.0.0.1&quot;, 80)
+iex&gt; socket
+#Socket&lt;127.0.0.1:80&gt;
+
+iex&gt; {:ok, socket} = Socket.new(&quot;fe80::204:acff:fe17:bf38&quot;, 80)
+iex&gt; socket
+#Socket&lt;[FE80::204:ACFF:FE17:BF38]:80&gt;
+iex&gt; socket.ip
+{65152, 0, 0, 0, 516, 44287, 65047, 48952}
+iex&gt; socket.port
+80
+
+iex&gt; Socket.new(&quot;100.200.300.400&quot;, 80)
+{:error, :invalid_ip_address}
+
+iex&gt; Socket.new(&quot;0.0.0.0&quot;, 99999)
+{:error, :invalid_port}</code></pre>
 
   </section>
 </div>
 
         </section>
+      
+
+      
+
       
           <footer class="footer">
         <p>
