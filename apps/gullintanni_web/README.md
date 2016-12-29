@@ -1,7 +1,7 @@
 Gullintanni Web
 ===============
 
-Web frontend to display the status of the Gullintanni pipelines/build queues.
+A web frontend to display the status of Gullintanni pipelines/build queues.
 
 License
 -------

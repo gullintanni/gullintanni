@@ -13,6 +13,12 @@ defmodule Gullintanni.Mixfile do
      start_permanent: Mix.env == :prod,
      deps: deps(),
 
+     # Docs
+     name: "Gullintanni",
+     docs: [logo: "priv/static/images/logo.png",
+            main: "readme",
+            extras: ["README.md": [title: "README"]]],
+
      # Tests
      test_coverage: [tool: ExCoveralls],
      preferred_cli_env: [coveralls: :test]]
