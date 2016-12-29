@@ -28,7 +28,7 @@ defmodule HardHat do
   """
   @spec get(Client.t, String.t) :: response
   def get(%Client{} = client, path) do
-    request(:get, client, path)
+    __request__(:get, client, path) |> process_response
   end
 
   @doc """
@@ -39,7 +39,7 @@ defmodule HardHat do
   """
   @spec post(Client.t, String.t, HTTPoison.body) :: response
   def post(%Client{} = client, path, body \\ "") do
-    request(:post, client, path, body)
+    __request__(:post, client, path, body) |> process_response
   end
 
   @doc """
@@ -50,13 +50,14 @@ defmodule HardHat do
   """
   @spec put(Client.t, String.t, HTTPoison.body) :: response
   def put(%Client{} = client, path, body \\ "") do
-    request(:put, client, path, body)
+    __request__(:put, client, path, body) |> process_response
   end
 
-  @spec request(method, Client.t, String.t, HTTPoison.body) :: response
-  defp request(method, %Client{} = client, path, body \\ "") do
+  @doc false
+  @spec __request__(method, Client.t, String.t, HTTPoison.body) :: HTTPoison.Response.t
+  def __request__(method, %Client{} = client, path, body \\ "") do
     url = client.endpoint <> path
-    HTTPoison.request!(method, url, body, headers(client)) |> process_response
+    HTTPoison.request!(method, url, body, headers(client))
   end
 
   # https://docs.travis-ci.com/api/#making-requests
