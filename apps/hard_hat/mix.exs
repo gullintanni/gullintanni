@@ -28,11 +28,14 @@ defmodule HardHat.Mixfile do
   end
 
   def application() do
-    [applications: [:logger]]
+    [applications: [:httpoison, :logger]]
   end
 
   defp deps() do
     [
+      {:httpoison, "~> 0.10"},
+      {:poison, "~> 3.0"},
+
       {:credo, "~> 0.5", only: :dev},
       {:dialyxir, "~> 0.4", only: :dev},
       {:ex_doc, "~> 0.14", only: :dev},
