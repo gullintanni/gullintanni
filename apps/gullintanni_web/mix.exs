@@ -28,7 +28,8 @@ defmodule GullintanniWeb.Mixfile do
     [mod: {GullintanniWeb, []},
      applications: [:cowboy, :gullintanni, :logger, :plug],
      env: [enable_http_workers: true,
-           status_page: [bind_ip: "127.0.0.1", bind_port: 13980]]]
+           bind_ip: "127.0.0.1",
+           bind_port: 13980]]
   end
 
   defp deps do
