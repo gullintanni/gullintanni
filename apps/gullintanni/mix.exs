@@ -30,7 +30,7 @@ defmodule Gullintanni.Mixfile do
      env: [enable_http_workers: true,
            enable_load_pipelines: true,
            bind_ip: "0.0.0.0",
-           bind_port: 13931]]
+           bind_port: 13_931]]
   end
 
   defp deps do

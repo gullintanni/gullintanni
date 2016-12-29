@@ -29,7 +29,7 @@ defmodule GullintanniWeb.Mixfile do
      applications: [:cowboy, :gullintanni, :logger, :plug],
      env: [enable_http_workers: true,
            bind_ip: "127.0.0.1",
-           bind_port: 13980]]
+           bind_port: 13_980]]
   end
 
   defp deps do
