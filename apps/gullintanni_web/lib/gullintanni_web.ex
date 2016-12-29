@@ -17,13 +17,13 @@ defmodule GullintanniWeb do
 
   defp http_workers() do
     if Application.get_env(:gullintanni_web, :enable_http_workers) do
-      [status_page_router()]
+      [gullintanni_web_router()]
     else
       []
     end
   end
 
-  defp status_page_router do
+  defp gullintanni_web_router do
     bind_ip = Application.fetch_env!(:gullintanni_web, :bind_ip)
     bind_port = Application.fetch_env!(:gullintanni_web, :bind_port)
     cowboy_opts =

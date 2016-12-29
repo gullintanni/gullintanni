@@ -20,9 +20,9 @@ defmodule GullintanniWeb.Router do
     :error => {"danger", "Error"},
   }
 
-  EEx.function_from_file :defp, :render, "templates/status_page/index.html.eex", [:assigns]
-  EEx.function_from_file :defp, :overview, "templates/status_page/_overview.html.eex", [:pipelines]
-  EEx.function_from_file :defp, :detail, "templates/status_page/_detail.html.eex", [:pipeline]
+  EEx.function_from_file :defp, :render, "templates/index.html.eex", [:assigns]
+  EEx.function_from_file :defp, :overview, "templates/_overview.html.eex", [:pipelines]
+  EEx.function_from_file :defp, :detail, "templates/_detail.html.eex", [:pipeline]
 
   plug Plug.Logger,
     log: :debug
