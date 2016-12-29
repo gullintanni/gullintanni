@@ -1,0 +1,2 @@
+defmodule HardHat do
+end
