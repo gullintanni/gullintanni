@@ -8,7 +8,7 @@
     <title>HardHat – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-    <script src="dist/sidebar_items-26ea728c5d.js"></script>
+    <script src="dist/sidebar_items-4808e16c34.js"></script>
   </head>
   <body data-type="modules">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
@@ -71,11 +71,254 @@
       </h1>
 
       
+        <section id="moduledoc">
+          <p>A simple wrapper for the <a href="https://docs.travis-ci.com/api/">Travis CI API</a>.</p>
 
+        </section>
       
 
       
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:response/0">response()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>The response to an HTTP request</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:status_code/0">status_code()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>The HTTP status code</p>
+</div>
+  
+</div>
 
+  </div>
+
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get/2">get(client, path)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Issues an authenticated GET request to the given Travis CI API <code class="inline">path</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#post/3">post(client, path, body \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Issues an authenticated POST request to the given Travis CI API <code class="inline">path</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#put/3">put(client, path, body \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Issues an authenticated PUT request to the given Travis CI API <code class="inline">path</code></p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+        <section id="types" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div class="detail" id="t:response/0">
+  
+  <div class="detail-header">
+    <a href="#t:response/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">response()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat.ex#L9" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>response() :: map | {<a href="#t:status_code/0">status_code</a>, binary}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The response to an HTTP request.</p>
+
+  </section>
+</div>
+<div class="detail" id="t:status_code/0">
+  
+  <div class="detail-header">
+    <a href="#t:status_code/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">status_code()</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat.ex#L12" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>status_code() :: integer</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>The HTTP status code.</p>
+
+  </section>
+</div>
+
+          </div>
+        </section>
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="get/2">
+  
+  <div class="detail-header">
+    <a href="#get/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get(client, path)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat.ex#L30" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get(<a href="HardHat.Client.html#t:t/0">HardHat.Client.t</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: <a href="#t:response/0">response</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Issues an authenticated GET request to the given Travis CI API <code class="inline">path</code>.</p>
+<p>Returns the decoded response body if the request was successful, otherwise
+<code class="inline">{status_code, body}</code>. Raises an exception in case of failure.</p>
+
+  </section>
+</div>
+<div class="detail" id="post/3">
+  
+    <span id="post/2" />
+  
+  <div class="detail-header">
+    <a href="#post/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">post(client, path, body \\ &quot;&quot;)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat.ex#L41" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>post(<a href="HardHat.Client.html#t:t/0">HardHat.Client.t</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="https://hexdocs.pm/httpoison/0.10.0/HTTPoison.html#t:body/0">HTTPoison.body</a>) :: <a href="#t:response/0">response</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Issues an authenticated POST request to the given Travis CI API <code class="inline">path</code>.</p>
+<p>Returns the decoded response body if the request was successful, otherwise
+<code class="inline">{status_code, body}</code>. Raises an exception in case of failure.</p>
+
+  </section>
+</div>
+<div class="detail" id="put/3">
+  
+    <span id="put/2" />
+  
+  <div class="detail-header">
+    <a href="#put/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">put(client, path, body \\ &quot;&quot;)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat.ex#L52" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>put(<a href="HardHat.Client.html#t:t/0">HardHat.Client.t</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="https://hexdocs.pm/httpoison/0.10.0/HTTPoison.html#t:body/0">HTTPoison.body</a>) :: <a href="#t:response/0">response</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Issues an authenticated PUT request to the given Travis CI API <code class="inline">path</code>.</p>
+<p>Returns the decoded response body if the request was successful, otherwise
+<code class="inline">{status_code, body}</code>. Raises an exception in case of failure.</p>
+
+  </section>
+</div>
+
+        </section>
       
 
       
