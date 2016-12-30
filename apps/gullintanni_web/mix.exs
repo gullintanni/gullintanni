@@ -45,7 +45,7 @@ defmodule GullintanniWeb.Mixfile do
       {:cowboy, "~> 1.0"},
       {:gullintanni, in_umbrella: true},
       {:plug, "~> 1.3"},
-      {:socket, in_umbrella: true},
+      {:socket_address, "~> 0.1"},
 
       {:credo, "~> 0.5", only: :dev},
       {:dialyxir, "~> 0.4", only: :dev},

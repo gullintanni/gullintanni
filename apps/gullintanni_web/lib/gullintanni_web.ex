@@ -27,11 +27,11 @@ defmodule GullintanniWeb do
     bind_ip = Application.fetch_env!(:gullintanni_web, :bind_ip)
     bind_port = Application.fetch_env!(:gullintanni_web, :bind_port)
     cowboy_opts =
-      case Socket.new(bind_ip, bind_port) do
+      case SocketAddress.new(bind_ip, bind_port) do
         {:ok, socket} ->
           _ = Logger.info "started listening on #{socket}"
           [ip: socket.ip, port: socket.port]
-        {:error, :invalid_ip_address} ->
+        {:error, :invalid_ip} ->
           raise ArgumentError, "invalid :bind_ip configuration setting"
         {:error, :invalid_port} ->
           raise ArgumentError, "invalid :bind_port configuration setting"
