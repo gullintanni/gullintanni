@@ -2,8 +2,11 @@ defmodule HardHat.Client do
   @moduledoc """
   Defines a client for connecting to the Travis CI API.
 
-  A *client* is the combination of authentication credentials and an endpoint
-  URL.
+  A *client* is the combination of [authentication][] credentials and an
+  [endpoint][] URL. Every call to the Travis CI API needs a client.
+
+  [authentication]: https://docs.travis-ci.com/api/#authentication
+  [endpoint]: https://docs.travis-ci.com/api/#overview
   """
 
   @typedoc "The API authentication credentials"
@@ -22,6 +25,8 @@ defmodule HardHat.Client do
 
   @doc """
   Creates a new client with the given `auth` and `endpoint`.
+
+  Defaults to the _travis-ci.org_ endpoint for open source projects.
   """
   @spec new(auth, endpoint) :: t
   def new(auth, endpoint \\ @default_endpoint) do

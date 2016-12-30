@@ -2,7 +2,7 @@ defmodule HardHat.Users do
   @moduledoc """
   A wrapper for the Users entity.
 
-  https://docs.travis-ci.com/api/#users
+  <https://docs.travis-ci.com/api/#users>
   """
 
   import HardHat
