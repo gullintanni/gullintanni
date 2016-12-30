@@ -73,8 +73,8 @@
       
         <section id="moduledoc">
           <p>Defines a client for connecting to the Travis CI API.</p>
-<p>A <em>client</em> is the combination of authentication credentials and an endpoint
-URL.</p>
+<p>A <em>client</em> is the combination of <a href="https://docs.travis-ci.com/api/#authentication" title="">authentication</a> credentials and an
+<a href="https://docs.travis-ci.com/api/#overview" title="">endpoint</a> URL. Every call to the Travis CI API needs a client.</p>
 
         </section>
       
@@ -165,7 +165,7 @@ URL.</p>
     </a>
     <span class="signature">auth()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L10" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L13" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -191,7 +191,7 @@ URL.</p>
     </a>
     <span class="signature">endpoint()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L13" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L16" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -217,7 +217,7 @@ URL.</p>
     </a>
     <span class="signature">t()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L16" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L19" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -258,7 +258,7 @@ URL.</p>
     </a>
     <span class="signature">new(auth, endpoint \\ &quot;https://api.travis-ci.org/&quot;)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L27" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/hard_hat/lib/hard_hat/client.ex#L32" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -273,6 +273,7 @@ URL.</p>
   </div>
   <section class="docstring">
     <p>Creates a new client with the given <code class="inline">auth</code> and <code class="inline">endpoint</code>.</p>
+<p>Defaults to the <em>travis-ci.org</em> endpoint for open source projects.</p>
 
   </section>
 </div>
