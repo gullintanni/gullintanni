@@ -5,12 +5,18 @@ defmodule Gullintanni.Worker do
   Workers are adapter modules that interface with a CI service.
   """
 
-  @type config :: Keyword.t
+  alias Gullintanni.Config
+
   @type t :: module
 
   @doc """
   Returns `true` if all required worker configuration values exist in `config`,
   otherwise `false`.
   """
-  @callback valid_config?(config) :: boolean
+  @callback valid_config?(Config.t) :: boolean
+
+  @doc """
+  Returns the worker account's effective user identity.
+  """
+  @callback whoami(Config.t) :: String.t
 end

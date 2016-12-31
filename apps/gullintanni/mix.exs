@@ -46,6 +46,7 @@ defmodule Gullintanni.Mixfile do
       {:cowboy, "~> 1.0"},
       {:gen_stage, "~> 0.10"},
       {:gproc, "~> 0.6"},
+      {:hard_hat, in_umbrella: true},
       {:plug, "~> 1.3"},
       {:poison, "~> 3.0"},
       {:socket_address, "~> 0.1"},
