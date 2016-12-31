@@ -8,7 +8,7 @@
     <title>Gullintanni.Worker – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-    <script src="dist/sidebar_items-4808e16c34.js"></script>
+    <script src="dist/sidebar_items-053eb25200.js"></script>
   </head>
   <body data-type="modules">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
@@ -95,12 +95,6 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:config/0">config()</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#t:t/0">t()</a>
   </div>
   
@@ -120,11 +114,20 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:valid_config?/1">valid_config?(config)</a>
+    <a href="#c:valid_config?/1">valid_config?(arg0)</a>
   </div>
   
     <div class="summary-synopsis"><p>Returns <code class="inline">true</code> if all required worker configuration values exist in <code class="inline">config</code>,
 otherwise <code class="inline">false</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#c:whoami/1">whoami(arg0)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the worker account’s effective user identity</p>
 </div>
   
 </div>
@@ -144,32 +147,7 @@ otherwise <code class="inline">false</code></p>
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:config/0">
-  
-  <div class="detail-header">
-    <a href="#t:config/0" class="detail-link" title="Link to this type">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">config()</span>
-    
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L8" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>config() :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a></pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="t:t/0">
+            <div class="detail" id="t:t/0">
   
   <div class="detail-header">
     <a href="#t:t/0" class="detail-link" title="Link to this type">
@@ -177,7 +155,7 @@ otherwise <code class="inline">false</code></p>
     </a>
     <span class="signature">t()</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L9" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -217,9 +195,9 @@ otherwise <code class="inline">false</code></p>
     <a href="#c:valid_config?/1" class="detail-link" title="Link to this callback">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">valid_config?(config)</span>
+    <span class="signature">valid_config?(arg0)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L15" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L16" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -227,7 +205,7 @@ otherwise <code class="inline">false</code></p>
     
       <div class="specs">
         
-          <pre>valid_config?(<a href="#t:config/0">config</a>) :: boolean</pre>
+          <pre>valid_config?(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: boolean</pre>
         
       </div>
     
@@ -235,6 +213,32 @@ otherwise <code class="inline">false</code></p>
   <section class="docstring">
     <p>Returns <code class="inline">true</code> if all required worker configuration values exist in <code class="inline">config</code>,
 otherwise <code class="inline">false</code>.</p>
+
+  </section>
+</div>
+<div class="detail" id="c:whoami/1">
+  
+  <div class="detail-header">
+    <a href="#c:whoami/1" class="detail-link" title="Link to this callback">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">whoami(arg0)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/worker.ex#L21" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>whoami(<a href="Gullintanni.Config.html#t:t/0">Gullintanni.Config.t</a>) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the worker account’s effective user identity.</p>
 
   </section>
 </div>

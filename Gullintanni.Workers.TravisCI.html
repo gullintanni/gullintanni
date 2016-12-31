@@ -8,7 +8,7 @@
     <title>Gullintanni.Workers.TravisCI – Gullintanni v0.1.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-    <script src="dist/sidebar_items-4808e16c34.js"></script>
+    <script src="dist/sidebar_items-053eb25200.js"></script>
   </head>
   <body data-type="modules">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
@@ -102,6 +102,15 @@ otherwise <code class="inline">false</code></p>
 </div>
   
 </div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#whoami/1">whoami(config)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the worker account’s effective user identity</p>
+</div>
+  
+</div>
 
   </div>
 
@@ -131,7 +140,7 @@ otherwise <code class="inline">false</code></p>
     </a>
     <span class="signature">valid_config?(config)</span>
     
-      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/workers/travis_ci.ex#L14" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/workers/travis_ci.ex#L18" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -142,6 +151,27 @@ otherwise <code class="inline">false</code></p>
     <p>Returns <code class="inline">true</code> if all required worker configuration values exist in <code class="inline">config</code>,
 otherwise <code class="inline">false</code>.</p>
 <p>Callback implementation for <a href="Gullintanni.Worker.html#c:valid_config?/1"><code class="inline">Gullintanni.Worker.valid_config?/1</code></a>.</p>
+
+  </section>
+</div>
+<div class="detail" id="whoami/1">
+  
+  <div class="detail-header">
+    <a href="#whoami/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">whoami(config)</span>
+    
+      <a href="https://github.com/gullintanni/gullintanni/blob/master/apps/gullintanni/lib/gullintanni/workers/travis_ci.ex#L28" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the worker account’s effective user identity.</p>
+<p>Callback implementation for <a href="Gullintanni.Worker.html#c:whoami/1"><code class="inline">Gullintanni.Worker.whoami/1</code></a>.</p>
 
   </section>
 </div>
