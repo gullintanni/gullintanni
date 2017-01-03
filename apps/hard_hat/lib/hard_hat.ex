@@ -26,9 +26,10 @@ defmodule HardHat do
   Returns the decoded response body if the request was successful, otherwise
   `{status_code, body}`. Raises an exception in case of failure.
   """
-  @spec get(Client.t, String.t) :: response
-  def get(%Client{} = client, path) do
-    __request__(:get, client, path) |> process_response
+  @spec get(Client.t, String.t, list) :: response
+  def get(%Client{} = client, path, params \\ []) do
+    url = client.endpoint <> path |> append_params(params)
+    HTTPoison.get!(url, headers(client)) |> process_response
   end
 
   @doc """
@@ -39,7 +40,8 @@ defmodule HardHat do
   """
   @spec post(Client.t, String.t, HTTPoison.body) :: response
   def post(%Client{} = client, path, body \\ "") do
-    __request__(:post, client, path, body) |> process_response
+    url = client.endpoint <> path
+    HTTPoison.post!(url, body, headers(client)) |> process_response
   end
 
   @doc """
@@ -50,14 +52,38 @@ defmodule HardHat do
   """
   @spec put(Client.t, String.t, HTTPoison.body) :: response
   def put(%Client{} = client, path, body \\ "") do
-    __request__(:put, client, path, body) |> process_response
+    url = client.endpoint <> path
+    HTTPoison.put!(url, body, headers(client)) |> process_response
   end
 
   @doc false
-  @spec __request__(method, Client.t, String.t, HTTPoison.body) :: HTTPoison.Response.t
-  def __request__(method, %Client{} = client, path, body \\ "") do
+  @spec __request__(Client.t, method, String.t, HTTPoison.body) :: HTTPoison.Response.t
+  def __request__(%Client{} = client, method, path, body \\ "") do
     url = client.endpoint <> path
     HTTPoison.request!(method, url, body, headers(client))
+  end
+
+  # Append query string paramaters to the given `url`.
+  @spec append_params(String.t, list) :: String.t
+  defp append_params(url, params) when is_list(params) or is_map(params) do
+    _append_params(URI.parse(url), params)
+  end
+
+  @spec _append_params(URI.t, list) :: URI.t
+  defp _append_params(%URI{} = uri, []) do
+    uri
+  end
+  defp _append_params(%URI{query: nil} = uri, params) do
+    Map.put(uri, :query, URI.encode_query(params))
+  end
+  defp _append_params(%URI{} = uri, params) do
+    {_, new_uri} =
+      Map.get_and_update(uri, :query, fn current_value ->
+        new_value = current_value <> "&" <> URI.encode_query(params)
+        {current_value, new_value}
+      end)
+
+    new_uri
   end
 
   # https://docs.travis-ci.com/api/#making-requests
