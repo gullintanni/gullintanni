@@ -5,7 +5,7 @@ defmodule HardHat.Users do
   <https://docs.travis-ci.com/api/#users>
   """
 
-  import HardHat
+  import HardHat, except: [get: 2]
   alias HardHat.Client
 
   @doc """
@@ -17,19 +17,23 @@ defmodule HardHat.Users do
   """
   @spec whoami(Client.t) :: HardHat.response
   def whoami(client) do
-    get(client, "users")
+    HardHat.get(client, "users")
   end
 
   @doc """
-  Show the user identified by `id`.
+  Gets the user identified by `id`.
 
   ## Examples
 
-      HardHat.Users.show(client, 267)
+      HardHat.Users.get(client, 267)
+      HardHat.Users.get(client, "267")
   """
-  @spec show(Client.t, pos_integer) :: HardHat.response
-  def show(client, id) do
-    get(client, "users/#{id}")
+  @spec get(Client.t, pos_integer | String.t) :: HardHat.response
+  def get(client, id) when is_integer(id) and id > 0 do
+    HardHat.get(client, "users/#{id}")
+  end
+  def get(client, id) when is_binary(id) do
+    get(client, String.to_integer(id))
   end
 
   @doc """
