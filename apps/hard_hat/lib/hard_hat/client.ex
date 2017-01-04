@@ -30,13 +30,6 @@ defmodule HardHat.Client do
   """
   @spec new(auth, endpoint) :: t
   def new(auth, endpoint \\ @default_endpoint) do
-    endpoint =
-      if String.ends_with?(endpoint, "/") do
-        endpoint
-      else
-        endpoint <> "/"
-      end
-
-    %__MODULE__{auth: auth, endpoint: endpoint}
+    %__MODULE__{auth: auth, endpoint: HardHat.__normalize__(endpoint)}
   end
 end

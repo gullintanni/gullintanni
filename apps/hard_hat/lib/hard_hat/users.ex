@@ -16,7 +16,7 @@ defmodule HardHat.Users do
       HardHat.Users.whoami(client)
   """
   @spec whoami(Client.t) :: HardHat.response
-  def whoami(client) do
+  def whoami(%Client{} = client) do
     HardHat.get(client, "users")
   end
 
@@ -29,10 +29,10 @@ defmodule HardHat.Users do
       HardHat.Users.get(client, "267")
   """
   @spec get(Client.t, pos_integer | String.t) :: HardHat.response
-  def get(client, id) when is_integer(id) and id > 0 do
+  def get(%Client{} = client, id) when is_integer(id) and id > 0 do
     HardHat.get(client, "users/#{id}")
   end
-  def get(client, id) when is_binary(id) do
+  def get(%Client{} = client, id) when is_binary(id) do
     get(client, String.to_integer(id))
   end
 
@@ -44,7 +44,7 @@ defmodule HardHat.Users do
       HardHat.Users.sync(client)
   """
   @spec sync(Client.t) :: HardHat.response
-  def sync(client) do
+  def sync(%Client{} = client) do
     post(client, "users/sync")
   end
 end
