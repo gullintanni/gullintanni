@@ -75,9 +75,9 @@ defmodule HardHat do
     end
   end
 
-  # Appends query string paramaters to the given `url`.
-  @spec append_params(String.t, list) :: String.t
-  defp append_params(url, params) when is_list(params) or is_map(params) do
+  # Appends query string parameters to the given `url`.
+  @spec append_params(String.t, term) :: String.t
+  defp append_params(url, params) do
     _append_params(URI.parse(url), params)
   end
 

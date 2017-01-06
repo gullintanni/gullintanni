@@ -15,7 +15,7 @@ defmodule HardHat.Repos do
       HardHat.Repos.get("elasticdog/socket_address")
       HardHat.Repos.get("elasticdog", [search: "elixir"])
   """
-  @spec get(Client.t, String.t) :: HardHat.response
+  @spec get(Client.t, String.t, term) :: HardHat.response
   def get(%Client{} = client, path, params \\ []) do
     HardHat.get(client, "repos/" <> path, params)
   end
