@@ -11,14 +11,14 @@ defmodule HardHat.Repos.Key do
   alias HardHat.Client
 
   @doc """
-  Gets the public key for the given `repo`.
+  Gets the public key for a `repo`.
 
   ## Examples
 
       HardHat.Repos.Key.get(client, "elasticdog/socket_address")
   """
   @spec get(Client.t, String.t) :: String.t | HardHat.Response.t
-  def get(%Client{} = client, repo) when is_binary(repo) do
+  def get(%Client{} = client, repo) do
     case _get(client, repo) do
       %{"key" => key} -> key
       error -> error
@@ -26,14 +26,14 @@ defmodule HardHat.Repos.Key do
   end
 
   @doc """
-  Gets the public key fingerprint for the given `repo`.
+  Gets the public key fingerprint for a `repo`.
 
   ## Examples
 
       HardHat.Repos.Key.get_fingerprint(client, "elasticdog/socket_address")
   """
   @spec get_fingerprint(Client.t, String.t) :: String.t | HardHat.Response.t
-  def get_fingerprint(client, repo) when is_binary(repo) do
+  def get_fingerprint(client, repo) do
     case _get(client, repo) do
       %{"fingerprint" => fingerprint} -> fingerprint
       error -> error
@@ -42,17 +42,17 @@ defmodule HardHat.Repos.Key do
 
   @spec _get(Client.t, String.t) :: HardHat.Response.t
   defp _get(client, repo) do
-    HardHat.get(client, "repos/" <> HardHat.__normalize__(repo) <> "key")
+    HardHat.get(client, "/repos/#{repo}/key")
   end
 
   @doc """
-  Generates a new repository keypair.
+  Generates a new encryption keypair for a `repo`.
 
   This will invalidate the current key, thus also rendering all encrypted
   variables invalid.
   """
   @spec generate(Client.t, String.t) :: HardHat.Response.t
-  def generate(%Client{} = client, repo) when is_binary(repo) do
-    post(client, "repos/" <> HardHat.__normalize__(repo) <> "key")
+  def generate(%Client{} = client, repo) do
+    post(client, "/repos/#{repo}/key")
   end
 end

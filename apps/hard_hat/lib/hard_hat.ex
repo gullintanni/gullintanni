@@ -27,7 +27,7 @@ defmodule HardHat do
   `{status_code, body}`. Raises an exception in case of failure.
   """
   @spec get(Client.t, String.t, list) :: response
-  def get(%Client{} = client, path, params \\ []) when is_binary(path) do
+  def get(%Client{} = client, path, params \\ []) do
     url = client.endpoint <> path |> append_params(params)
     HTTPoison.get!(url, headers(client)) |> process_response
   end
@@ -39,7 +39,7 @@ defmodule HardHat do
   `{status_code, body}`. Raises an exception in case of failure.
   """
   @spec post(Client.t, String.t, HTTPoison.body) :: response
-  def post(%Client{} = client, path, body \\ "") when is_binary(path) do
+  def post(%Client{} = client, path, body \\ "") do
     url = client.endpoint <> path
     HTTPoison.post!(url, body, headers(client)) |> process_response
   end
@@ -51,7 +51,7 @@ defmodule HardHat do
   `{status_code, body}`. Raises an exception in case of failure.
   """
   @spec put(Client.t, String.t, HTTPoison.body) :: response
-  def put(%Client{} = client, path, body \\ "") when is_binary(path) do
+  def put(%Client{} = client, path, body \\ "") do
     url = client.endpoint <> path
     HTTPoison.put!(url, body, headers(client)) |> process_response
   end
@@ -59,20 +59,9 @@ defmodule HardHat do
   @doc false
   @spec __request__(Client.t, method, String.t, HTTPoison.body)
     :: HTTPoison.Response.t
-  def __request__(%Client{} = client, method, path, body \\ "")
-      when is_binary(path) do
+  def __request__(%Client{} = client, method, path, body \\ "") do
     url = client.endpoint <> path
     HTTPoison.request!(method, url, body, headers(client))
-  end
-
-  @doc false
-  @spec __normalize__(String.t) :: String.t
-  def __normalize__(path) when is_binary(path) do
-    if String.ends_with?(path, "/") do
-      path
-    else
-      path <> "/"
-    end
   end
 
   # Appends query string parameters to the given `url`.

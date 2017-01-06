@@ -8,7 +8,7 @@ defmodule HardHat.Repos do
   alias HardHat.Client
 
   @doc """
-  Gets the repositories based on `path` and `params`.
+  Gets the repositories based on `path`, filtered by the `params`.
 
   ## Examples
 
@@ -17,6 +17,6 @@ defmodule HardHat.Repos do
   """
   @spec get(Client.t, String.t, term) :: HardHat.response
   def get(%Client{} = client, path, params \\ []) do
-    HardHat.get(client, "repos/" <> path, params)
+    HardHat.get(client, "/repos/#{path}", params)
   end
 end

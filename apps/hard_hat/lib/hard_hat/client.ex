@@ -21,7 +21,7 @@ defmodule HardHat.Client do
   @enforce_keys [:auth, :endpoint]
   defstruct [:auth, :endpoint]
 
-  @default_endpoint "https://api.travis-ci.org/"
+  @default_endpoint "https://api.travis-ci.org"
 
   @doc """
   Creates a new client with the given `auth` and `endpoint`.
@@ -29,7 +29,7 @@ defmodule HardHat.Client do
   Defaults to the _travis-ci.org_ endpoint for open source projects.
   """
   @spec new(auth, endpoint) :: t
-  def new(auth, endpoint \\ @default_endpoint) do
-    %__MODULE__{auth: auth, endpoint: HardHat.__normalize__(endpoint)}
+  def new(%{access_token: _} = auth, endpoint \\ @default_endpoint) do
+    %__MODULE__{auth: auth, endpoint: endpoint}
   end
 end

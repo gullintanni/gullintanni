@@ -9,7 +9,7 @@ defmodule HardHat.Users do
   alias HardHat.Client
 
   @doc """
-  Show the authenticated user.
+  Gets the currently authenticated user.
 
   ## Examples
 
@@ -17,7 +17,7 @@ defmodule HardHat.Users do
   """
   @spec whoami(Client.t) :: HardHat.response
   def whoami(%Client{} = client) do
-    HardHat.get(client, "users")
+    HardHat.get(client, "/users")
   end
 
   @doc """
@@ -26,18 +26,14 @@ defmodule HardHat.Users do
   ## Examples
 
       HardHat.Users.get(client, 267)
-      HardHat.Users.get(client, "267")
   """
-  @spec get(Client.t, pos_integer | String.t) :: HardHat.response
-  def get(%Client{} = client, id) when is_integer(id) and id > 0 do
-    HardHat.get(client, "users/#{id}")
-  end
-  def get(%Client{} = client, id) when is_binary(id) do
-    get(client, String.to_integer(id))
+  @spec get(Client.t, pos_integer) :: HardHat.response
+  def get(%Client{} = client, id) do
+    HardHat.get(client, "/users/#{id}")
   end
 
   @doc """
-  Trigger a new sync with GitHub.
+  Triggers a synchronization with GitHub.
 
   ## Examples
 
@@ -45,6 +41,6 @@ defmodule HardHat.Users do
   """
   @spec sync(Client.t) :: HardHat.response
   def sync(%Client{} = client) do
-    post(client, "users/sync")
+    post(client, "/users/sync")
   end
 end

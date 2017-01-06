@@ -14,18 +14,14 @@ defmodule HardHat.Jobs do
   ## Examples
 
       HardHat.Jobs.get(client, 42)
-      HardHat.Jobs.get(client, "42")
   """
-  @spec get(Client.t, pos_integer | String.t) :: HardHat.response
-  def get(%Client{} = client, id) when is_integer(id) and id > 0 do
-    HardHat.get(client, "jobs/#{id}")
-  end
-  def get(%Client{} = client, id) when is_binary(id) do
-    get(client, String.to_integer(id))
+  @spec get(Client.t, pos_integer) :: HardHat.response
+  def get(%Client{} = client, id) do
+    HardHat.get(client, "/jobs/#{id}")
   end
 
   @doc """
-  Gets multiple jobs based on the given `params`.
+  Gets all jobs, filtered by the `params`.
 
   ## Examples
 
@@ -33,38 +29,30 @@ defmodule HardHat.Jobs do
   """
   @spec get_all(Client.t, term) :: HardHat.response
   def get_all(%Client{} = client, params \\ []) do
-    HardHat.get(client, "jobs/", params)
+    HardHat.get(client, "/jobs", params)
   end
 
   @doc """
-  Cancels a job identified by `id`.
+  Cancels the job identified by `id`.
 
   ## Examples
 
       HardHat.Jobs.cancel(client, 42)
-      HardHat.Jobs.cancel(client, "42")
   """
-  @spec cancel(Client.t, pos_integer | String.t) :: HardHat.response
-  def cancel(%Client{} = client, id) when is_integer(id) and id > 0 do
-    post(client, "jobs/#{id}/cancel")
-  end
-  def cancel(%Client{} = client, id) when is_binary(id) do
-    cancel(client, String.to_integer(id))
+  @spec cancel(Client.t, pos_integer) :: HardHat.response
+  def cancel(%Client{} = client, id) do
+    post(client, "/jobs/#{id}/cancel")
   end
 
   @doc """
-  Restarts a job identified by `id`.
+  Restarts the job identified by `id`.
 
   ## Examples
 
       HardHat.Jobs.restart(client, 42)
-      HardHat.Jobs.restart(client, "42")
   """
-  @spec restart(Client.t, pos_integer | String.t) :: HardHat.response
-  def restart(%Client{} = client, id) when is_integer(id) and id > 0 do
-    post(client, "jobs/#{id}/restart")
-  end
-  def restart(%Client{} = client, id) when is_binary(id) do
-    restart(client, String.to_integer(id))
+  @spec restart(Client.t, pos_integer) :: HardHat.response
+  def restart(%Client{} = client, id) do
+    post(client, "/jobs/#{id}/restart")
   end
 end
