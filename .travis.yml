@@ -1,6 +1,6 @@
 language: elixir
 elixir:
-  - 1.3.4
+  - 1.4.0
 otp_release:
   - 19.2
 
@@ -15,9 +15,10 @@ notifications:
 
 env:
   global:
-    secure: CjaCAwmEzP5ITzZ+tiGD/0yzyXMadxrvVX1QqnP21iEM4BsuCiM64nV5tcaisfZpnvW7n5vZ383w0VgSc8ZOYxiRJ5P13cm/EHAYoB6UcgAexevR6hT9Ic6RSQO1Gnt3vNKcbL3qy6QdgbkBypVQtQHCnU1GcHZVN8zUesWm5PosuZ97y5D5agULsUIBeSYXaPQ65j9siY/0Czt6xzHu7Kq0HZzq5JsAXBev7V8mU/bwET7AacINCwWkQxGZzS6wptsr2MlKb98LX7mnF/8DsE0cV8yj8F5ts01NEsu50POg6ghmwgElyKOp9TF1LZNQLAO8GsRsFB0OPUDza0s6HZ+OsF7rIWYlvSBbM8QJbUK2wzfhqZ7FoAn2AetHm+1hcs+5lAjnBXCN1qYTzDu92TFHN5ZDxK44oP7ohQDsWfpnFjAOAYTCOsk3sf4pRzjXUIzH77bGPFAlxIdlee1Eo/IZOOVd4SQb0c8CjliayNXCL/uYDvLwhqoIuk7e3tmV1qSwtLbXI+JIulNd1JJ/hiBfq6ZT/25E+CuAux0UPavLSCi/2TnPkD14XHfDqsag8TghyHZdHgMtqYveu0/n2leYnSOghYqfqS6hbucf/ND3g7QDuzl2kJVa23wrgsRCDF1GBRTkUF38jfK/f+jFdiiPWqYyo/FGJX6vJ76du/4=
+    - MIX_ENV=test
+    - secure: CjaCAwmEzP5ITzZ+tiGD/0yzyXMadxrvVX1QqnP21iEM4BsuCiM64nV5tcaisfZpnvW7n5vZ383w0VgSc8ZOYxiRJ5P13cm/EHAYoB6UcgAexevR6hT9Ic6RSQO1Gnt3vNKcbL3qy6QdgbkBypVQtQHCnU1GcHZVN8zUesWm5PosuZ97y5D5agULsUIBeSYXaPQ65j9siY/0Czt6xzHu7Kq0HZzq5JsAXBev7V8mU/bwET7AacINCwWkQxGZzS6wptsr2MlKb98LX7mnF/8DsE0cV8yj8F5ts01NEsu50POg6ghmwgElyKOp9TF1LZNQLAO8GsRsFB0OPUDza0s6HZ+OsF7rIWYlvSBbM8QJbUK2wzfhqZ7FoAn2AetHm+1hcs+5lAjnBXCN1qYTzDu92TFHN5ZDxK44oP7ohQDsWfpnFjAOAYTCOsk3sf4pRzjXUIzH77bGPFAlxIdlee1Eo/IZOOVd4SQb0c8CjliayNXCL/uYDvLwhqoIuk7e3tmV1qSwtLbXI+JIulNd1JJ/hiBfq6ZT/25E+CuAux0UPavLSCi/2TnPkD14XHfDqsag8TghyHZdHgMtqYveu0/n2leYnSOghYqfqS6hbucf/ND3g7QDuzl2kJVa23wrgsRCDF1GBRTkUF38jfK/f+jFdiiPWqYyo/FGJX6vJ76du/4=
 
-script: mix test && MIX_ENV=test mix coveralls.travis
+script: mix coveralls.travis --umbrella
 
 after_success:
   - git config user.name 'Travis CI'
