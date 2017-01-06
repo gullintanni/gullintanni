@@ -5,67 +5,59 @@ defmodule HardHat do
 
   alias HardHat.Client
 
-  @typedoc "The response to an HTTP request."
-  @type response :: map | {status_code, binary}
-
-  @typedoc "The HTTP status code."
-  @type status_code :: integer
-
-  @typep method :: :get | :post | :put
-
-  @user_agent [{"User-agent", "HardHat/#{Mix.Project.config[:version]}"}]
-
-  @content_negotiation [
+  @request_headers [
     {"Accept", "application/vnd.travis-ci.2+json"},
     {"Content-Type", "application/json"},
+    {"User-Agent", "HardHat/#{Mix.Project.config[:version]}"},
   ]
 
   @doc """
   Issues an authenticated GET request to the given Travis CI API `path`.
 
-  Returns the decoded response body if the request was successful, otherwise
-  `{status_code, body}`. Raises an exception in case of failure.
+  Returns `{:ok, response}` if the request was successful, otherwise
+  `{:error, reason}`.
   """
-  @spec get(Client.t, String.t, list) :: response
+  @spec get(Client.t, String.t, list) :: HardHat.Response.t
   def get(%Client{} = client, path, params \\ []) do
-    url = client.endpoint <> path |> append_params(params)
-    HTTPoison.get!(url, headers(client)) |> process_response
+    __request__(client, :get, url(client, path, params))
   end
 
   @doc """
   Issues an authenticated POST request to the given Travis CI API `path`.
 
-  Returns the decoded response body if the request was successful, otherwise
-  `{status_code, body}`. Raises an exception in case of failure.
+  Returns `{:ok, response}` if the request was successful, otherwise
+  `{:error, reason}`.
   """
-  @spec post(Client.t, String.t, HTTPoison.body) :: response
+  @spec post(Client.t, String.t, HTTPoison.body) :: HardHat.Response.t
   def post(%Client{} = client, path, body \\ "") do
-    url = client.endpoint <> path
-    HTTPoison.post!(url, body, headers(client)) |> process_response
+    __request__(client, :post, url(client, path), body)
   end
 
   @doc """
   Issues an authenticated PUT request to the given Travis CI API `path`.
 
-  Returns the decoded response body if the request was successful, otherwise
-  `{status_code, body}`. Raises an exception in case of failure.
+  Returns `{:ok, response}` if the request was successful, otherwise
+  `{:error, reason}`.
   """
-  @spec put(Client.t, String.t, HTTPoison.body) :: response
+  @spec put(Client.t, String.t, HTTPoison.body) :: HardHat.Response.t
   def put(%Client{} = client, path, body \\ "") do
-    url = client.endpoint <> path
-    HTTPoison.put!(url, body, headers(client)) |> process_response
+    __request__(client, :put, url(client, path), body)
   end
 
   @doc false
-  @spec __request__(Client.t, method, String.t, HTTPoison.body)
-    :: HTTPoison.Response.t
-  def __request__(%Client{} = client, method, path, body \\ "") do
-    url = client.endpoint <> path
+  @spec __request__(Client.t, atom, String.t, HTTPoison.body) :: HardHat.Response.t
+  def __request__(%Client{} = client, method, url, body \\ "") do
     HTTPoison.request!(method, url, body, headers(client))
+    |> process_response()
+  end
+
+  @spec url(Client.t, String.t, keyword) :: String.t
+  defp url(%Client{endpoint: endpoint}, path, params \\ []) do
+    endpoint <> path |> append_params(params)
   end
 
   # Appends query string parameters to the given `url`.
-  @spec append_params(String.t, term) :: String.t
+  @spec append_params(String.t, keyword) :: String.t
   defp append_params(url, params) do
     _append_params(URI.parse(url), params)
   end
@@ -90,7 +82,7 @@ defmodule HardHat do
   # https://docs.travis-ci.com/api/#making-requests
   @spec headers(Client.t) :: list
   defp headers(%Client{} = client) do
-    @user_agent ++ @content_negotiation ++ authorization_header(client.auth)
+    @request_headers ++ authorization_header(client.auth)
   end
 
   # https://docs.travis-ci.com/api/#authentication
@@ -99,11 +91,13 @@ defmodule HardHat do
     [{"Authorization", ~s(token "#{token}")}]
   end
 
-  @spec process_response(HTTPoison.Response.t) :: response
+  @spec process_response(HTTPoison.Response.t) :: HardHat.Response.t
   defp process_response(%HTTPoison.Response{} = response) do
     case response.status_code do
-      200 -> Poison.decode!(response.body)
-      _ -> {response.status_code, response.body}
+      200 -> {:ok, Poison.decode!(response.body)}
+      401 -> {:error, :unauthorized}
+      404 -> {:error, :not_found}
+      _ -> {:error, Poison.decode!(response.body)}
     end
   end
 end

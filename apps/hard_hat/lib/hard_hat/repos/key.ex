@@ -17,7 +17,7 @@ defmodule HardHat.Repos.Key do
 
       HardHat.Repos.Key.get(client, "elasticdog/socket_address")
   """
-  @spec get(Client.t, String.t) :: String.t | HardHat.Response.t
+  @spec get(Client.t, String.t) :: HardHat.Response.t
   def get(%Client{} = client, repo) do
     case _get(client, repo) do
       %{"key" => key} -> key
@@ -32,7 +32,7 @@ defmodule HardHat.Repos.Key do
 
       HardHat.Repos.Key.get_fingerprint(client, "elasticdog/socket_address")
   """
-  @spec get_fingerprint(Client.t, String.t) :: String.t | HardHat.Response.t
+  @spec get_fingerprint(Client.t, String.t) :: HardHat.Response.t
   def get_fingerprint(client, repo) do
     case _get(client, repo) do
       %{"fingerprint" => fingerprint} -> fingerprint
