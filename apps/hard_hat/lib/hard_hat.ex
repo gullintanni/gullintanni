@@ -4,6 +4,7 @@ defmodule HardHat do
   """
 
   alias HardHat.Client
+  require Logger
 
   @request_headers [
     {"Accept", "application/vnd.travis-ci.2+json"},
@@ -47,6 +48,8 @@ defmodule HardHat do
   @doc false
   @spec __request__(Client.t, atom, String.t, HTTPoison.body) :: HardHat.Response.t
   def __request__(%Client{} = client, method, url, body \\ "") do
+    _ = Logger.debug("#{method} #{url}")
+
     HTTPoison.request!(method, url, body, headers(client))
     |> process_response()
   end
@@ -91,13 +94,12 @@ defmodule HardHat do
     [{"Authorization", ~s(token "#{token}")}]
   end
 
-  @spec process_response(HTTPoison.Response.t) :: HardHat.Response.t
+  @spec process_response(HTTPoison.Response.t) ::
+    {:ok | :error, HTTPoison.Response.t}
   defp process_response(%HTTPoison.Response{} = response) do
     case response.status_code do
-      200 -> {:ok, Poison.decode!(response.body)}
-      401 -> {:error, :unauthorized}
-      404 -> {:error, :not_found}
-      _ -> {:error, Poison.decode!(response.body)}
+      200 -> {:ok, response}
+      _ -> {:error, response}
     end
   end
 end

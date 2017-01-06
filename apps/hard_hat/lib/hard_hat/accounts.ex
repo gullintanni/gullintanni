@@ -9,7 +9,9 @@ defmodule HardHat.Accounts do
   """
 
   import HardHat
+  alias HardHat.Account
   alias HardHat.Client
+  alias HardHat.Response
 
   @doc """
   Lists the accounts the current user has admin access to.
@@ -18,9 +20,11 @@ defmodule HardHat.Accounts do
 
       HardHat.Accounts.list(client)
   """
-  @spec list(Client.t) :: HardHat.response
+  @spec list(Client.t) :: HardHat.Response.t
   def list(%Client{} = client) do
-    get(client, "/accounts")
+    client
+    |> get("/accounts")
+    |> Response.parse({"accounts", %Account{}})
   end
 
   @doc """
@@ -31,8 +35,10 @@ defmodule HardHat.Accounts do
 
       HardHat.Accounts.list_all(client)
   """
-  @spec list_all(Client.t) :: HardHat.response
+  @spec list_all(Client.t) :: HardHat.Response.t
   def list_all(%Client{} = client) do
-    get(client, "/accounts", [all: true])
+    client
+    |> get("/accounts", [all: true])
+    |> Response.parse({"accounts", %Account{}})
   end
 end
