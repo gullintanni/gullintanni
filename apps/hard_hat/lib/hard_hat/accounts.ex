@@ -20,7 +20,7 @@ defmodule HardHat.Accounts do
 
       HardHat.Accounts.list(client)
   """
-  @spec list(Client.t) :: HardHat.Response.t
+  @spec list(Client.t) :: {:ok, [Account.t]} | Response.error
   def list(%Client{} = client) do
     client
     |> get("/accounts")

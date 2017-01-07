@@ -4,6 +4,7 @@ defmodule HardHat do
   """
 
   alias HardHat.Client
+  alias HardHat.Response
   require Logger
 
   @request_headers [
@@ -49,9 +50,9 @@ defmodule HardHat do
   @spec __request__(Client.t, atom, String.t, HTTPoison.body) :: HardHat.Response.t
   def __request__(%Client{} = client, method, url, body \\ "") do
     _ = Logger.debug("#{method} #{url}")
+    res = HTTPoison.request!(method, url, body, headers(client))
 
-    HTTPoison.request!(method, url, body, headers(client))
-    |> process_response()
+    %Response{body: res.body, status_code: res.status_code}
   end
 
   @spec url(Client.t, String.t, keyword) :: String.t
@@ -92,14 +93,5 @@ defmodule HardHat do
   @spec authorization_header(Client.auth) :: list
   defp authorization_header(%{access_token: token}) do
     [{"Authorization", ~s(token "#{token}")}]
-  end
-
-  @spec process_response(HTTPoison.Response.t) ::
-    {:ok | :error, HTTPoison.Response.t}
-  defp process_response(%HTTPoison.Response{} = response) do
-    case response.status_code do
-      200 -> {:ok, response}
-      _ -> {:error, response}
-    end
   end
 end
