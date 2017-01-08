@@ -1,6 +1,6 @@
 defmodule HardHat.Account do
   @moduledoc """
-  Defines a Travis CI account.
+  Defines an account.
 
   <https://docs.travis-ci.com/api/#accounts>
   """

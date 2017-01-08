@@ -49,7 +49,8 @@ defmodule HardHat do
   @doc false
   @spec __request__(Client.t, atom, String.t, HTTPoison.body) :: HardHat.Response.t
   def __request__(%Client{} = client, method, url, body \\ "") do
-    _ = Logger.debug("#{method} #{url}")
+    upcase_method = method |> to_string |> String.upcase
+    _ = Logger.debug("#{upcase_method} #{url}")
     res = HTTPoison.request!(method, url, body, headers(client))
 
     %Response{body: res.body, status_code: res.status_code}

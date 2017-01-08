@@ -20,11 +20,13 @@ defmodule HardHat.Accounts do
 
       HardHat.Accounts.list(client)
   """
-  @spec list(Client.t) :: {:ok, [Account.t]} | Response.error
+  @spec list(Client.t) :: {:ok, [Account.t]} | {:error, any}
   def list(%Client{} = client) do
-    client
-    |> get("/accounts")
-    |> Response.parse({"accounts", %Account{}})
+    response = get(client, "/accounts")
+    format = %{"accounts" => [%Account{}]}
+
+    with {:ok, data} <- Response.parse(response, format),
+         do: {:ok, Map.get(data, "accounts")}
   end
 
   @doc """
@@ -35,10 +37,12 @@ defmodule HardHat.Accounts do
 
       HardHat.Accounts.list_all(client)
   """
-  @spec list_all(Client.t) :: HardHat.Response.t
+  @spec list_all(Client.t) ::  {:ok, [Account.t]} | {:error, any}
   def list_all(%Client{} = client) do
-    client
-    |> get("/accounts", [all: true])
-    |> Response.parse({"accounts", %Account{}})
+    response = get(client, "/accounts", [all: true])
+    format = %{"accounts" => [%Account{}]}
+
+    with {:ok, data} <- Response.parse(response, format),
+         do: {:ok, Map.get(data, "accounts")}
   end
 end

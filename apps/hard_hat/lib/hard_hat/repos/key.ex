@@ -9,9 +9,13 @@ defmodule HardHat.Repos.Key do
 
   import HardHat, except: [get: 2]
   alias HardHat.Client
+  alias HardHat.Response
+  alias HardHat.Repo
 
   @doc """
   Gets the public key for a `repo`.
+
+  This key can be used to encrypt (but not decrypt) secure env vars.
 
   ## Examples
 
@@ -19,10 +23,8 @@ defmodule HardHat.Repos.Key do
   """
   @spec get(Client.t, String.t) :: HardHat.Response.t
   def get(%Client{} = client, repo) do
-    case _get(client, repo) do
-      %{"key" => key} -> key
-      error -> error
-    end
+    HardHat.get(client, "/repos/#{repo}/key")
+    |> Response.parse(%Repo.Key{})
   end
 
   @doc """
