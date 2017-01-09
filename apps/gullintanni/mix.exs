@@ -31,7 +31,7 @@ defmodule Gullintanni.Mixfile do
   def application() do
     [
       extra_applications: [:logger],
-      mod: {Gullintanni, []},
+      mod: {Gullintanni.Application, []},
       env: [
         enable_http_workers: true,
         enable_load_pipelines: true,

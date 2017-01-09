@@ -9,7 +9,7 @@ defmodule GullintanniWeb.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.3",
+      elixir: "~> 1.4",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
@@ -30,8 +30,8 @@ defmodule GullintanniWeb.Mixfile do
 
   def application() do
     [
-      applications: [:cowboy, :gullintanni, :logger, :plug],
-      mod: {GullintanniWeb, []},
+      extra_applications: [:logger],
+      mod: {GullintanniWeb.Application, []},
       env: [
         enable_http_workers: true,
         bind_ip: "127.0.0.1",
@@ -45,7 +45,7 @@ defmodule GullintanniWeb.Mixfile do
       {:cowboy, "~> 1.0"},
       {:gullintanni, in_umbrella: true},
       {:plug, "~> 1.3"},
-      {:socket_address, "~> 0.1"},
+      {:socket_address, "~> 0.2"},
 
       {:credo, "~> 0.5", only: :dev},
       {:dialyxir, "~> 0.4", only: :dev},
