@@ -9,12 +9,13 @@ defmodule Gullintanni.Provider do
   alias Gullintanni.MergeRequest
   alias Gullintanni.Repo
 
+  @typedoc "The provider type"
   @type t :: module
 
   @doc """
   Returns the domain name of the provider.
   """
-  @callback  __domain__ :: String.t
+  @callback  __domain__() :: String.t
 
   @doc """
   Returns `true` if all required provider configuration values exist in

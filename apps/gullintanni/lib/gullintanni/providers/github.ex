@@ -1,6 +1,6 @@
 defmodule Gullintanni.Providers.GitHub do
   @moduledoc """
-  Provider adapter module for GitHub -- https://github.com/.
+  Provider adapter module for GitHub -- https://github.com/
   """
 
   alias Gullintanni.Comment
@@ -15,8 +15,8 @@ defmodule Gullintanni.Providers.GitHub do
   @domain "github.com"
   @required_config_settings [:provider_auth_token]
 
-  def __display_name__, do: @display_name
-  def __domain__, do: @domain
+  def __display_name__(), do: @display_name
+  def __domain__(), do: @domain
 
   def valid_config?(config) do
     Config.settings_present?(@required_config_settings, config)

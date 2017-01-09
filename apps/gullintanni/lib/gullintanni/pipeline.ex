@@ -12,6 +12,7 @@ defmodule Gullintanni.Pipeline do
   alias Gullintanni.MergeRequest
   alias Gullintanni.Repo
   alias Gullintanni.Worker
+
   require Logger
 
   @typep command :: :approve | :unapprove | :noop

@@ -7,6 +7,7 @@ defmodule Gullintanni.Worker do
 
   alias Gullintanni.Config
 
+  @typedoc "The worker type"
   @type t :: module
 
   @doc """

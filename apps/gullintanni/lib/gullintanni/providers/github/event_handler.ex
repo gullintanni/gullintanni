@@ -6,9 +6,11 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   """
 
   use GenStage
+
   alias Gullintanni.Pipeline
   alias Gullintanni.Providers.GitHub
   alias Gullintanni.Webhook.Event
+
   require Logger
 
   def start_link() do

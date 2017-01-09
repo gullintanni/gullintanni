@@ -6,6 +6,7 @@ defmodule Gullintanni.Comment do
   alias __MODULE__, as: Comment
   alias Gullintanni.MergeRequest
 
+  @typedoc "The comment type"
   @type t ::
     %Comment{
       mreq_id: MergeRequest.id,

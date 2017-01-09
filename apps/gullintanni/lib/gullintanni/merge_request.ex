@@ -15,6 +15,7 @@ defmodule Gullintanni.MergeRequest do
   @type state :: :under_review | :approved | :build_pending | :build_passed
                | :build_failed | :error
 
+  @typedoc "The merge request type"
   @type t ::
     %MergeRequest{
       id: id,

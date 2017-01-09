@@ -4,10 +4,14 @@ defmodule Gullintanni.Webhook.Supervisor do
   """
 
   use Supervisor
+
   alias Gullintanni.Config
+  alias Gullintanni.Providers
+  alias Gullintanni.Webhook
+
   require Logger
 
-  def start_link do
+  def start_link() do
     Supervisor.start_link(__MODULE__, [], name: __MODULE__)
   end
 
@@ -18,9 +22,11 @@ defmodule Gullintanni.Webhook.Supervisor do
     supervise(children, strategy: :one_for_one)
   end
 
-  defp default_workers do
-    [worker(Gullintanni.Webhook.EventManager, []),
-     worker(Gullintanni.Providers.GitHub.EventHandler, [])]
+  defp default_workers() do
+    [
+      worker(Webhook.EventManager, []),
+      worker(Providers.GitHub.EventHandler, []),
+    ]
   end
 
   defp http_workers do
