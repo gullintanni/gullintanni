@@ -49,7 +49,7 @@ defmodule Gullintanni.Mixfile do
       {:hard_hat, in_umbrella: true},
       {:plug, "~> 1.3"},
       {:poison, "~> 3.0"},
-      {:socket_address, "~> 0.1"},
+      {:socket_address, "~> 0.2"},
       {:tentacat, "~> 0.5"},
 
       {:credo, "~> 0.5", only: :dev},

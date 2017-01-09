@@ -38,7 +38,7 @@ defmodule Gullintanni.Webhook.Supervisor do
       case SocketAddress.new(bind_ip, bind_port) do
         {:ok, socket} ->
           _ = Logger.info "started listening on #{socket}/webhook"
-          [ip: socket.ip, port: socket.port]
+          SocketAddress.to_opts(socket)
         {:error, :invalid_ip} ->
           raise ArgumentError, "invalid :bind_ip configuration setting"
         {:error, :invalid_port} ->
