@@ -13,7 +13,7 @@ defmodule Gullintanni.Webhook.Supervisor do
 
   def init(_) do
     children =
-      default_workers ++ http_workers
+      default_workers() ++ http_workers()
 
     supervise(children, strategy: :one_for_one)
   end
