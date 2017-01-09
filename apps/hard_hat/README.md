@@ -1,7 +1,7 @@
 Hard Hat
 ========
 
-A simple wrapper for the [Travis CI API][], written in [Elixir][].
+A [Travis CI API][] client for [Elixir][].
 
 > **IMPORTANT!** Hard Hat has just the minimal functionality needed to support
 > [Gullintanni][] workers. I do not currently have plans to expand the library

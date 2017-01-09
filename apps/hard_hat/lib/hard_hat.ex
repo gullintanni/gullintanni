@@ -14,10 +14,19 @@ defmodule HardHat do
   ]
 
   @doc """
-  Issues an authenticated GET request to the given Travis CI API `path`.
+  Issues an authenticated DELETE request to the given `path`.
 
-  Returns `{:ok, response}` if the request was successful, otherwise
-  `{:error, reason}`.
+  The `params` will be encoded as query strings and appended to the final URL.
+  """
+  @spec delete(Client.t, String.t, list) :: HardHat.Response.t
+  def delete(%Client{} = client, path, params \\ []) do
+    __request__(client, :delete, url(client, path, params))
+  end
+
+  @doc """
+  Issues an authenticated GET request to the given `path`.
+
+  The `params` will be encoded as query strings and appended to the final URL.
   """
   @spec get(Client.t, String.t, list) :: HardHat.Response.t
   def get(%Client{} = client, path, params \\ []) do
@@ -25,10 +34,7 @@ defmodule HardHat do
   end
 
   @doc """
-  Issues an authenticated POST request to the given Travis CI API `path`.
-
-  Returns `{:ok, response}` if the request was successful, otherwise
-  `{:error, reason}`.
+  Issues an authenticated POST request to the given `path`.
   """
   @spec post(Client.t, String.t, HTTPoison.body) :: HardHat.Response.t
   def post(%Client{} = client, path, body \\ "") do
@@ -36,10 +42,7 @@ defmodule HardHat do
   end
 
   @doc """
-  Issues an authenticated PUT request to the given Travis CI API `path`.
-
-  Returns `{:ok, response}` if the request was successful, otherwise
-  `{:error, reason}`.
+  Issues an authenticated PUT request to the given `path`.
   """
   @spec put(Client.t, String.t, HTTPoison.body) :: HardHat.Response.t
   def put(%Client{} = client, path, body \\ "") do
