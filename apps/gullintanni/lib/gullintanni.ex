@@ -12,6 +12,7 @@ defmodule Gullintanni do
     import Supervisor.Spec, warn: false
 
     children = [
+      supervisor(Registry, [:unique, Gullintanni.Registry]),
       supervisor(Gullintanni.Pipeline.Supervisor, []),
       worker(Task, [&load_configured_pipelines/0], restart: :temporary),
       supervisor(Gullintanni.Webhook.Supervisor, []),

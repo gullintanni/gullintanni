@@ -56,7 +56,7 @@ defmodule Gullintanni.Pipeline do
   end
 
   defp via_tuple(pipeline) do
-    {:via, :gproc, {:n, :l, {__MODULE__, identify(pipeline)}}}
+    {:via, Registry, {Gullintanni.Registry, identify(pipeline)}}
   end
 
   @spec identify(t | Repo.t | String.t) :: String.t
@@ -72,7 +72,10 @@ defmodule Gullintanni.Pipeline do
   def whereis(identifier) when is_pid(identifier), do: identifier
   def whereis(identifier) when is_atom(identifier), do: :undefined
   def whereis(identifier) do
-    :gproc.where({:n, :l, {__MODULE__, identify(identifier)}})
+    case Registry.lookup(Gullintanni.Registry, identify(identifier)) do
+      [{pid, _value}] -> pid
+      _ -> :undefined
+    end
   end
 
   # Creates a new pipeline with the given `config` settings.
