@@ -54,9 +54,9 @@ defmodule HardHat do
   def __request__(%Client{} = client, method, url, body \\ "") do
     upcase_method = method |> to_string |> String.upcase
     _ = Logger.debug("#{upcase_method} #{url}")
-    res = HTTPoison.request!(method, url, body, headers(client))
+    resp = HTTPoison.request!(method, url, body, headers(client))
 
-    %Response{body: res.body, status_code: res.status_code}
+    %Response{body: resp.body, status_code: resp.status_code}
   end
 
   @spec url(Client.t, String.t, keyword) :: String.t

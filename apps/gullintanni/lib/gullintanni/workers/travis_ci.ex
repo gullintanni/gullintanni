@@ -26,6 +26,6 @@ defmodule Gullintanni.Workers.TravisCI do
   end
 
   def whoami(config) do
-    HardHat.Users.whoami(client(config))["user"]["login"]
+    HardHat.User.whoami(client(config)).login
   end
 end

@@ -47,13 +47,13 @@ defmodule HardHat.User do
 
       HardHat.User.whoami(client)
   """
-  @spec whoami(Client.t) :: HardHat.response
+  @spec whoami(Client.t) :: t | {:error, any}
   def whoami(%Client{} = client) do
     response = get(client, "/users")
     format = %{"user" => %User{}}
 
     with {:ok, data} <- Response.parse(response, format),
-         do: {:ok, Map.get(data, "user")}
+         do: Map.get(data, "user")
   end
 
   @doc """
@@ -63,7 +63,7 @@ defmodule HardHat.User do
 
       HardHat.User.fetch(client, 267)
   """
-  @spec fetch(Client.t, integer) :: HardHat.response
+  @spec fetch(Client.t, integer) :: {:ok, t} | {:error, any}
   def fetch(%Client{} = client, id) do
     response = get(client, "/users/#{id}")
     format = %{"user" => %User{}}
@@ -79,8 +79,13 @@ defmodule HardHat.User do
 
       HardHat.User.sync(client)
   """
-  @spec sync(Client.t) :: HardHat.response
+  @spec sync(Client.t) :: :ok | {:error, any}
   def sync(%Client{} = client) do
-    post(client, "/users/sync")
+    response = post(client, "/users/sync")
+
+    case Response.parse(response) do
+      {:ok, _} -> :ok
+      error -> error
+    end
   end
 end
