@@ -1,9 +1,10 @@
 defmodule HardHat.Repo do
   @moduledoc """
-  Handles the repository-related API entities.
+  Wraps the repository-related API entities.
 
   * <https://docs.travis-ci.com/api/#repositories>
   * <https://docs.travis-ci.com/api/#repository-keys>
+  * <https://docs.travis-ci.com/api/#branches>
   """
 
   import HardHat
@@ -44,7 +45,7 @@ defmodule HardHat.Repo do
   ]
 
   @doc """
-  Fetches a repository identified by `repo`.
+  Fetches the repository identified by `repo`.
 
   The `repo` must be a slug or id number that identifies a single repository.
 
@@ -70,7 +71,7 @@ defmodule HardHat.Repo do
       HardHat.Repo.fetch_ids(client, [8688, 11483077])
   """
   @spec fetch_ids(Client.t, [integer]) :: {:ok, [Repo.t]} | {:error, any}
-  def fetch_ids(%Client{} = client, ids) do
+  def fetch_ids(%Client{} = client, ids) when is_list(ids) do
     params = Enum.map(ids, fn id -> {"ids[]", id} end)
     response = get(client, "/repos", params)
     format = %{"repos" => [%Repo{}]}
@@ -98,10 +99,75 @@ defmodule HardHat.Repo do
       HardHat.Repo.search(client, [owner_name: "elasticdog"])
   """
   def search(%Client{} = client, params \\ []) do
-    response = HardHat.get(client, "/repos", params)
+    response = get(client, "/repos", params)
     format = %{"repos" => [%Repo{}]}
 
     with {:ok, data} <- Response.parse(response, format),
          do: {:ok, Map.get(data, "repos")}
   end
+
+  @doc """
+  Gets the repository's public key.
+
+  This key can be used to encrypt (but not decrypt) secure env vars.
+  """
+  @spec pubkey(Client.t, t) :: String.t | {:error, any}
+  def pubkey(%Client{} = client, %Repo{id: id}) do
+    response = get(client, "/repos/#{id}/key")
+
+    with {:ok, data} <- Response.parse(response),
+         do: Map.get(data, "key")
+  end
+
+  @doc """
+  Gets the repository's public key fingerprint.
+  """
+  @spec pubkey_fingerprint(Client.t, t) :: String.t | {:error, any}
+  def pubkey_fingerprint(%Client{} = client, %Repo{id: id}) do
+    response = get(client, "/repos/#{id}/key")
+
+    with {:ok, data} <- Response.parse(response),
+         do: Map.get(data, "fingerprint")
+  end
+
+  @doc """
+  Generates a new encryption keypair for the repository.
+
+  This will invalidate the current key, thus also rendering all encrypted
+  variables invalid.
+  """
+  @spec pubkey_generate(Client.t, t) :: :ok | {:error, any}
+  def pubkey_generate(%Client{} = client, %Repo{id: id}) do
+    response = post(client, "/repos/#{id}/key")
+
+    case Response.parse(response) do
+      {:ok, _} -> :ok
+      error -> error
+    end
+  end
+
+  @doc """
+  Lists all the repository branches.
+  """
+  @spec list_branches(Client.t, t) :: [Branch.t] | {:error, any}
+  def list_branches(%Client{} = client, %Repo{id: id}) do
+    response = get(client, "/repos/#{id}/branches")
+    format = %{"branches" => [%Repo.Branch{}]}
+
+    with {:ok, data} <- Response.parse(response, format),
+         do: {:ok, Map.get(data, "branches")}
+  end
+
+  # @doc """
+  # Gets a specific `branch` for a `repo`.
+  #
+  # ## Examples
+  #
+  #     HardHat.Repos.Branches.get(client, "elasticdog/socket_address", "v0.2.0")
+  # """
+  # @spec get(Client.t, String.t, String.t) :: {:ok, map} | {:error, any}
+  # def get(%Client{} = client, repo, branch) do
+  #   HardHat.get(client, "/repos/#{repo}/branches/#{branch}")
+  #   |> Response.parse
+  # end
 end
