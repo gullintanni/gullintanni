@@ -59,13 +59,13 @@ defmodule HardHat do
     %Response{body: resp.body, status_code: resp.status_code}
   end
 
-  @spec url(Client.t, String.t, keyword) :: String.t
+  @spec url(Client.t, String.t, Keyword.t) :: String.t
   defp url(%Client{endpoint: endpoint}, path, params \\ []) do
     endpoint <> path |> append_params(params)
   end
 
   # Appends query string parameters to the given `url`.
-  @spec append_params(String.t, keyword) :: String.t
+  @spec append_params(String.t, Keyword.t) :: String.t
   defp append_params(url, params) do
     _append_params(URI.parse(url), params)
   end
