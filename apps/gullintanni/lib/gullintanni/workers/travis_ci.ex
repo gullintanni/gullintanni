@@ -10,14 +10,14 @@ defmodule Gullintanni.Workers.TravisCI do
   @default_endpoint "https://api.travis-ci.org/"
   @display_name "Travis CI"
   @domain "travis-ci.org"
-  @required_config_settings [:worker_auth_token]
+  @required_settings [:worker_auth_token]
 
   def display_name(), do: @display_name
 
   def domain(), do: @domain
 
   def valid_config?(config) do
-    Config.settings_present?(@required_config_settings, config)
+    Config.settings_present?(config, @required_settings)
   end
 
   @spec client(Config.t) :: HardHat.Client.t

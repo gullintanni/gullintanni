@@ -13,14 +13,14 @@ defmodule Gullintanni.Providers.GitHub do
   @default_endpoint "https://api.github.com/"
   @display_name "GitHub"
   @domain "github.com"
-  @required_config_settings [:provider_auth_token]
+  @required_settings [:provider_auth_token]
 
   def display_name(), do: @display_name
 
   def domain(), do: @domain
 
   def valid_config?(config) do
-    Config.settings_present?(@required_config_settings, config)
+    Config.settings_present?(config, @required_settings)
   end
 
   @spec client(Config.t) :: Tentacat.Client.t
@@ -33,7 +33,7 @@ defmodule Gullintanni.Providers.GitHub do
     Tentacat.Users.me(client(config))["login"]
   end
 
-  def download_merge_requests(%Repo{} = repo, config) do
+  def list_merge_requests(%Repo{} = repo, config) do
     Tentacat.Pulls.list(repo.owner, repo.name, client(config))
     |> Enum.map(&parse_merge_request/1)
   end

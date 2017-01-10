@@ -14,14 +14,14 @@ defmodule Gullintanni.Config do
 
   Logs an error for any missing settings.
   """
-  @spec settings_present?([atom], t) :: boolean
-  def settings_present?(keys, config) do
+  @spec settings_present?(t, [atom]) :: boolean
+  def settings_present?(config, keys) do
     Enum.reduce(keys, true, fn(key, answer) ->
-      case Keyword.has_key?(config, key) do
-        true -> answer
-        false ->
-          _ = Logger.error "missing #{inspect key} configuration setting"
-          false
+      if Keyword.has_key?(config, key) do
+        answer
+      else
+        _ = Logger.error "missing #{inspect key} configuration setting"
+        false
       end
     end)
   end

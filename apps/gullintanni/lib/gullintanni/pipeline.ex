@@ -18,10 +18,7 @@ defmodule Gullintanni.Pipeline do
   @typep command :: :approve | :unapprove | :noop
 
   @typedoc "The pipeline reference"
-  @type pipeline :: pid | {atom, node} | name
-
-  @typedoc "The pipeline name"
-  @type name :: atom | {:global, term} | {:via, module, term}
+  @type pipeline :: t | Repo.t | String.t
 
   @typedoc "The pipeline type"
   @type t :: %Pipeline{
@@ -41,14 +38,14 @@ defmodule Gullintanni.Pipeline do
     worker: nil
   ]
 
-  @required_config_settings [:repo_provider, :repo_owner, :repo_name, :worker]
+  @required_settings [:provider, :repo_owner, :repo_name, :worker]
 
   @doc """
   Starts a new pipeline with the given `config` settings.
   """
   @spec start_link(Config.t) :: Agent.on_start
   def start_link(config) do
-    with {:ok, pipeline} <- new(config) do
+    with {:ok, pipeline} <- from_config(config) do
       Agent.start_link(fn -> pipeline end, name: via_tuple(pipeline))
     end
   end
@@ -57,24 +54,40 @@ defmodule Gullintanni.Pipeline do
     {:via, Registry, {Gullintanni.Registry, identify(pipeline)}}
   end
 
-  @spec identify(t | Repo.t | String.t) :: String.t
+  def exists?(pipeline) do
+    Registry.lookup(Gullintanni.Registry, identify(pipeline)) != []
+  end
+
+  @spec identify(pipeline) :: String.t
   defp identify(%Pipeline{} = pipeline), do: identify(pipeline.repo)
   defp identify(%Repo{} = repo), do: identify("#{repo}")
   defp identify(name) when is_binary(name), do: name
 
-  # Creates a new pipeline with the given `config` settings.
-  #
-  # Returns `{:ok, pipeline}` if the configuration is valid, otherwise
-  # `{:error, :invalid_config}`.
-  @spec new(Config.t) :: {:ok, t} | {:error, :invalid_config}
-  defp new(config) do
-    with config = Config.parse_runtime_settings(config),
-         true <- valid_config?(config),
-         pipeline = from_config(config) do
-      {:ok, pipeline}
+  @spec from_config(Config.t) :: {:ok, t} | {:error, :invalid_config}
+  defp from_config(config) do
+    config = Config.parse_runtime_settings(config)
+
+    if valid_config?(config) do
+      {:ok, _from_config(config)}
     else
-      _ -> {:error, :invalid_config}
+      {:error, :invalid_config}
     end
+  end
+
+  defp _from_config(config) do
+    repo = Repo.new(config[:provider], config[:repo_owner], config[:repo_name])
+    bot_name = repo.provider.whoami(config)
+    merge_requests =
+      repo.provider.list_merge_requests(repo, config)
+      |> Map.new(fn merge_req -> {merge_req.id, merge_req} end)
+
+    %Pipeline{
+      config: config,
+      repo: repo,
+      bot_name: bot_name,
+      merge_requests: merge_requests,
+      worker: config[:worker]
+    }
   end
 
   @doc """
@@ -83,29 +96,10 @@ defmodule Gullintanni.Pipeline do
   """
   @spec valid_config?(Config.t) :: boolean
   def valid_config?(config) do
-    with true <- Config.settings_present?(@required_config_settings, config),
-         true <- config[:repo_provider].valid_config?(config),
-         true <- config[:worker].valid_config?(config) do
-      true
-    end
-  end
-
-  @spec from_config(Config.t) :: t
-  defp from_config(config) do
-    repo = Repo.new(config[:repo_provider], config[:repo_owner], config[:repo_name])
-    bot_name = repo.provider.whoami(config)
-    merge_reqs =
-      repo
-      |> repo.provider.download_merge_requests(config)
-      |> Map.new(fn merge_req -> {merge_req.id, merge_req} end)
-
-    %Pipeline{
-      config: config,
-      repo: repo,
-      bot_name: bot_name,
-      merge_requests: merge_reqs,
-      worker: config[:worker]
-    }
+    with true <- Config.settings_present?(config, @required_settings),
+         true <- config[:provider].valid_config?(config),
+         true <- config[:worker].valid_config?(config),
+         do: true
   end
 
   @doc """
@@ -131,10 +125,7 @@ defmodule Gullintanni.Pipeline do
   """
   @spec fetch(pipeline) :: {:ok, t} | :error
   def fetch(pipeline) do
-    case Registry.lookup(Gullintanni.Registry, identify(pipeline)) do
-      [] -> :error
-      _ -> {:ok, get(pipeline)}
-    end
+    if exists?(pipeline), do: {:ok, get(pipeline)}, else: :error
   end
 
   @doc """

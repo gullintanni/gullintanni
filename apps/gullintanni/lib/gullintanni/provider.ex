@@ -29,9 +29,9 @@ defmodule Gullintanni.Provider do
   @callback whoami(Config.t) :: String.t
 
   @doc """
-  Downloads a list of the repository's open merge requests.
+  Lists the repository's open merge requests.
   """
-  @callback download_merge_requests(Repo.t, Config.t) :: [MergeRequest.t]
+  @callback list_merge_requests(Repo.t, Config.t) :: [MergeRequest.t]
 
   @doc """
   Converts raw upstream data into a merge request.
