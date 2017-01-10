@@ -86,11 +86,11 @@ defmodule Gullintanni.Providers.GitHub do
 
   @spec parse_comment(map) :: Comment.t
   def parse_comment(data) do
-    mreq_id = data["issue"]["number"]
+    merge_request_id = data["issue"]["number"]
     sender = data["sender"]["login"]
     body = data["comment"]["body"]
     timestamp = data["comment"]["created_at"] |> NaiveDateTime.from_iso8601!
 
-    Comment.new(mreq_id, sender, body, timestamp)
+    Comment.new(merge_request_id, sender, body, timestamp)
   end
 end
