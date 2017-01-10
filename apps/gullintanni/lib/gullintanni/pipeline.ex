@@ -2,7 +2,7 @@ defmodule Gullintanni.Pipeline do
   @moduledoc """
   Defines a Gullintanni build pipeline.
 
-  A pipeline is uniquely identified by repository and encapsulates the state
+  A pipeline is uniquely identified by a repository and encapsulates the state
   necessary to coordinate builds and merges.
   """
 
@@ -62,20 +62,6 @@ defmodule Gullintanni.Pipeline do
   defp identify(%Repo{} = repo), do: identify("#{repo}")
   defp identify(name) when is_binary(name), do: name
 
-  @doc """
-  Returns the `pid` of a pipeline agent, or `:undefined` if no process is
-  associated with the given `identifier`.
-  """
-  @spec whereis(pid | atom | t | Repo.t | String.t) :: pid | :undefined
-  def whereis(identifier) when is_pid(identifier), do: identifier
-  def whereis(identifier) when is_atom(identifier), do: :undefined
-  def whereis(identifier) do
-    case Registry.lookup(Gullintanni.Registry, identify(identifier)) do
-      [{pid, _value}] -> pid
-      _ -> :undefined
-    end
-  end
-
   # Creates a new pipeline with the given `config` settings.
   #
   # Returns `{:ok, pipeline}` if the configuration is valid, otherwise
@@ -125,30 +111,29 @@ defmodule Gullintanni.Pipeline do
   @doc """
   Gets the current state of a `pipeline`.
   """
-  @spec get(pipeline) :: t | :undefined
+  @spec get(pipeline) :: t | no_return
   def get(pipeline) do
-    case whereis(pipeline) do
-      :undefined -> :undefined
-      pid -> Agent.get(pid, &(&1))
-    end
+    Agent.get(via_tuple(pipeline), &(&1))
   end
 
   @doc """
-  Gets a value from a `pipeline` by `key`.
+  Gets a value from the `pipeline` by `key`.
   """
-  @spec get(pipeline, atom) :: any | :undefined
-  def get(pipeline, key) do
-    case whereis(pipeline) do
-      :undefined -> :undefined
-      pid -> Agent.get(pid, &Map.get(&1, key))
-    end
+  @spec get(pipeline, atom) :: any | no_return
+  def get(pipeline, key) when is_atom(key) do
+    Agent.get(via_tuple(pipeline), &Map.get(&1, key))
   end
 
+  @doc """
+  Fetches the current state of a `pipeline`.
+
+  Returns `{:ok, pipeline}` if the pipeline exists, otherwise `:error`.
+  """
   @spec fetch(pipeline) :: {:ok, t} | :error
-  defp fetch(pipeline) do
-    case get(pipeline) do
-      :undefined -> :error
-      pipeline -> {:ok, pipeline}
+  def fetch(pipeline) do
+    case Registry.lookup(Gullintanni.Registry, identify(pipeline)) do
+      [] -> :error
+      _ -> {:ok, get(pipeline)}
     end
   end
 
@@ -157,7 +142,7 @@ defmodule Gullintanni.Pipeline do
   """
   @spec put(pipeline, any, any) :: :ok
   def put(pipeline, key, value) do
-    Agent.update(whereis(pipeline), &Map.put(&1, key, value))
+    Agent.update(via_tuple(pipeline), &Map.put(&1, key, value))
   end
 
   @doc """
