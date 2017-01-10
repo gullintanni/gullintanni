@@ -28,11 +28,13 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   def handle_events(events, _from, state) do
     for event <- events do
       if from_github?(event) do
-        event_type = Event.get_req_header(event, "x-github-event")
         payload = Event.get_payload(event)
+        type = Event.get_req_header(event, "x-github-event")
+        action = Map.get(payload, "action")
+        repo = GitHub.parse_repo(payload["repository"])
 
-        _ = Logger.debug("#{event_type} event received from GitHub")
-        handle_event(event_type, payload)
+        _ = Logger.debug("#{type} event received from GitHub")
+        handle_event(type, action, repo, payload)
       end
     end
     {:noreply, [], state}
@@ -50,49 +52,40 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
     #       output from Plug.Parsers.JSON. https://developer.github.com/webhooks/securing/#validating-payloads-from-github
   end
 
-  @spec handle_event(String.t, Event.payload) :: :ok
-  defp handle_event(type, payload)
+  @spec handle_event(String.t, String.t, Repo.t, Event.payload) :: :ok
+  defp handle_event(type, action, repo, payload)
   # Merge Requests
   # --------------
-  defp handle_event("pull_request", %{"action" => "opened"} = payload) do
-    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
-         repo = GitHub.parse_repo(payload["repository"]),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_merge_request_open(pid, merge_req)
-    end
-  end
-  defp handle_event("pull_request", %{"action" => "synchronize"} = payload) do
-    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
-         repo = GitHub.parse_repo(payload["repository"]),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_push(pid, merge_req.id, merge_req.latest_commit)
-    end
-  end
-  defp handle_event("pull_request", %{"action" => "closed"} = payload) do
-    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
-         repo = GitHub.parse_repo(payload["repository"]),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_merge_request_close(pid, merge_req.id)
-    end
-  end
-  defp handle_event("pull_request", %{"action" => "reopened"} = payload) do
-    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
-         repo = GitHub.parse_repo(payload["repository"]),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_merge_request_open(pid, merge_req)
+  defp handle_event("pull_request", action, repo, payload) do
+    merge_req = GitHub.parse_merge_request(payload["pull_request"])
+
+    case action do
+      "opened" ->
+        Pipeline.handle_merge_request_open(repo, merge_req)
+      "synchronize" ->
+        Pipeline.handle_push(repo, merge_req.id, merge_req.latest_commit)
+      "closed" ->
+        Pipeline.handle_merge_request_close(repo, merge_req.id)
+      "reopened" ->
+        Pipeline.handle_merge_request_open(repo, merge_req)
+      _ ->
+        :ok
     end
   end
   # Comments
   # --------
-  # Only handle new comments, not edits.
-  defp handle_event("issue_comment", %{"action" => "created"} = payload) do
-    with comment <- GitHub.parse_comment(payload),
-         repo = GitHub.parse_repo(payload["repository"]),
-         pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_comment(pid, comment)
+  defp handle_event("issue_comment", action, repo, payload) do
+    comment = GitHub.parse_comment(payload)
+
+    # Only handle new comments, not edits.
+    case action do
+      "created" ->
+        Pipeline.handle_comment(repo, comment)
+      _ ->
+        :ok
     end
   end
   # Catch-all clause
   # ----------------
-  defp handle_event(_type, _payload), do: :ok
+  defp handle_event(_type, _action, _payload, _repo), do: :ok
 end

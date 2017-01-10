@@ -6,8 +6,8 @@
 
 <h2 id="build-queue">Build Queue</h2>
 
-<p><a href="https://<%= pipeline.repo %>"><%= pipeline.repo.provider.__display_name__ %></a>
-&hArr; <%= pipeline.worker.__display_name__%> </p>
+<p><a href="https://<%= pipeline.repo %>"><%= pipeline.repo.provider.display_name() %></a>
+&hArr; <%= pipeline.worker.display_name() %> </p>
 
 <table>
   <thead>

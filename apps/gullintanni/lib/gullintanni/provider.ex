@@ -15,7 +15,7 @@ defmodule Gullintanni.Provider do
   @doc """
   Returns the domain name of the provider.
   """
-  @callback  __domain__() :: String.t
+  @callback domain() :: String.t
 
   @doc """
   Returns `true` if all required provider configuration values exist in

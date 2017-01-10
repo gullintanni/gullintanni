@@ -47,7 +47,7 @@ end
 
 defimpl String.Chars, for: Gullintanni.Repo do
   def to_string(repo) do
-    provider = repo.provider.__domain__
+    provider = repo.provider.domain()
     "#{provider}/#{repo.owner}/#{repo.name}"
   end
 end

@@ -20,8 +20,8 @@
     <%= for pipeline <- pipelines do %>
       <tr>
         <td class="fill-link"><a href="/<%= pipeline.repo.name %>"><%= pipeline.repo.owner %> / <%= pipeline.repo.name %></a></td>
-        <td><%= pipeline.repo.provider.__display_name__ %></td>
-        <td><%= pipeline.worker.__display_name__ %></td>
+        <td><%= pipeline.repo.provider.display_name() %></td>
+        <td><%= pipeline.worker.display_name() %></td>
         <% {queued, total} = count_queued_mreqs(pipeline) %>
         <td><%= queued %> queued / <%= total %> merge requests</td>
       </tr>

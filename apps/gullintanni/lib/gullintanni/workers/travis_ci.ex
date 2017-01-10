@@ -12,8 +12,9 @@ defmodule Gullintanni.Workers.TravisCI do
   @domain "travis-ci.org"
   @required_config_settings [:worker_auth_token]
 
-  def __display_name__(), do: @display_name
-  def __domain__(), do: @domain
+  def display_name(), do: @display_name
+
+  def domain(), do: @domain
 
   def valid_config?(config) do
     Config.settings_present?(@required_config_settings, config)
