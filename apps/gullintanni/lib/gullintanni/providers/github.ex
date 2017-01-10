@@ -33,8 +33,8 @@ defmodule Gullintanni.Providers.GitHub do
   end
 
   def download_merge_requests(%Repo{} = repo, config) do
-    mreqs = Tentacat.Pulls.list(repo.owner, repo.name, client(config))
-    Enum.map(mreqs, &parse_merge_request/1)
+    Tentacat.Pulls.list(repo.owner, repo.name, client(config))
+    |> Enum.map(&parse_merge_request/1)
   end
 
   @doc """

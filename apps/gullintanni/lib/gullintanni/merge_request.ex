@@ -16,18 +16,17 @@ defmodule Gullintanni.MergeRequest do
                | :build_failed | :error
 
   @typedoc "The merge request type"
-  @type t ::
-    %MergeRequest{
-      id: id,
-      title: String.t,
-      url: String.t,
-      clone_url: String.t,
-      branch_name: String.t,
-      target_branch: String.t,
-      latest_commit: sha,
-      approved_by: %{optional(String.t) => NaiveDateTime.t},
-      state: state
-    }
+  @type t :: %__MODULE__{
+    id: id,
+    title: String.t,
+    url: String.t,
+    clone_url: String.t,
+    branch_name: String.t,
+    target_branch: String.t,
+    latest_commit: sha,
+    approved_by: %{optional(String.t) => NaiveDateTime.t},
+    state: state
+  }
 
   @enforce_keys [:id]
   defstruct [
@@ -60,8 +59,8 @@ defmodule Gullintanni.MergeRequest do
   """
   @spec new(id, Keyword.t) :: t
   def new(id, opts \\ []) do
-    Enum.reduce(opts, %MergeRequest{id: id}, fn({key, value}, mreq) ->
-      %{mreq | key => value}
+    Enum.reduce(opts, %MergeRequest{id: id}, fn({key, value}, merge_req) ->
+      %{merge_req | key => value}
     end)
   end
 
@@ -72,13 +71,13 @@ defmodule Gullintanni.MergeRequest do
   existing approvals.
   """
   @spec update_sha(t, sha) :: t
-  def update_sha(%MergeRequest{} = mreq, sha) do
-    %{mreq | latest_commit: sha} |> reset
+  def update_sha(%MergeRequest{} = merge_req, sha) do
+    %{merge_req | latest_commit: sha} |> reset
   end
 
   @spec approved_at(t) :: NaiveDateTime.t
-  def approved_at(%MergeRequest{} = mreq) do
-    mreq.approved_by
+  def approved_at(%MergeRequest{} = merge_req) do
+    merge_req.approved_by
     |> Map.values
     |> Enum.sort
     |> List.first
@@ -86,52 +85,54 @@ defmodule Gullintanni.MergeRequest do
 
   # A basic Finite State Machine
 
-  def reset(%MergeRequest{} = mreq) do
-    %{mreq | state: :under_review, approved_by: %{}}
+  def reset(%MergeRequest{} = merge_req) do
+    %{merge_req | state: :under_review, approved_by: %{}}
   end
 
   @spec approve(t, String.t, NaiveDateTime.t) :: t
-  def approve(%MergeRequest{state: :under_review} = mreq, username, timestamp) do
-    %{mreq | state: :approved,
-             approved_by: Map.put_new(mreq.approved_by, username, timestamp)}
+  def approve(%MergeRequest{state: :under_review} = merge_req, username, timestamp) do
+    %{merge_req |
+      state: :approved,
+      approved_by: Map.put_new(merge_req.approved_by, username, timestamp),
+    }
   end
-  def approve(%MergeRequest{} = mreq, _username, _timestamp) do
-    mreq
-  end
-
-  def unapprove(%MergeRequest{} = mreq, _username) do
-    reset(mreq)
+  def approve(%MergeRequest{} = merge_req, _username, _timestamp) do
+    merge_req
   end
 
-  def merge_passed(%MergeRequest{state: :approved} = mreq),
-    do: %{mreq | state: :build_pending}
+  def unapprove(%MergeRequest{} = merge_req, _username) do
+    reset(merge_req)
+  end
 
-  def merge_failed(%MergeRequest{state: :approved} = mreq),
-    do: %{mreq | state: :error}
+  def merge_passed(%MergeRequest{state: :approved} = merge_req),
+    do: %{merge_req | state: :build_pending}
 
-  def build_passed(%MergeRequest{state: :build_pending} = mreq),
-    do: %{mreq | state: :build_passed}
+  def merge_failed(%MergeRequest{state: :approved} = merge_req),
+    do: %{merge_req | state: :error}
 
-  def build_failed(%MergeRequest{state: :build_pending} = mreq),
-    do: %{mreq | state: :build_failed}
+  def build_passed(%MergeRequest{state: :build_pending} = merge_req),
+    do: %{merge_req | state: :build_passed}
 
-  def build_error(%MergeRequest{state: :build_pending} = mreq),
-    do: %{mreq | state: :error}
+  def build_failed(%MergeRequest{state: :build_pending} = merge_req),
+    do: %{merge_req | state: :build_failed}
 
-  def ffwd_failed(%MergeRequest{state: :build_passed} = mreq),
-    do: %{mreq | state: :error}
+  def build_error(%MergeRequest{state: :build_pending} = merge_req),
+    do: %{merge_req | state: :error}
+
+  def ffwd_failed(%MergeRequest{state: :build_passed} = merge_req),
+    do: %{merge_req | state: :error}
 end
 
 
 defimpl Inspect, for: Gullintanni.MergeRequest do
   import Inspect.Algebra
 
-  def inspect(mreq, opts) do
+  def inspect(merge_req, opts) do
     keys = [:id, :state, :title, :url]
     attributes =
       keys
       |> Enum.reduce([], fn(key, attributes) ->
-           value = Map.get(mreq, key)
+           value = Map.get(merge_req, key)
            case value do
              nil -> attributes
              _ -> ["#{key}: #{inspect value}" | attributes]

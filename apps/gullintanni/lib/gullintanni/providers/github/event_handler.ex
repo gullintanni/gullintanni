@@ -55,31 +55,31 @@ defmodule Gullintanni.Providers.GitHub.EventHandler do
   # Merge Requests
   # --------------
   defp handle_event("pull_request", %{"action" => "opened"} = payload) do
-    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
          repo = GitHub.parse_repo(payload["repository"]),
          pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_mreq_open(pid, mreq)
+      Pipeline.handle_merge_request_open(pid, merge_req)
     end
   end
   defp handle_event("pull_request", %{"action" => "synchronize"} = payload) do
-    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
          repo = GitHub.parse_repo(payload["repository"]),
          pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_push(pid, mreq.id, mreq.latest_commit)
+      Pipeline.handle_push(pid, merge_req.id, merge_req.latest_commit)
     end
   end
   defp handle_event("pull_request", %{"action" => "closed"} = payload) do
-    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
          repo = GitHub.parse_repo(payload["repository"]),
          pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_mreq_close(pid, mreq.id)
+      Pipeline.handle_merge_request_close(pid, merge_req.id)
     end
   end
   defp handle_event("pull_request", %{"action" => "reopened"} = payload) do
-    with mreq = GitHub.parse_merge_request(payload["pull_request"]),
+    with merge_req = GitHub.parse_merge_request(payload["pull_request"]),
          repo = GitHub.parse_repo(payload["repository"]),
          pid <- Pipeline.whereis(repo) do
-      Pipeline.handle_mreq_open(pid, mreq)
+      Pipeline.handle_merge_request_open(pid, merge_req)
     end
   end
   # Comments
